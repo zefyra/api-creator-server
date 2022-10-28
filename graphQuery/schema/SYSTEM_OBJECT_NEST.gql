@@ -1,0 +1,11 @@
+type Friend {
+    id: Int!
+    enabled: Boolean!
+    roleName: String
+    resourceName: String
+    parentResource: String
+}
+type SYSTEM_FRIEND_LIST {
+    obj: Friend!
+    code: String
+}

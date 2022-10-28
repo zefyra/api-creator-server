@@ -17,7 +17,7 @@ const loadApi = function (app, apiLoadObj) {
     // 載入apiRoute------------------------------------------------
     // const apiRoute = apiLoadObj.loadApiRoute();
 
-    console.log(`load api [${apiLoadObj.apiType}]${apiLoadObj.apiRoute}`);
+    console.log(`load :${apiLoadObj.port} api [${apiLoadObj.apiType}]${apiLoadObj.apiRoute}`);
 
     // 處理參照型的API(暫時不支援)------------------------------------------------
     // apiLoadObj.refApiHandle();
@@ -87,8 +87,10 @@ const runMockserver = function (app, apiFolder) {
         importApiFolderConfig(app, apiFolderConfig);
 
         let port = apiFolderConfig.port || 8000;
+
+        console.log(`Server api ${apiFolderConfig.apiPrefix} listening on port ${port}`);
         app.listen(port, function () {
-            console.log(`Server api ${apiFolderConfig.apiPrefix} listening on port ${port}`);
+            // console.log(`Server api ${apiFolderConfig.apiPrefix} listening on port ${port}`);
 
             // if (process.env.DEPLOY_MODE) {
             //     console.log('\x1b[33m %s\x1b[0m', `server is run on node: ${process.env.DEPLOY_MODE}`);

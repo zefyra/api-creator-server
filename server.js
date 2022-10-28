@@ -16,8 +16,6 @@ var cors = require('cors');
 // const ApiTemplateHelper = require('./apiTemplateHelper.js');
 
 const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./swagger/swagger.json');
-// const swaggerDocument = require('./swagger/dataCollection.json');
 
 // ApiTemplateHelper.initialize();
 
@@ -61,3 +59,18 @@ app.use(express.json());
 apiPrehandler.initApiPrehandler(config.apiFolder);
 
 apiMockserver.run(app, config.apiFolder);
+
+
+
+// Swagger-----------------------------------------------------------
+
+// const swaggerDocument = require('./swagger/__createTemplate.json');
+const swaggerDocument = require('./swagger/qore-plus-api.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// ==> 'http://localhost:9000/api-docs/'
+
+app.listen(9001, function () {
+    console.log(`Swagger Server has on 'http://localhost:9001/api-docs/'`);
+});
+

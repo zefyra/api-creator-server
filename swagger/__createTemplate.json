@@ -1,0 +1,16 @@
+{
+    "swagger": "2.0",
+    "host": "localhost:8020",
+    "info": {
+        "description": "file description",
+        "version": "1.0.0",
+        "title": "Swagger File Name"
+    },
+    "tags": [
+        {
+            "name": "default",
+            "description": "這是預設的tag",
+            "groupName": "這是React內的group名稱"
+        }
+    ]
+}

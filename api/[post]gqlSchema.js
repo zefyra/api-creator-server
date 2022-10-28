@@ -16,12 +16,13 @@ const SYSTEM_FRIEND_LIST = require('../graphQuery/schema/SYSTEM_FRIEND_LIST');
 const GraphType = require('../graphQuery/graphType');
 
 const GraphValidate = require('../graphQuery/graphValidate.js');
+const GraphSchema = require('../graphQuery/graphSchema');
 
 // 從schema生成一個GraphValidate物件
 const apiData = {
     apiType: 'post',
     reactType: 'json', // raw
-    apiRoute: '/api/gqlQuery', // 指定API路由
+    apiRoute: '/api/gqlSchema', // 指定API路由
     preRequestScript: async function () {
 
     },
@@ -56,17 +57,23 @@ const apiData = {
         //         code: String
         //     }
         // `;
-        const gqlObj = gql`
-            ${graphConfig.schema}
-        `
+        // const gqlObj = gql`
+        //     ${graphConfig.schema}
+        // `
         // console.log('gqlObj', gqlObj)
 
         // 生成GraphValidate物件
 
-        const gValidateObj = new GraphValidate(graphKey, graphConfig, data);
-        console.log('gValidateObj', gValidateObj)
+        // const gValidateObj = new GraphValidate(graphKey, graphConfig, data);
+        // console.log('gValidateObj', gValidateObj)
 
-        res.react(gqlObj); // friendRes
+
+
+        // const gSchema = new GraphSchema(graphKey, SYSTEM_FRIEND_LIST);
+        const gSchema = new GraphSchema(GraphType.SYSTEM_FRIEND_LIST);
+        console.log('gSchema', gSchema);
+
+        res.react(friendRes); // friendRes
     }
 }
 module.exports = apiData;

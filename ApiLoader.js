@@ -20,11 +20,20 @@ function rawReact(req, res, str) {
     // return res.json(json);
 }
 
-// 處理底層error
-function refuse(req, res, error) {
+function restReact(req, res, data = null) {
     return res.json({
-        result: false,
-        message: error,
+        code: "0", // 0代表成功
+        data: data,
+        msg: "ok",
+    });
+}
+
+// 處理底層error
+function refuse(req, res, error, data) {
+    return res.json({
+        code: "1", // 1代表通用失敗
+        data: data ? data : null,
+        msg: error,
     });
 }
 
@@ -36,6 +45,7 @@ module.exports = class ApiLoader {
     // apiFolderConfig的參數
     rootApiPath = '';
     rootFilePath = '';
+    port = 8099;
 
     // apiObj的參數
     disabled = false;
@@ -56,6 +66,7 @@ module.exports = class ApiLoader {
         // apiFolderConfig的參數
         this.rootApiPath = apiFolderConfig.apiPrefix;
         this.rootFilePath = apiFolderConfig.path;
+        this.port = apiFolderConfig.port;
 
         // apiObj的參數
         if (apiObj.disabled) {
@@ -163,6 +174,8 @@ module.exports = class ApiLoader {
             res.react = jsonReact.bind(null, req, res);
         } else if (this.reactType === 'raw') {
             res.react = rawReact.bind(null, req, res);
+        } else if (this.reactType === 'rest') {
+            res.react = restReact.bind(null, req, res);
         } else {
             console.error(`reactType not support`);
 

@@ -1,0 +1,35 @@
+{
+	"swagger": "2.0",
+	"host": "localhost:8022",
+	"info": {
+		"description": "",
+		"version": "1.0.0",
+		"title": "Qore Plus API 文件"
+	},
+	"tag": [
+		{
+			"name": "friend",
+			"description": "friend description",
+			"groupName": "friend groupName"
+		}
+	],
+	"paths": {
+		"/friend/getFriend": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"friend"
+				],
+				"summary": "1-1.getFriend",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		}
+	}
+}
