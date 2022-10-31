@@ -3,21 +3,13 @@
 // import gql from "graphql-tag";
 const gql = require('graphql-tag');
 
+const Kind = require('./Kind');
 // Int: 整數
 // Float: 浮點數
 // String: UTF‐8 字串
 // Boolean: True or False.
 // ID: 識別碼(不支持)
 
-class Kind {
-    static FieldDefinition = 'FieldDefinition';
-
-    static NonNullType = 'NonNullType';
-
-    static NamedType = 'NamedType';
-
-    static ListType = 'ListType';
-}
 
 class NamedType {
     static Int = 'Int';
@@ -64,6 +56,8 @@ class ValueValidate {
 }
 
 class GraphField {
+    graphSchemaObj = null; // <GraphSchema>(上層)
+
     fieldKind = ''; // 'NamedType', 'NonNullType'
 
     wrapKindList = [];
@@ -80,7 +74,12 @@ class GraphField {
 
     isListType = false;
 
-    constructor(fieldObj) {
+    defaultValueKind = null;
+
+    defaultValue = null;
+
+    constructor(fieldObj, graphSchemaObj) {
+        this.graphSchemaObj = graphSchemaObj;
         // {
         //     "kind": "FieldDefinition",
         //     "name": {
@@ -105,6 +104,13 @@ class GraphField {
 
         this.fieldKind = fieldObj.type.kind;
 
+        if (fieldObj.defaultValue) {
+            this.defaultValueKind = fieldObj.defaultValue.kind;
+            // 'IntValue', 'StringValue'
+
+            this.defaultValue = this.convertDefaultValue(fieldObj.defaultValue.value);
+        }
+
         const filedTypeObj = fieldObj.type;
 
         // fieldType------------------------------------------------------------
@@ -123,6 +129,21 @@ class GraphField {
         // 檢查是否為基本型態
         this.isBasicType = NamedType.checkBasicType(this.fieldType);
         // false 代表是參照其他的結構
+    }
+
+    convertDefaultValue(defaultValueRaw) {
+        if (this.defaultValueKind === 'StringValue') {
+            return defaultValueRaw; // 字串不必轉換
+        } else if (this.defaultValueKind === 'IntValue') {
+            return Number(defaultValueRaw);
+        } else if (this.defaultValueKind === 'FloatValue') {
+            return parseFloat(defaultValueRaw);
+        } else if (this.defaultValueKind === 'BooleanValue') {
+            return defaultValueRaw; // 已經轉換好了
+        } else {
+            console.error(`convertDefaultValue not support ${this.defaultValueKind}`);
+            return null;
+        }
     }
 
     getFieldNameByNamedTypeObj(namedTypeObj) {
@@ -288,6 +309,60 @@ class GraphField {
             return isArray;
         }
     }
+
+    genCustomTypeObj() {
+        // 去上層撈隔壁的typeDef
+        const typeDefObj = this.graphSchemaObj.findTypeDef(this.fieldType);
+        if (!typeDefObj) {
+            console.error(`genCustomTypeObj: typeDefObj not exist`);
+            return undefined;
+        }
+        const swagObj = typeDefObj.getSwagObj();
+        if (!swagObj) {
+            console.error(`genCustomTypeObj: ${this.fieldType} swagObj get fail`)
+            return undefined;
+        }
+        return swagObj;
+    }
+
+    genSwaggerObj() {
+        if (!this.isBasicType) {
+            console.error(`not support custom Obj`, this.fieldType);
+            return undefined;
+            // return this.genCustomTypeObj();
+        }
+
+        // boolean, string, integer, float(?)
+
+        const typeConvertMap = {
+            [NamedType.Int]: 'integer',
+            [NamedType.Float]: 'float', // (?)
+            [NamedType.String]: 'string',
+            [NamedType.Boolean]: 'boolean',
+        }
+
+        const type = typeConvertMap[this.fieldType];
+        if (!type) {
+            console.error(`gql type \`${this.fieldType}\` not support`);
+            return undefined;
+        }
+        const swagPropertyObj = {
+            "type": type,
+            "description": "" // 欄位描述
+        };
+
+        if (this.defaultValue) { // 代表有預設值
+            swagPropertyObj['default'] = this.defaultValue;
+        }
+
+        return swagPropertyObj;
+
+        // return {
+        //     "type": "boolean",
+        //     "default": true,
+        //     "description": "帳號是否已激活"
+        // }
+    }
 }
 
 module.exports = class GraphTypeDef {
@@ -300,12 +375,70 @@ module.exports = class GraphTypeDef {
 
     // layer = 1; // 目前還沒用到
 
+    // autoBuildSwagObj()----------------------------------------------------
+
+    swagObj = null;
+    leakTypeDefList = [];
+
+    getSwagObj() { // 提供給<GraphField>去抓
+        return this.swagObj;
+    }
+
+    checkPropertiesDefinition(typeDefMap) {
+        // let isReadyBuild = true;
+        let leakTypeDefList = [];
+        this.fieldList.forEach((graphFieldObj) => {
+            if (graphFieldObj.isBasicType) {
+                return; // 基礎型別不必檢查
+            }
+
+            if (!typeDefMap[graphFieldObj.fieldType]) {
+                // isReadyBuild = false; // 代表這個typeDef還沒build出來
+                leakTypeDefList.push(graphFieldObj.fieldType);
+            }
+        });
+
+        this.leakTypeDefList = leakTypeDefList;
+        return this.leakTypeDefList;
+    }
+
+    buildSwagObj() {
+        const swagSchemaObj = {
+            "type": "object",
+            "properties": {}
+        }
+
+        const requiredKeyList = [];
+        this.fieldList.forEach((graphFieldObj) => {
+
+            if (graphFieldObj.isNonNull) { // 代表是必填欄位
+                requiredKeyList.push(graphFieldObj.fieldName);
+            }
+
+            let swagFieldObj;
+            if (!graphFieldObj.isBasicType) { // 代表是客製化TypeDef
+                swagFieldObj = graphFieldObj.genCustomTypeObj();
+            } else {
+                swagFieldObj = graphFieldObj.genSwaggerObj();
+            }
+
+
+            swagSchemaObj.properties[graphFieldObj.fieldName] = swagFieldObj;
+        });
+
+        swagSchemaObj['required'] = requiredKeyList;
+
+        this.swagObj = swagSchemaObj; // 存起來，提供<GraphField>來抓
+
+        return swagSchemaObj;
+    }
+
     constructor(typeDefObj, graphSchemaObj) {
         // this.gValidateObj = gValidateObj;
 
         if (graphSchemaObj.constructor.name !== 'GraphSchema') {
             console.error('graphSchemaObj is not GraphSchema');
-            return ;
+            return;
         }
         console.log('graphSchemaObj.constructor.name', graphSchemaObj.constructor.name);
         this.graphSchemaObj = graphSchemaObj;
@@ -391,23 +524,22 @@ module.exports = class GraphTypeDef {
                 }
             ]
         } */
-        // console.log('GraphTypeDef', typeDefObj.name.value, JSON.stringify(typeDefObj))
-
         this.name = typeDefObj.name.value;
         this.typeDefObj = typeDefObj;
 
-        this.loadFields(); // 載入該物件所有欄位
+        this.loadFields(Kind.InputValueDefinition); // 載入該物件所有欄位 // Kind.FieldDefinition
     }
 
-    loadFields() {
+    loadFields(kind) {
+        const vm = this;
         const newFieldList = [];
-        this.typeDefObj.fields.filter((fieldObj) => fieldObj.kind === Kind.FieldDefinition)
+        this.typeDefObj.fields.filter((fieldObj) => fieldObj.kind === kind)
             .forEach((fieldObj) => {
                 if (fieldObj.type.kind === Kind.NonNullType // 必填欄位
                     || fieldObj.type.kind === Kind.NamedType // 非必填
                     || fieldObj.type.kind === Kind.ListType) { // 非必填陣列
                     // 直接丟進GraphField處理
-                    const gFieldObj = new GraphField(fieldObj);
+                    const gFieldObj = new GraphField(fieldObj, vm.graphSchemaObj);
 
                     if (gFieldObj.hasError) {
                         console.error(`fObj has error`);

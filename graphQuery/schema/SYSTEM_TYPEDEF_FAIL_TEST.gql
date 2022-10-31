@@ -7,6 +7,6 @@ input Friend {
     water: Float = 1.5
 }
 input SYSTEM_FRIEND_LIST {
-    data: [Friend]!
+    data: [Permission]!
     code: String
 }

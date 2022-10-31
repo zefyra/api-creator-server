@@ -15,7 +15,7 @@ var cors = require('cors');
 // const SenderHelper = require('./senderHelper.js');
 // const ApiTemplateHelper = require('./apiTemplateHelper.js');
 
-const swaggerUi = require('swagger-ui-express');
+// const swaggerUi = require('swagger-ui-express');
 
 // ApiTemplateHelper.initialize();
 
@@ -25,6 +25,7 @@ const swaggerUi = require('swagger-ui-express');
 const config = require('./config.js');
 const apiPrehandler = require('./apiPrehandler.js');
 const apiMockserver = require('./apiMockserver.js');
+const swaggerServer = require('./swaggerServer.js');
 
 
 // server setting---------------------------------------------
@@ -33,7 +34,18 @@ const corsOptions = {
     // origin: "*", // 全開
     origin: [
         'http://localhost:8080', // Vue
-        'http://localhost:3000' // React
+        'http://localhost:3000', // React
+        'http://localhost:9000', // Swagger
+        'http://localhost:9001',
+        'http://localhost:9002',
+        'http://localhost:9003',
+        'http://localhost:9004',
+        'http://localhost:9005',
+        'http://localhost:9006',
+        'http://localhost:9007',
+        'http://localhost:9008',
+        'http://localhost:9009',
+        'http://localhost:9010'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     // allowedHeaders: ['Content-Type', 'Authorization'],
@@ -63,14 +75,24 @@ apiMockserver.run(app, config.apiFolder);
 
 
 // Swagger-----------------------------------------------------------
+/*
 
 // const swaggerDocument = require('./swagger/__createTemplate.json');
 const swaggerDocument = require('./swagger/qore-plus-api.json');
+const ServerManage = require('./serverManage.js');
+
+app.use(cors(corsOptions));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // ==> 'http://localhost:9000/api-docs/'
 
-app.listen(9001, function () {
+
+let server = app.listen(9001, function () {
     console.log(`Swagger Server has on 'http://localhost:9001/api-docs/'`);
 });
+*/
+
+swaggerServer.registApp(app);
+
+swaggerServer.createSwaggerServer('qore-plus-api');
 

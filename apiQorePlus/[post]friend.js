@@ -3,7 +3,7 @@ const friendRes = {
     data: {
         firstFriend: {
             commonFriend: {
-                name: 'Jack',
+                name: 'John Doe',
             }
         }
     }

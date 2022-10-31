@@ -14,7 +14,7 @@
 		}
 	],
 	"paths": {
-		"/friend/getFriend": {
+		"/api/friend": {
 			"post": {
 				"produces": [
 					"application/json"
@@ -22,7 +22,68 @@
 				"tags": [
 					"friend"
 				],
-				"summary": "1-1.getFriend",
+				"summary": "1-1.create friend",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/SYSTEM_FRIEND"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer",
+									"description": ""
+								},
+								"enabled": {
+									"type": "boolean",
+									"description": "",
+									"default": true
+								},
+								"roleName": {
+									"type": "string",
+									"description": "",
+									"default": "user"
+								},
+								"resourceName": {
+									"type": "string",
+									"description": ""
+								},
+								"parentResource": {
+									"type": "string",
+									"description": ""
+								},
+								"water": {
+									"type": "float",
+									"description": "",
+									"default": 1.5
+								}
+							},
+							"required": [
+								"id",
+								"enabled"
+							]
+						}
+					}
+				}
+			},
+			"get": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"friend"
+				],
+				"summary": "1-1.list friend",
 				"parameters": [
 					
 				],
@@ -30,6 +91,56 @@
 					
 				}
 			}
+		}
+	},
+	"definitions": {
+		"SYSTEM_FRIEND_LIST": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer",
+							"description": ""
+						},
+						"enabled": {
+							"type": "boolean",
+							"description": "",
+							"default": true
+						},
+						"roleName": {
+							"type": "string",
+							"description": "",
+							"default": "user"
+						},
+						"resourceName": {
+							"type": "string",
+							"description": ""
+						},
+						"parentResource": {
+							"type": "string",
+							"description": ""
+						},
+						"water": {
+							"type": "float",
+							"description": "",
+							"default": 1.5
+						}
+					},
+					"required": [
+						"id",
+						"enabled"
+					]
+				},
+				"code": {
+					"type": "string",
+					"description": ""
+				}
+			},
+			"required": [
+				"data"
+			]
 		}
 	}
 }

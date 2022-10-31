@@ -1,12 +1,8 @@
-input Friend {
+input SYSTEM_FRIEND {
     id: Int! = 0
     enabled: Boolean! = true
     roleName: String = "user"
     resourceName: String
     parentResource: String
     water: Float = 1.5
-}
-input SYSTEM_FRIEND_LIST {
-    data: [Friend]!
-    code: String
 }
