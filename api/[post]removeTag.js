@@ -16,12 +16,12 @@ const fileHelper = require('../utils/fileHelper');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/addTag', // 指定API路由
+    apiRoute: '/api/removeTag', // 指定API路由
     preRequestScript: async function () {
 
     },
     handle: async function (req, res) {
-        const errList = checkRequired(req.body, ['fileName', 'name', 'groupName']);
+        const errList = checkRequired(req.body, ['fileName', 'name']);
         if (errList.length !== 0) {
             return res.refuse("fail", errList);
         }
@@ -39,11 +39,9 @@ const apiData = {
         if (isErr) return;
 
         const name = req.body.name;
-        const description = req.body.description || '';
-        const groupName = req.body.groupName;
 
         // console.log('swagMgObj', swagMgObj);
-        swagMgObj.addTag(name, description, groupName);
+        await swagMgObj.removeTag(name);
 
         const jsonContent = swagMgObj.getJson();
         // 將檔案存回去

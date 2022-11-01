@@ -6,11 +6,21 @@
 		"version": "1.0.0",
 		"title": "Qore Plus API 文件"
 	},
-	"tag": [
+	"tags": [
 		{
 			"name": "friend",
 			"description": "friend description",
 			"groupName": "friend groupName"
+		},
+		{
+			"name": "coupon",
+			"description": "兌換券資料",
+			"groupName": "兌換券"
+		},
+		{
+			"name": "user",
+			"description": "使用者列表",
+			"groupName": "使用者"
 		}
 	],
 	"paths": {
@@ -90,56 +100,106 @@
 				"responses": {
 					
 				}
+			},
+			"put": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"friend"
+				],
+				"summary": "1-2.Edit Friend",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			},
+			"delete": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"friend"
+				],
+				"summary": "1-2. Remove Friend",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/coupon": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"coupon"
+				],
+				"summary": "2-1. 新增Coupon",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			},
+			"get": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"coupon"
+				],
+				"summary": "2-2. Coupon列表",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
 			}
 		}
 	},
 	"definitions": {
-		"SYSTEM_FRIEND_LIST": {
+		"SYSTEM_FRIEND": {
 			"type": "object",
 			"properties": {
-				"data": {
-					"type": "object",
-					"properties": {
-						"id": {
-							"type": "integer",
-							"description": ""
-						},
-						"enabled": {
-							"type": "boolean",
-							"description": "",
-							"default": true
-						},
-						"roleName": {
-							"type": "string",
-							"description": "",
-							"default": "user"
-						},
-						"resourceName": {
-							"type": "string",
-							"description": ""
-						},
-						"parentResource": {
-							"type": "string",
-							"description": ""
-						},
-						"water": {
-							"type": "float",
-							"description": "",
-							"default": 1.5
-						}
-					},
-					"required": [
-						"id",
-						"enabled"
-					]
+				"id": {
+					"type": "integer",
+					"description": ""
 				},
-				"code": {
+				"enabled": {
+					"type": "boolean",
+					"description": "",
+					"default": true
+				},
+				"roleName": {
+					"type": "string",
+					"description": "",
+					"default": "user"
+				},
+				"resourceName": {
 					"type": "string",
 					"description": ""
+				},
+				"parentResource": {
+					"type": "string",
+					"description": ""
+				},
+				"water": {
+					"type": "float",
+					"description": "",
+					"default": 1.5
 				}
 			},
 			"required": [
-				"data"
+				"id",
+				"enabled"
 			]
 		}
 	}

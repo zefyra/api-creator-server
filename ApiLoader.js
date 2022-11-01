@@ -30,9 +30,14 @@ function restReact(req, res, data = null) {
 
 // 處理底層error
 function refuse(req, res, error, data) {
-    return res.json({
+    // return res.json({
+    //     code: "1", // 1代表通用失敗
+    //     data: data ? data : null,
+    //     msg: error,
+    // });
+    return res.status(500).json({
         code: "1", // 1代表通用失敗
-        data: data ? data : null,
+        data: data,
         msg: error,
     });
 }
@@ -254,10 +259,11 @@ module.exports = class ApiLoader {
         }).catch((error) => {
             console.error('apiError', error);
 
-            return res.json({
-                result: false,
-                message: `${error}`,
-            });
+            res.refuse('fail', `${error}`);
+            // return res.json({
+            //     result: false,
+            //     message: `${error}`,
+            // });
         });
     }
 

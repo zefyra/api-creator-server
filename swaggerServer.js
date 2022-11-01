@@ -2,6 +2,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const ServerManage = require('./serverManage.js');
 const requireNoCache = require('./requireNoCache.js');
+const SwaggerManage = require('./swaggerManage/swaggerManage.js');
 
 let app;
 
@@ -13,14 +14,14 @@ module.exports = {
         // route: '/api-docs',
         // fileName: 'qore-plus-api'
 
-        // const swaggerDocument = require('./swagger/qore-plus-api.json');
-
         route = `/api-docs/${fileName}`;
         // route: '/api-docs/qore-plus-api'
-
+        
         let swaggerDocument;
         try {
-            swaggerDocument = requireNoCache(`./swagger/${fileName}.json`); // 避免抓到catche內的舊資料，載入最新的json
+            // swaggerDocument = requireNoCache(`./swagger/${fileName}.json`); // 避免抓到catche內的舊資料，載入最新的json
+            // swaggerDocument = requireNoCache(`./apiDoc/${fileName}.json`); // 避免抓到catche內的舊資料，載入最新的json
+            swaggerDocument = requireNoCache(SwaggerManage.getFilePath(fileName));
         } catch (e) {
             console.error(`swaggerDocument require fail`);
             return Promise.reject(`swaggerDocument require fail`);

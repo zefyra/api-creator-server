@@ -45,7 +45,7 @@ const apiData = {
         // 生成json檔-------------------------------------
 
         const fileName = req.body.fileName;
-        const jsonFilePath = path.join(__dirname, `../swagger/${fileName}.json`);
+        const jsonFilePath = SwaggerManage.getFilePath(fileName);
 
         const jsonContent = formatJSON(JSON.stringify(swagObj));
 

@@ -22,12 +22,27 @@ module.exports = class SwaggerManage {
         return formatJSON(JSON.stringify(this.swagObj));
     }
 
-    addTag(name, description, groupName) {
-        if (!this.swagObj.tag) {
-            this.swagObj.tag = [];
+    removeTag(name) {
+        if (!this.swagObj.tags) {
+            return Promise.resolve(); // 代表沒有任何tags欄位
         }
 
-        this.swagObj.tag.push({
+        const index = this.swagObj.tags.findIndex(tag => tag.name === name);
+
+        if (index < 0) {
+            return Promise.resolve(); // 代表沒找到
+        }
+        this.swagObj.tags.splice(index, 1);
+
+        return Promise.resolve();
+    }
+
+    addTag(name, description, groupName) {
+        if (!this.swagObj.tags) {
+            this.swagObj.tags = [];
+        }
+
+        this.swagObj.tags.push({
             "name": name,
             "description": description || '',
             // "externalDocs": {
@@ -131,6 +146,14 @@ module.exports = class SwaggerManage {
         }
 
         return Promise.resolve(this.swagObj);
+    }
+
+    removeDefinition(rootType) {
+        if (!this.swagObj.definitions) {
+            return Promise.resolve();
+        }
+        delete this.swagObj.definitions[rootType];
+        return Promise.resolve();
     }
 
     addDefinition(gSchema) {
@@ -323,10 +346,19 @@ module.exports = class SwaggerManage {
         });
     }
 
+    static getFilePath(fileName) {
+        if (!fileName) {
+            // 只丟出資料夾路徑
+            return path.join(__dirname, `../public/apiDoc`);
+        }
+        return path.join(__dirname, `../public/apiDoc/${fileName}.json`);
+    }
+
     static initByFileName(fileName) {
         // not required: 'description'
         // const fileName = req.body.fileName;
-        const filePath = path.join(__dirname, `../swagger/${fileName}.json`);
+        // const filePath = path.join(__dirname, `../apiDoc/${fileName}.json`);
+        const filePath = SwaggerManage.getFilePath(fileName);
 
         return fileHelper.readJsonFile(filePath).then((swaggerObj) => {
             return new SwaggerManage(swaggerObj, filePath);

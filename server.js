@@ -96,3 +96,16 @@ swaggerServer.registApp(app);
 
 swaggerServer.createSwaggerServer('qore-plus-api');
 
+
+// public json--------------------------------------------------
+
+const path = require('path');
+const SwaggerManage = require('./swaggerManage/swaggerManage.js');
+
+//setting middleware
+// app.use('/apiDoc', express.static(path.join(__dirname, 'public/apiDoc'))); //Serves resources from public folder
+app.use('/apiDoc', express.static(SwaggerManage.getFilePath())); //Serves resources from public folder
+
+app.listen(5050);
+
+console.log(`apiDoc File server on http://localhost:5050/apiDoc`);
