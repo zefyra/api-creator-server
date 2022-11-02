@@ -4,6 +4,7 @@ const fileHelper = require('../utils/fileHelper');
 
 const { format: formatJSON } = require('json-string-formatter');
 const SchemaManage = require('../graphQuery/schemaManage');
+const AttrSrc = require('../enum/apiConnect/AttrSrc');
 
 module.exports = class SwaggerManage {
     swagObj = null; // swagger json轉成的物件
@@ -51,6 +52,21 @@ module.exports = class SwaggerManage {
             // },
             "groupName": groupName,
         });
+
+        return Promise.resolve();
+    }
+    editTag(tagName, summary) {
+        if (!this.swagObj.tags) {
+            return Promise.reject(`editTag: no any tag`); // 代表沒有任何tag
+        }
+
+        const tagIndex = this.swagObj.tags.findIndex(eachTag => (eachTag.name === tagName));
+        if (tagIndex < 0) {
+            return Promise.resolve(`editTag: tag not found`); // 代表沒有任何tag
+        }
+        this.swagObj.tags[tagIndex].groupName = summary;
+
+        return Promise.resolve();
     }
 
     addApi(apiRoute, apiType, tags, summary) {
@@ -390,5 +406,142 @@ module.exports = class SwaggerManage {
                 "title": title,
             },
         };
+    }
+
+    editAttr(queryObj, attrData) {
+        // const queryObj = {
+        //     apiType: req.body.apiType,
+        //     apiRoute: req.body.apiRoute,
+        //     tags: req.body.tags,
+        //     attrName: req.body.attrName,
+        //     layerPath: req.body.layerPath,
+        //     attrSrc: req.body.attrSrc,
+        // };
+
+        // attrData: {
+        //     attrName: attrName,
+        //     defaultValue: defaultValue,
+        //     valueType: valueType,
+        //     description: description,
+        // },
+
+        if (!this.swagObj.paths) {
+            return Promise.reject(`editAttr: no paths`);
+        }
+
+        if (!this.swagObj.paths[queryObj.apiRoute]) {
+            return Promise.reject(`editAttr: apiRoute not found`);
+        }
+        if (!this.swagObj.paths[queryObj.apiRoute][queryObj.apiType]) {
+            return Promise.reject(`editAttr: apiType not found`);
+        }
+        const apiObj = this.swagObj.paths[queryObj.apiRoute][queryObj.apiType];
+
+        const srcType = AttrSrc.parse(queryObj.attrSrc);
+
+        let schema;
+        if (srcType === AttrSrc.reqBody) {
+            if (!apiObj.parameters) {
+                return Promise.reject(`editAttr: no parameters`);
+            }
+            const bodyParameter = apiObj.parameters.find(paramObj => paramObj.in === 'body');
+            if (!bodyParameter) {
+                return Promise.reject(`editAttr: bodyParameter not found`);
+            }
+            schema = bodyParameter.schema;
+        } else if (srcType === AttrSrc.resBody) {
+            if (!apiObj.responses) {
+                return Promise.reject(`editAttr: no responses`);
+            }
+            const statusCode = AttrSrc.parseStatusCode(queryObj.attrSrc);
+            if (!statusCode) {
+                return Promise.reject(`editAttr: statusCode not exist`);
+            }
+            if (!apiObj.responses[statusCode]) {
+                return Promise.reject(`editAttr: responses statusCode ${statusCode} not found`);
+            }
+            schema = apiObj.responses[statusCode].schema;
+        }
+        if (!schema) {
+            return Promise.reject(`editAttr: schema not exist`);
+        }
+
+        // 找出該欄位
+        const keyList = queryObj.layerPath.concat([queryObj.attrName])
+
+        /* { // <obj>
+            "type": "object",
+            "properties": {
+                "attrName": { // <propObj>
+                    "type": "string",
+                    "description": ""
+                },
+            }
+        }*/
+
+
+        const findAttr = function (obj, keyList, handle) {
+            const firstKey = keyList[0];
+            const nextKeyList = keyList.slice(1, keyList.length)
+
+            if (obj.type === 'object') {
+                if (!obj.properties) {
+                    return `findAttr: no properties`;
+                }
+                const propObj = obj.properties[firstKey];
+                if (!propObj) {
+                    return `findAttr: properties ${firstKey} not exist`;
+                }
+
+                if (nextKeyList.length !== 0) { // 代表有下一層
+                    return findAttr(propObj, nextKeyList, handle);
+                }
+
+                // 沒有下一層了，直接處理
+                return handle(firstKey, propObj, obj.properties);
+            } else if (obj.type === 'array') {
+                if (!obj.items) {
+                    return `findAttr: no items`;
+                }
+
+                return `no support array`;
+
+                // obj.items
+
+
+
+
+                // const propObj = obj.items[firstKey];
+                // if (!propObj) {
+                //     return `findAttr: array items ${firstKey} not exist`;
+                // }
+
+            }
+        }
+
+        const err = findAttr(schema, keyList, function (key, propObj, propMap) {
+            // console.log('findAttr', key, propObj)
+
+            if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
+                propObj.default = attrData.defaultValue;
+            }
+            if (attrData.valueType) {
+                propObj.type = attrData.valueType;
+            }
+            if (attrData.description) {
+                propObj.description = attrData.description;
+            }
+
+            if (attrData.attrName) {
+                // 代表有要改名子，將原本的刪除，加入新的欄位
+                delete propMap[key];
+                propMap[attrData.attrName] = propObj;
+            }
+        });
+        if (err) {
+            return Promise.reject(err);
+        }
+
+        return Promise.resolve();
     }
 }

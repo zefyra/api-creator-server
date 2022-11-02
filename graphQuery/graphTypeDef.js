@@ -80,7 +80,7 @@ class GraphField {
 
     constructor(fieldObj, graphSchemaObj) {
         this.graphSchemaObj = graphSchemaObj;
-        // {
+        // fieldObj: {
         //     "kind": "FieldDefinition",
         //     "name": {
         //         "kind": "Name",
@@ -416,7 +416,20 @@ module.exports = class GraphTypeDef {
             }
 
             let swagFieldObj;
-            if (!graphFieldObj.isBasicType) { // 代表是客製化TypeDef
+
+            if (graphFieldObj.isListType) {
+                if (!graphFieldObj.isBasicType) { // 代表是客製化TypeDef
+                    swagFieldObj = graphFieldObj.genCustomTypeObj();
+                } else {
+                    swagFieldObj = graphFieldObj.genSwaggerObj();
+                }
+                // 陣列需要多包一層
+                swagFieldObj = {
+                    "type": "array",
+                    "items": swagFieldObj,
+                    // "description": "帳號列表"
+                };
+            } else if (!graphFieldObj.isBasicType) { // 代表是客製化TypeDef
                 swagFieldObj = graphFieldObj.genCustomTypeObj();
             } else {
                 swagFieldObj = graphFieldObj.genSwaggerObj();

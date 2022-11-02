@@ -10,17 +10,22 @@
 		{
 			"name": "friend",
 			"description": "friend description",
-			"groupName": "friend groupName"
+			"groupName": "好友"
 		},
 		{
 			"name": "coupon",
 			"description": "兌換券資料",
-			"groupName": "兌換券"
+			"groupName": "兌換券_CC"
 		},
 		{
 			"name": "user",
 			"description": "使用者列表",
 			"groupName": "使用者"
+		},
+		{
+			"name": "attr",
+			"description": "屬性設定",
+			"groupName": "屬性"
 		}
 	],
 	"paths": {
@@ -52,7 +57,8 @@
 							"properties": {
 								"id": {
 									"type": "integer",
-									"description": ""
+									"default": 0,
+									"description": "好友ID"
 								},
 								"enabled": {
 									"type": "boolean",
@@ -83,6 +89,37 @@
 								"enabled"
 							]
 						}
+					},
+					"500": {
+						"description": "Error Format",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string",
+									"description": ""
+								},
+								"msg": {
+									"type": "string",
+									"description": ""
+								},
+								"data": {
+									"type": "object",
+									"properties": {
+										"data": {
+											"type": "string",
+											"description": ""
+										}
+									},
+									"required": [
+										
+									]
+								}
+							},
+							"required": [
+								
+							]
+						}
 					}
 				}
 			},
@@ -95,11 +132,29 @@
 				],
 				"summary": "1-1.list friend",
 				"parameters": [
-					
-				],
-				"responses": {
-					
-				}
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"page": {
+									"type": "integer",
+									"description": ""
+								},
+								"pageSize": {
+									"type": "integer",
+									"description": ""
+								}
+							},
+							"required": [
+								
+							]
+						}
+					}
+				]
 			},
 			"put": {
 				"produces": [
@@ -110,10 +165,98 @@
 				],
 				"summary": "1-2.Edit Friend",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer",
+									"description": ""
+								},
+								"enabled": {
+									"type": "boolean",
+									"description": "",
+									"default": true
+								},
+								"name": {
+									"type": "string",
+									"description": ""
+								},
+								"email": {
+									"type": "string",
+									"description": ""
+								},
+								"like": {
+									"type": "float",
+									"description": "",
+									"default": 1.5
+								}
+							},
+							"required": [
+								"id",
+								"enabled"
+							]
+						}
+					}
 				],
 				"responses": {
-					
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"content": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string",
+											"description": ""
+										},
+										"friendId": {
+											"type": "integer",
+											"description": ""
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"error": {
+									"type": "object",
+									"properties": {
+										"path": {
+											"type": "object",
+											"properties": {
+												"pathName": {
+													"type": "string",
+													"description": "路徑名稱",
+													"default": "hello/path"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msgKey": {
+											"type": "integer",
+											"description": "系統訊息",
+											"default": 0
+										}
+									},
+									"required": [
+										
+									]
+								}
+							},
+							"required": [
+								
+							]
+						}
+					}
 				}
 			},
 			"delete": {
@@ -125,7 +268,24 @@
 				],
 				"summary": "1-2. Remove Friend",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"friendId": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								"friendId"
+							]
+						}
+					}
 				],
 				"responses": {
 					
@@ -142,7 +302,41 @@
 				],
 				"summary": "2-1. 新增Coupon",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "integer",
+									"description": ""
+								},
+								"serial": {
+									"type": "string",
+									"description": ""
+								},
+								"comment": {
+									"type": "string",
+									"description": ""
+								},
+								"enabled": {
+									"type": "boolean",
+									"description": ""
+								},
+								"endDate": {
+									"type": "integer",
+									"description": ""
+								}
+							},
+							"required": [
+								"id",
+								"serial"
+							]
+						}
+					}
 				],
 				"responses": {
 					
@@ -158,6 +352,101 @@
 				"summary": "2-2. Coupon列表",
 				"parameters": [
 					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/editAttr": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"attr"
+				],
+				"summary": "修改屬性",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": ""
+								},
+								"apiType": {
+									"type": "string",
+									"description": ""
+								},
+								"apiRoute": {
+									"type": "string",
+									"description": ""
+								},
+								"tags": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": ""
+									}
+								},
+								"attrName": {
+									"type": "string",
+									"description": ""
+								},
+								"layerPath": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": ""
+									}
+								},
+								"attrSrc": {
+									"type": "string",
+									"description": ""
+								},
+								"attrData": {
+									"type": "object",
+									"properties": {
+										"attrName": {
+											"type": "string",
+											"description": ""
+										},
+										"defaultValue": {
+											"type": "string",
+											"description": ""
+										},
+										"valueType": {
+											"type": "string",
+											"description": ""
+										},
+										"description": {
+											"type": "string",
+											"description": ""
+										}
+									},
+									"required": [
+										
+									]
+								}
+							},
+							"required": [
+								"fileName",
+								"apiType",
+								"apiRoute",
+								"tags",
+								"attrName",
+								"layerPath",
+								"attrSrc",
+								"attrData"
+							]
+						}
+					}
 				],
 				"responses": {
 					

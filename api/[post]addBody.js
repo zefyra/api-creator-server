@@ -40,25 +40,6 @@ const apiData = {
             isErr = true;
         }
 
-        // const graphTypeKey = req.body.graphTypeKey;
-        // const fileName = req.body.fileName;
-        // const target = req.body.target;
-
-        // 讀取json檔-----------------------------------------------------
-        /*
-        let isErr = false;
-        let swaggerObj = await fileHelper.readJsonFile(filePath).catch((err) => {
-            res.refuse(err);
-            isErr = true;
-        });
-        if (isErr) return;
-
-        const swagMgObj = new SwaggerManage(swaggerObj);
-
-        const apiRoute = req.body.apiRoute;
-        const apiType = req.body.apiType;
-        */
-
         let swagMgObj = await SwaggerManage.initByFileName(req.body.fileName).catch(errHandle);
         if (isErr) return;
 
@@ -67,19 +48,10 @@ const apiData = {
         let schema = req.body.schema;
         let gSchema;
         if (!schema) { // 代表沒有直接輸入schema，要去gql庫裡抓
-            // schema = GraphSchema.initSchemaByGraphTypeKey(req.body.rootType);
-            // schema = SchemaManage.getSchema(req.body.rootType);
-
             gSchema = new GraphSchema(req.body.rootType);
         } else {
             gSchema = new GraphSchema(req.body.rootType, schema);
         }
-        // if (!schema) {
-        //     return res.refuse(`rootType not valid`);
-        // }
-
-
-        // console.log('gSchema', gSchema);
 
         // 加入body-----------------------------------------------------
         let swagObj;

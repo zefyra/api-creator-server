@@ -34,7 +34,7 @@ const apiData = {
 
         // not required: 'description'
         const fileName = req.body.fileName;
-        const filePath = SwaggerManage.getFilePath(fileName);
+        // const filePath = SwaggerManage.getFilePath(fileName);
         const swagMgObj = await SwaggerManage.initByFileName(fileName).catch(errHandle);
         if (isErr) return;
 
@@ -43,16 +43,22 @@ const apiData = {
         const groupName = req.body.groupName;
 
         // console.log('swagMgObj', swagMgObj);
-        swagMgObj.addTag(name, description, groupName);
+        await swagMgObj.addTag(name, description, groupName).catch(errHandle);
+        if (isErr) return;
 
-        const jsonContent = swagMgObj.getJson();
-        // 將檔案存回去
-        fileHelper.writeFile(filePath, jsonContent).then(() => {
-            res.react(swagMgObj.getObj());
-        }).catch((err) => {
-            console.error('err', err)
-            res.refuse(`error`, err);
-        });
+        const swagObj = await swagMgObj.save().catch(errHandle);
+        if (isErr) return;
+
+        res.react(swagObj);
+
+        // const jsonContent = swagMgObj.getJson();
+        // // 將檔案存回去
+        // fileHelper.writeFile(filePath, jsonContent).then(() => {
+        //     res.react(swagMgObj.getObj());
+        // }).catch((err) => {
+        //     console.error('err', err)
+        //     res.refuse(`error`, err);
+        // });
     }
 }
 module.exports = apiData;

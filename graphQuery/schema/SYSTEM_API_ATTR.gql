@@ -1,0 +1,16 @@
+input AttrData {
+   attrName: String
+   defaultValue: String
+   valueType: String
+   description: String
+}
+input SYSTEM_API_ATTR {
+   fileName: String!
+   apiType: String!
+   apiRoute: String!
+   tags: [String]!
+   attrName: String!
+   layerPath: [String]!
+   attrSrc: String!
+   attrData: AttrData!
+}
