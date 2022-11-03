@@ -1,0 +1,11 @@
+input ApiObj {
+   name: String! = "SYSTEM_API_ATTR"
+}
+input ApiList {
+   list: [ApiObj]
+}
+input SYSTEM_API_LIST {
+   code: String
+   data: ApiList
+   msg: String
+}

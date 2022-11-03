@@ -18,11 +18,6 @@
 			"groupName": "兌換券"
 		},
 		{
-			"name": "user",
-			"description": "使用者列表",
-			"groupName": "使用者"
-		},
-		{
 			"name": "attr",
 			"description": "屬性設定",
 			"groupName": "屬性"

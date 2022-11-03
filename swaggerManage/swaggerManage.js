@@ -5,8 +5,16 @@ const fileHelper = require('../utils/fileHelper');
 const { format: formatJSON } = require('json-string-formatter');
 const SchemaManage = require('../graphQuery/schemaManage');
 const AttrSrc = require('../enum/apiConnect/AttrSrc');
+const PathLoader = require('../utils/pathLoader');
 
-module.exports = class SwaggerManage {
+let apiDocInfoList = [];
+/* [{
+    fileName,
+    path
+}] */
+
+
+class SwaggerManage {
     swagObj = null; // swagger json轉成的物件
     filePath = '';
     constructor(swagObj, filePath) {
@@ -361,6 +369,26 @@ module.exports = class SwaggerManage {
             return Promise.resolve(vm.swagObj);
         });
     }
+    static initApiDocInfoList() {
+        const folderPath = SwaggerManage.getFilePath();
+
+        const loader = new PathLoader(folderPath, (fileName) => /\.json$/.test(fileName))
+        let newApiDocList = loader.load();
+
+        apiDocInfoList = newApiDocList.map((apiDocInfo) => {
+            // 去除副檔名
+            const fileName = apiDocInfo.fileName.replace(/\.[^/.]+$/, "");
+
+            return {
+                fileName: fileName,
+                path: `http://localhost:5050/apiDoc/${apiDocInfo.fileName}`
+            }
+        })
+    }
+
+    static getApiDocList() {
+        return Promise.resolve(apiDocInfoList.map(val => val));
+    }
 
     static getFilePath(fileName) {
         if (!fileName) {
@@ -423,6 +451,7 @@ module.exports = class SwaggerManage {
         //     defaultValue: defaultValue,
         //     valueType: valueType,
         //     description: description,
+        //     required: true,
         // },
 
         if (!this.swagObj.paths) {
@@ -498,28 +527,47 @@ module.exports = class SwaggerManage {
                 }
 
                 // 沒有下一層了，直接處理
-                return handle(firstKey, propObj, obj.properties);
+                return handle(firstKey, propObj, obj.properties, obj.type);
             } else if (obj.type === 'array') {
                 if (!obj.items) {
                     return `findAttr: no items`;
                 }
+                // return `no support array`;
 
-                return `no support array`;
+                const propObj = obj.items;
+                if (!propObj) {
+                    return `findAttr: array item not exist`;
+                }
 
-                // obj.items
+                if (nextKeyList.length !== 0) { // 代表有下一層
+                    return findAttr(propObj, nextKeyList, handle);
+                }
+                // 沒有下一層了，直接處理
+                // console.log('array handle', firstKey, obj)
 
-
-
-
-                // const propObj = obj.items[firstKey];
-                // if (!propObj) {
-                //     return `findAttr: array items ${firstKey} not exist`;
-                // }
-
+                return handle(firstKey, propObj, propObj, obj.type); // 代表是array當中的物件(最後一層)
             }
         }
 
-        const err = findAttr(schema, keyList, function (key, propObj, propMap) {
+
+
+        const setRequired = function (requiredVal, propMap, key) {
+            if (!propMap.required) {
+                propMap.required = [];
+            }
+            if (requiredVal) { // 代表改成，需要加入
+                if (!propMap.required.includes(key)) { // 尚未加入，才加入key
+                    propMap.required.push(key);
+                }
+            } else { // 需要移出
+                const index = propMap.required.indexOf(key);
+                if (index >= 0) { // 已加入，才移出
+                    propMap.required.splice(index, 1);
+                }
+            }
+        }
+
+        const err = findAttr(schema, keyList, function (key, propObj, propMap, upperType) {
             // console.log('findAttr', key, propObj)
 
             if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
@@ -532,10 +580,45 @@ module.exports = class SwaggerManage {
                 propObj.description = attrData.description;
             }
 
+            if (attrData.required !== null) {
+                setRequired(attrData.required, propMap, key);
+                /*
+                if (upperType === 'array') { // 代表是array
+                    setRequired(attrData.required, propMap, key);
+                } else {
+                    setRequired(attrData.required, propMap, key);
+                }
+
+
+                if (!propMap || !key) { // 代表是array
+                    console.error(`array element cannot set required`);
+                } else if (attrData.required) { // 代表改成，需要加入
+                    if (propMap.required) {
+                        propMap.required = [];
+                    }
+                    if (!propMap.required.includes(key)) { // 尚未加入，才加入key
+                        propMap.required.push(key);
+                    }
+                } else { // 需要移出
+                    if (propMap.required) {
+                        propMap.required = [];
+                    }
+                    const index = fruits.indexOf(key);
+                    if (index >= 0) { // 已加入，才移出
+                        propMap.required.splice(index, 1);
+                    }
+                }*/
+            }
+
             if (attrData.attrName) {
-                // 代表有要改名子，將原本的刪除，加入新的欄位
-                delete propMap[key];
-                propMap[attrData.attrName] = propObj;
+                // if (!propMap || !key) { // 代表是array
+                if (upperType === 'array') { // 代表是array
+                    console.error(`array element cannot set attrName`);
+                } else {
+                    // 代表有要改名子，將原本的刪除，加入新的欄位
+                    delete propMap[key];
+                    propMap[attrData.attrName] = propObj;
+                }
             }
         });
         if (err) {
@@ -545,3 +628,7 @@ module.exports = class SwaggerManage {
         return Promise.resolve();
     }
 }
+
+SwaggerManage.initApiDocInfoList();
+
+module.exports = SwaggerManage;
