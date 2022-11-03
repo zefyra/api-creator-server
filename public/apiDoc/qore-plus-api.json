@@ -15,7 +15,7 @@
 		{
 			"name": "coupon",
 			"description": "兌換券資料",
-			"groupName": "兌換券_CC"
+			"groupName": "兌換券"
 		},
 		{
 			"name": "user",
