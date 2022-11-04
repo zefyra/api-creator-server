@@ -353,7 +353,7 @@ class SwaggerManage {
         return Promise.resolve(this.swagObj);
     }
 
-    save(filePath) {
+    save(filePath, json) {
         const vm = this;
         if (!filePath) {
             filePath = this.filePath;
@@ -363,7 +363,14 @@ class SwaggerManage {
             return Promise.reject(`swaggerManage: filePath not exist`);
         }
 
-        const jsonContent = this.getJson();
+        // const jsonContent = this.getJson();
+        let jsonContent;
+        if (json) {
+            jsonContent = json;
+        } else {
+            jsonContent = this.getJson();
+        }
+
         // 將檔案存回去
         return fileHelper.writeFile(filePath, jsonContent).then(() => {
             return Promise.resolve(vm.swagObj);
