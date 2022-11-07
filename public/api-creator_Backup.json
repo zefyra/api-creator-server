@@ -1,0 +1,1837 @@
+{
+	"swagger": "2.0",
+	"host": "localhost:8021",
+	"info": {
+		"description": "",
+		"version": "1.0.0",
+		"title": "api-creator"
+	},
+	"tags": [
+		{
+			"name": "doc",
+			"description": "檔案相關",
+			"groupName": "檔案"
+		},
+		{
+			"name": "tag",
+			"description": "API的分類標籤",
+			"groupName": "標籤"
+		},
+		{
+			"name": "api",
+			"description": "API設定相關",
+			"groupName": "API"
+		},
+		{
+			"name": "schema",
+			"description": "GraphQL格式檔案",
+			"groupName": "資料結構"
+		}
+	],
+	"paths": {
+		"/api/listApiDoc": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-N.列出API文件",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "fileName_bbbbb",
+									"default": "api-creator"
+								}
+							},
+							"required": [
+								"fileName"
+							]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string",
+									"description": ""
+								},
+								"data": {
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"fileName": {
+														"type": "string",
+														"description": "",
+														"default": "api-creator.json"
+													},
+													"path": {
+														"type": "string",
+														"description": "",
+														"default": "../api-creator.json"
+													}
+												},
+												"required": [
+													
+												]
+											}
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"msg": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"name": "code",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"fileName": {
+														"type": "string",
+														"description": "",
+														"default": "api-creator.json"
+													},
+													"path": {
+														"type": "string",
+														"description": "",
+														"default": "../api-creator.json"
+													}
+												},
+												"required": [
+													
+												]
+											}
+										}
+									},
+									"required": [
+										
+									],
+									"name": "data",
+									"attrRequired": false,
+									"layerPath": [
+										
+									],
+									"attributes": [
+										{
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"fileName": {
+														"type": "string",
+														"description": "",
+														"default": "api-creator.json"
+													},
+													"path": {
+														"type": "string",
+														"description": "",
+														"default": "../api-creator.json"
+													}
+												},
+												"required": [
+													
+												]
+											},
+											"name": "list",
+											"attrRequired": false,
+											"layerPath": [
+												"data"
+											],
+											"attributes": [
+												{
+													"type": "string",
+													"description": "",
+													"default": "api-creator.json",
+													"name": "fileName",
+													"attrRequired": false,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												},
+												{
+													"type": "string",
+													"description": "",
+													"default": "../api-creator.json",
+													"name": "path",
+													"attrRequired": false,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"name": "msg",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"/api/genSwagger": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-1.生成API文件",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"title": {
+									"type": "string",
+									"description": "",
+									"default": "Qore Plus API 文件"
+								},
+								"host": {
+									"type": "string",
+									"description": "",
+									"default": "localhost:8022"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "Qore Plus API 文件",
+									"name": "title",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "localhost:8022",
+									"name": "host",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/gqlJson": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-N.測試gqlJson",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/gqlSchema": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-N.測試gqlSchema",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/addTag": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"tag"
+				],
+				"summary": "2-1.新增標籤",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"name": {
+									"type": "string",
+									"description": "",
+									"default": "friend"
+								},
+								"description": {
+									"type": "string",
+									"description": "",
+									"default": "friend標籤描述"
+								},
+								"groupName": {
+									"type": "string",
+									"description": "",
+									"default": "標籤標題"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "friend",
+									"name": "name",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "friend標籤描述",
+									"name": "description",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "標籤標題",
+									"name": "groupName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					"500": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string",
+									"description": "",
+									"default": "1"
+								},
+								"data": {
+									"type": "string",
+									"description": "不固定資料"
+								},
+								"msg": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "1",
+									"name": "code",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "不固定資料",
+									"name": "data",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"name": "msg",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"/api/editTag": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"tag"
+				],
+				"summary": "2-2.編輯標籤",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"tagName": {
+									"type": "string",
+									"description": "",
+									"default": "friend"
+								},
+								"summary": {
+									"type": "string",
+									"description": "標籤標題",
+									"default": "好友"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "friend",
+									"name": "tagName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "標籤標題",
+									"default": "好友",
+									"name": "summary",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/removeTag": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"tag"
+				],
+				"summary": "2-3.刪除標籤",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"name": {
+									"type": "string",
+									"description": "標籤key",
+									"default": "friend"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "標籤key",
+									"default": "friend",
+									"name": "name",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/addApi": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-1.新增API",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"apiRoute": {
+									"type": "string",
+									"description": "",
+									"default": "/api/friend"
+								},
+								"apiType": {
+									"type": "string",
+									"description": "",
+									"default": "get"
+								},
+								"tags": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "tagKey",
+										"default": "friend"
+									}
+								},
+								"summary": {
+									"type": "string",
+									"description": "",
+									"default": "1-1.list friend"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "/api/friend",
+									"name": "apiRoute",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "get",
+									"name": "apiType",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "tagKey",
+										"default": "friend"
+									},
+									"name": "tags",
+									"attrRequired": false,
+									"layerPath": [
+										
+									],
+									"attributes": [
+										{
+											"type": "string",
+											"description": "tagKey",
+											"default": "friend",
+											"name": "[array-item]",
+											"attrRequired": false,
+											"layerPath": [
+												"tags"
+											]
+										}
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "1-1.list friend",
+									"name": "summary",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/listApi": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-1.列出API",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"tag": {
+									"type": "string",
+									"description": "",
+									"default": "friend"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "friend",
+									"name": "tag",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string",
+									"description": ""
+								},
+								"data": {
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "object",
+											"properties": {
+												"route": {
+													"type": "string",
+													"description": "",
+													"default": "/api/friend"
+												},
+												"apiType": {
+													"type": "string",
+													"description": "",
+													"default": "post"
+												},
+												"summary": {
+													"type": "string",
+													"description": "",
+													"default": "1-1.create friend"
+												},
+												"tags": {
+													"type": "array",
+													"items": {
+														"type": "string",
+														"description": "",
+														"default": "friend"
+													}
+												}
+											},
+											"required": [
+												"route",
+												"apiType",
+												"summary",
+												"tags"
+											]
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"msg": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"name": "code",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "object",
+											"properties": {
+												"route": {
+													"type": "string",
+													"description": "",
+													"default": "/api/friend"
+												},
+												"apiType": {
+													"type": "string",
+													"description": "",
+													"default": "post"
+												},
+												"summary": {
+													"type": "string",
+													"description": "",
+													"default": "1-1.create friend"
+												},
+												"tags": {
+													"type": "array",
+													"items": {
+														"type": "string",
+														"description": "",
+														"default": "friend"
+													}
+												}
+											},
+											"required": [
+												"route",
+												"apiType",
+												"summary",
+												"tags"
+											]
+										}
+									},
+									"required": [
+										
+									],
+									"name": "data",
+									"attrRequired": false,
+									"layerPath": [
+										
+									],
+									"attributes": [
+										{
+											"type": "object",
+											"properties": {
+												"route": {
+													"type": "string",
+													"description": "",
+													"default": "/api/friend"
+												},
+												"apiType": {
+													"type": "string",
+													"description": "",
+													"default": "post"
+												},
+												"summary": {
+													"type": "string",
+													"description": "",
+													"default": "1-1.create friend"
+												},
+												"tags": {
+													"type": "array",
+													"items": {
+														"type": "string",
+														"description": "",
+														"default": "friend"
+													}
+												}
+											},
+											"required": [
+												"route",
+												"apiType",
+												"summary",
+												"tags"
+											],
+											"name": "list",
+											"attrRequired": false,
+											"layerPath": [
+												"data"
+											],
+											"attributes": [
+												{
+													"type": "string",
+													"description": "",
+													"default": "/api/friend",
+													"name": "route",
+													"attrRequired": true,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												},
+												{
+													"type": "string",
+													"description": "",
+													"default": "post",
+													"name": "apiType",
+													"attrRequired": true,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												},
+												{
+													"type": "string",
+													"description": "",
+													"default": "1-1.create friend",
+													"name": "summary",
+													"attrRequired": true,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												},
+												{
+													"type": "array",
+													"items": {
+														"type": "string",
+														"description": "",
+														"default": "friend"
+													},
+													"name": "tags",
+													"attrRequired": true,
+													"layerPath": [
+														"data",
+														"list"
+													],
+													"attributes": [
+														{
+															"type": "string",
+															"description": "",
+															"default": "friend",
+															"name": "[array-item]",
+															"attrRequired": false,
+															"layerPath": [
+																"data",
+																"list",
+																"tags"
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"name": "msg",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"/api/removeApi": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-3.刪除API",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"apiType": {
+									"type": "string",
+									"description": "",
+									"default": "get"
+								},
+								"route": {
+									"type": "string",
+									"description": "",
+									"default": "/api/friend"
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "get",
+									"name": "apiType",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "/api/friend",
+									"name": "route",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/addBody": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-4.新增修改requestBody",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"apiRoute": {
+									"type": "string",
+									"description": "",
+									"default": "/api/friend"
+								},
+								"apiType": {
+									"type": "string",
+									"description": "",
+									"default": "post"
+								},
+								"rootType": {
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST"
+								},
+								"schema": {
+									"type": "string",
+									"description": "gql input schema",
+									"default": "<gqlSchema>"
+								}
+							},
+							"required": [
+								"fileName",
+								"apiRoute",
+								"apiType",
+								"rootType"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "/api/friend",
+									"name": "apiRoute",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "post",
+									"name": "apiType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST",
+									"name": "rootType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "gql input schema",
+									"default": "<gqlSchema>",
+									"name": "schema",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/addResponse": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-4.新增修改response body",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								},
+								"apiRoute": {
+									"type": "string",
+									"description": "",
+									"default": "/api/friend"
+								},
+								"apiType": {
+									"type": "string",
+									"description": "",
+									"default": "post"
+								},
+								"rootType": {
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST"
+								},
+								"schema": {
+									"type": "string",
+									"description": "",
+									"default": "<gqlSchema>"
+								},
+								"resType": {
+									"type": "string",
+									"description": "",
+									"default": "200"
+								},
+								"description": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								"fileName",
+								"apiRoute",
+								"apiType",
+								"rootType",
+								"resType"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "/api/friend",
+									"name": "apiRoute",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "post",
+									"name": "apiType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST",
+									"name": "rootType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "<gqlSchema>",
+									"name": "schema",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "200",
+									"name": "resType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"name": "description",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/createSchema": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"schema"
+				],
+				"summary": "4-1.新增schema(server)",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"rootType": {
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND"
+								},
+								"schema": {
+									"type": "string",
+									"description": "",
+									"default": "<gqlSchema>"
+								}
+							},
+							"required": [
+								"rootType"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND",
+									"name": "rootType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "<gqlSchema>",
+									"name": "schema",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/listSchema": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"schema"
+				],
+				"summary": "4-2.列出schema(server)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string",
+									"description": ""
+								},
+								"data": {
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"name": {
+														"type": "string",
+														"description": "bbbbb",
+														"default": "SYSTEM_ATTR"
+													}
+												},
+												"required": [
+													
+												]
+											}
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"msg": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"name": "code",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "object",
+									"properties": {
+										"list": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"name": {
+														"type": "string",
+														"description": "",
+														"default": "SYSTEM_API_ATTR"
+													},
+													"description": "aaaaaaaa"
+												},
+												"required": [
+													"name"
+												]
+											}
+										}
+									},
+									"required": [
+										
+									],
+									"name": "data",
+									"attrRequired": false,
+									"layerPath": [
+										
+									],
+									"attributes": [
+										{
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"name": {
+														"type": "string",
+														"description": "",
+														"default": "SYSTEM_API_ATTR"
+													},
+													"description": "aaaaaaaa"
+												},
+												"required": [
+													"name"
+												]
+											},
+											"name": "list",
+											"attrRequired": false,
+											"layerPath": [
+												"data"
+											],
+											"attributes": [
+												{
+													"type": "string",
+													"description": "",
+													"default": "SYSTEM_API_ATTR",
+													"name": "name",
+													"attrRequired": true,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												},
+												{
+													"0": "a",
+													"1": "a",
+													"2": "a",
+													"3": "a",
+													"4": "a",
+													"5": "a",
+													"6": "a",
+													"7": "a",
+													"name": "description",
+													"attrRequired": false,
+													"layerPath": [
+														"data",
+														"list"
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"name": "msg",
+									"attrRequired": false,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"/api/addDefinition": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"schema"
+				],
+				"summary": "4-3.加入Definition(json)",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"rootType": {
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND"
+								},
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								}
+							},
+							"required": [
+								"rootType",
+								"fileName"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND",
+									"name": "rootType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/removeDefinition": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"schema"
+				],
+				"summary": "4-4.移除Definition(json)",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"rootType": {
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST"
+								},
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								}
+							},
+							"required": [
+								"rootType",
+								"fileName"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "SYSTEM_FRIEND_LIST",
+									"name": "rootType",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								},
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/restartSwagger": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-3.重啟Swagger頁面",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api"
+								}
+							},
+							"required": [
+								"fileName"
+							],
+							"attributes": [
+								{
+									"type": "string",
+									"description": "",
+									"default": "qore-plus-api",
+									"name": "fileName",
+									"attrRequired": true,
+									"layerPath": [
+										
+									]
+								}
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/doc/updateJson": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-4.更新json檔",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": ""
+								},
+								"json": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								"fileName",
+								"json"
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/doc/everySchema": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-5.跑每個schema(調整用)",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "api-creator"
+								},
+								"mode": {
+									"type": "string",
+									"description": "調整schema的操作key",
+									"default": "removeAttributes"
+								}
+							},
+							"required": [
+								"fileName",
+								"mode"
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		}
+	}
+}

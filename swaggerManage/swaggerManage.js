@@ -7,7 +7,7 @@ const SchemaManage = require('../graphQuery/schemaManage');
 const AttrSrc = require('../enum/apiConnect/AttrSrc');
 const PathLoader = require('../utils/pathLoader');
 
-let apiDocInfoList = [];
+let apiDocInfoList = null;
 /* [{
     fileName,
     path
@@ -394,6 +394,17 @@ class SwaggerManage {
     }
 
     static getApiDocList() {
+        if (!apiDocInfoList) {
+            new Promise((resolve, reject) => {
+                setTimeout(function () {
+                    if (!apiDocInfoList) {
+                        return reject(`apiDocInfoList not exist`);
+                    }
+                    return resolve(apiDocInfoList.map(val => val));
+                }, 5000);
+            });
+        }
+
         return Promise.resolve(apiDocInfoList.map(val => val));
     }
 
@@ -441,6 +452,119 @@ class SwaggerManage {
                 "title": title,
             },
         };
+    }
+
+    getEverySchemaHandle(mode) {
+        let func;
+        if (mode === 'removeAttributes') {
+            func = this.removeEveryAttributes; // 用來刪除不小心加進去的attributes
+        }
+
+        if (func) {
+            return func.bind(this);
+        }
+        console.error(`getEverySchemaHandle: func not exist`);
+        return null;
+    }
+
+
+    runEveryRootSchema(apiObj, handle) {
+        if (apiObj.parameters) {
+            const bodyParameterObj = apiObj.parameters.find((eachParameterObj) => {
+                return eachParameterObj.in === 'body';
+            });
+            if (bodyParameterObj) {
+                if (bodyParameterObj.schema) {
+                    handle(bodyParameterObj.schema);
+                }
+            }
+        }
+        if (apiObj.responses) {
+            Object.keys(apiObj.responses).forEach((resStatus) => {
+                const resObj = apiObj.responses[resStatus];
+                if (resObj) {
+                    if (resObj.schema) {
+                        handle(resObj.schema);
+                    }
+                }
+            });
+        }
+    }
+
+    runEveryProp(schema, handle) {
+        const vm = this;
+
+        if (schema.type === 'object') {
+            if (schema.properties) { // 物件: 跑每個prop
+                Object.keys(schema.properties).forEach((propKey) => {
+                    const propObj = schema.properties[propKey];
+                    if (propObj) {
+                        if (propObj.type === 'object') {
+                            handle(propObj);
+                            vm.runEveryProp(propObj, handle);
+                        } else if (propObj.type === 'array') {
+                            handle(propObj);
+                            vm.runEveryProp(propObj, handle);
+                        } else {
+                            handle(propObj);
+                        }
+                    }
+                });
+            }
+        } else if (schema.type === 'array') {
+            const itemObj = schema.items;
+            if (itemObj.type === 'object') { // 代表還有更底下的，繼續往下丟
+                let propObj = itemObj;
+                handle(propObj);
+                vm.runEveryProp(propObj, handle);
+            } else if (itemObj.type === 'array') {
+                let propObj = itemObj;
+                handle(propObj);
+                vm.runEveryProp(propObj, handle);
+            } else {
+                handle(itemObj);
+            }
+        }
+    }
+
+    async removeEveryAttributes(apiObj) {
+        const vm = this;
+
+        const removeAttributesHandle = function (propObj) {
+            if (!propObj) {
+                return;
+            }
+            if (propObj.attributes) {
+                delete propObj.attributes;
+            }
+        }
+
+        return this.runEveryRootSchema(apiObj, function (schema) {
+            if (!schema) {
+                return;
+            }
+            removeAttributesHandle(schema);
+            return vm.runEveryProp(schema, removeAttributesHandle);
+        });
+    }
+
+    async everySchema(handle) {
+        if (!this.swagObj.paths) {
+            return;
+        }
+        let error;
+
+        const pathList = Object.keys(this.swagObj.paths);
+        for (let i = 0; i < pathList.length; i += 1) {
+            const apiRoute = pathList[i];
+            const pathObj = this.swagObj.paths[apiRoute];
+            const apiTypeList = Object.keys(pathObj);
+            for (let j = 0; j < apiTypeList.length; j += 1) {
+                const apiType = apiTypeList[j];
+                const apiObj = this.swagObj.paths[apiRoute][apiType];
+                handle(apiObj, apiRoute, apiType);
+            }
+        }
     }
 
     editAttr(queryObj, attrData) {
@@ -534,23 +658,34 @@ class SwaggerManage {
                 }
 
                 // 沒有下一層了，直接處理
-                return handle(firstKey, propObj, obj.properties, obj.type);
+                return handle(firstKey, propObj, obj.properties, obj, obj.type);
             } else if (obj.type === 'array') {
                 if (!obj.items) {
                     return `findAttr: no items`;
                 }
                 // return `no support array`;
 
-                const propObj = obj.items;
-                if (!propObj) {
+                // const propObj = obj.items;
+                // if (!propObj) {
+                //     return `findAttr: array item not exist`;
+                // }
+                const itemObj = obj.items;
+                if (!itemObj) {
                     return `findAttr: array item not exist`;
                 }
-
                 if (nextKeyList.length !== 0) { // 代表有下一層
-                    return findAttr(propObj, nextKeyList, handle);
+                    return findAttr(itemObj, nextKeyList, handle);
                 }
                 // 沒有下一層了，直接處理
                 // console.log('array handle', firstKey, obj)
+
+                if (itemObj.type === 'object') {
+
+                    const propMap = itemObj.properties || {};
+                    const propObj = propMap[firstKey];
+
+                    return handle(firstKey, propObj, propMap, itemObj, obj.type); // 代表是array當中的物件(最後一層)
+                }
 
                 return handle(firstKey, propObj, propObj, obj.type); // 代表是array當中的物件(最後一層)
             }
@@ -558,23 +693,23 @@ class SwaggerManage {
 
 
 
-        const setRequired = function (requiredVal, propMap, key) {
-            if (!propMap.required) {
-                propMap.required = [];
+        const setRequired = function (requiredVal, upperObj, key) {
+            if (!upperObj.required) {
+                upperObj.required = [];
             }
             if (requiredVal) { // 代表改成，需要加入
-                if (!propMap.required.includes(key)) { // 尚未加入，才加入key
-                    propMap.required.push(key);
+                if (!upperObj.required.includes(key)) { // 尚未加入，才加入key
+                    upperObj.required.push(key);
                 }
             } else { // 需要移出
-                const index = propMap.required.indexOf(key);
+                const index = upperObj.required.indexOf(key);
                 if (index >= 0) { // 已加入，才移出
-                    propMap.required.splice(index, 1);
+                    upperObj.required.splice(index, 1);
                 }
             }
         }
 
-        const err = findAttr(schema, keyList, function (key, propObj, propMap, upperType) {
+        const err = findAttr(schema, keyList, function (key, propObj, propMap, upperObj, upperType) {
             // console.log('findAttr', key, propObj)
 
             if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
@@ -588,33 +723,7 @@ class SwaggerManage {
             }
 
             if (attrData.required !== null) {
-                setRequired(attrData.required, propMap, key);
-                /*
-                if (upperType === 'array') { // 代表是array
-                    setRequired(attrData.required, propMap, key);
-                } else {
-                    setRequired(attrData.required, propMap, key);
-                }
-
-
-                if (!propMap || !key) { // 代表是array
-                    console.error(`array element cannot set required`);
-                } else if (attrData.required) { // 代表改成，需要加入
-                    if (propMap.required) {
-                        propMap.required = [];
-                    }
-                    if (!propMap.required.includes(key)) { // 尚未加入，才加入key
-                        propMap.required.push(key);
-                    }
-                } else { // 需要移出
-                    if (propMap.required) {
-                        propMap.required = [];
-                    }
-                    const index = fruits.indexOf(key);
-                    if (index >= 0) { // 已加入，才移出
-                        propMap.required.splice(index, 1);
-                    }
-                }*/
+                setRequired(attrData.required, upperObj, key);
             }
 
             if (attrData.attrName) {

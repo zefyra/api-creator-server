@@ -25,7 +25,6 @@ var cors = require('cors');
 const config = require('./config.js');
 const apiPrehandler = require('./apiPrehandler.js');
 const apiMockserver = require('./apiMockserver.js');
-const swaggerServer = require('./swaggerServer.js');
 
 
 // server setting---------------------------------------------
@@ -35,17 +34,7 @@ const corsOptions = {
     origin: [
         'http://localhost:8080', // Vue
         'http://localhost:3000', // React
-        'http://localhost:9000', // Swagger
-        'http://localhost:9001',
-        'http://localhost:9002',
-        'http://localhost:9003',
-        'http://localhost:9004',
-        'http://localhost:9005',
-        'http://localhost:9006',
-        'http://localhost:9007',
-        'http://localhost:9008',
-        'http://localhost:9009',
-        'http://localhost:9010'
+        'http://localhost:9001', // Swagger
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     // allowedHeaders: ['Content-Type', 'Authorization'],
@@ -92,9 +81,16 @@ let server = app.listen(9001, function () {
 });
 */
 
-swaggerServer.registApp(app);
+// swaggerServer.registApp(app);
 
-swaggerServer.createSwaggerServer('qore-plus-api');
+// swaggerServer.createSwaggerServer('qore-plus-api');
+
+// const swagServerObj = new SwaggerServer(app);
+// swaggerServer.initApiDocSwaggerServer();
+
+
+const swaggerServer = require('./swaggerServer.js');
+swaggerServer.initSwaggerServer(app);
 
 
 // public json--------------------------------------------------

@@ -37,9 +37,27 @@
 				"tags": [
 					"doc"
 				],
-				"summary": "1-N.列出API文件",
+				"summary": "1-2.列出API文件",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "fileName_bbbbb",
+									"default": "api-creator"
+								}
+							},
+							"required": [
+								"fileName"
+							]
+						}
+					}
 				],
 				"responses": {
 					"200": {
@@ -280,7 +298,9 @@
 								}
 							},
 							"required": [
-								
+								"fileName",
+								"tagName",
+								"summary"
 							]
 						}
 					}
@@ -320,7 +340,8 @@
 								}
 							},
 							"required": [
-								
+								"fileName",
+								"name"
 							]
 						}
 					}
@@ -731,8 +752,8 @@
 												"properties": {
 													"name": {
 														"type": "string",
-														"description": "",
-														"default": "SYSTEM_API_ATTR"
+														"description": "bbbbb",
+														"default": "SYSTEM_ATTR"
 													}
 												},
 												"required": [
@@ -866,6 +887,86 @@
 							},
 							"required": [
 								"fileName"
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/doc/updateJson": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-4.更新json檔",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": ""
+								},
+								"json": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								"fileName",
+								"json"
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/doc/everySchema": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"doc"
+				],
+				"summary": "1-5.跑每個schema(調整schema資料用)",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": "",
+									"default": "api-creator"
+								},
+								"mode": {
+									"type": "string",
+									"description": "調整schema的操作key",
+									"default": "removeAttributes"
+								}
+							},
+							"required": [
+								"fileName",
+								"mode"
 							]
 						}
 					}

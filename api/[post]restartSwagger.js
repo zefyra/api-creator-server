@@ -37,14 +37,22 @@ const apiData = {
             isErr = true;
         }
 
-        await ServerManage.closeServer(req.body.fileName);
+        // await swaggerServer.createSwaggerServer(req.body.fileName);
+        const swaggerServerObj = swaggerServer.getSwaggerServer();
+        if (!swaggerServerObj) {
+            return res.refuse(`swaggerServerObj not exist`);
+        }
+
+        // 關閉舊的server
+        await ServerManage.closeServer(swaggerServerObj.serverName);
         if (isErr) return;
 
-        console.log('swagger server is closed');
+        console.log(`swagger server is closed, \`${swaggerServerObj.serverName}\``);
 
-        await swaggerServer.createSwaggerServer(req.body.fileName);
+        // 重新初始化
+        swaggerServerObj.initApiDocSwaggerServer();
 
-        res.react();
+        res.react(null);
     }
 }
 module.exports = apiData;
