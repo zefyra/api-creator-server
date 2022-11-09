@@ -8,7 +8,7 @@ module.exports = {
         apiPrefix: '/api',
         path: './apiQorePlus',
         port: 8022, // 用來給getPrehandleList讀取的欄位
-        // apiLog: true, // 要顯示log
+        // apiLog: true, // 要顯示log\
     }],
     // secret: 'JYGyyUbkb4i7TiKqyUMqbe77cZXeyslkYq4Va2nbs', // 目前沒用到
     // port: 8030, // acceptApi的port

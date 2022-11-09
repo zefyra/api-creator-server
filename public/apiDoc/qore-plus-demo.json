@@ -1,0 +1,67 @@
+{
+	"swagger": "2.0",
+	"host": "localhost:8020",
+	"info": {
+		"description": "",
+		"version": "1.0.0",
+		"title": "qore-plus-demo"
+	},
+	"tags": [
+		{
+			"name": "provider",
+			"description": "第三方系統管理頁面API",
+			"groupName": "第三方系統"
+		}
+	],
+	"paths": {
+		"/api/provider": {
+			"get": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"provider"
+				],
+				"summary": "1-1.第三方系統列表",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			},
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"provider"
+				],
+				"summary": "1-2.新增第三方系統",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/api/provider/enable": {
+			"put": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"provider"
+				],
+				"summary": "1-3.修改開放上架狀態",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		}
+	}
+}

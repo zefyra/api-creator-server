@@ -37,7 +37,7 @@
 				"tags": [
 					"doc"
 				],
-				"summary": "1-N.列出API文件",
+				"summary": "1-2.列出API文件",
 				"parameters": [
 					{
 						"description": "Payload",
@@ -105,112 +105,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"name": "code",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "object",
-									"properties": {
-										"list": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"fileName": {
-														"type": "string",
-														"description": "",
-														"default": "api-creator.json"
-													},
-													"path": {
-														"type": "string",
-														"description": "",
-														"default": "../api-creator.json"
-													}
-												},
-												"required": [
-													
-												]
-											}
-										}
-									},
-									"required": [
-										
-									],
-									"name": "data",
-									"attrRequired": false,
-									"layerPath": [
-										
-									],
-									"attributes": [
-										{
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"fileName": {
-														"type": "string",
-														"description": "",
-														"default": "api-creator.json"
-													},
-													"path": {
-														"type": "string",
-														"description": "",
-														"default": "../api-creator.json"
-													}
-												},
-												"required": [
-													
-												]
-											},
-											"name": "list",
-											"attrRequired": false,
-											"layerPath": [
-												"data"
-											],
-											"attributes": [
-												{
-													"type": "string",
-													"description": "",
-													"default": "api-creator.json",
-													"name": "fileName",
-													"attrRequired": false,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												},
-												{
-													"type": "string",
-													"description": "",
-													"default": "../api-creator.json",
-													"name": "path",
-													"attrRequired": false,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"name": "msg",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -253,38 +147,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "Qore Plus API 文件",
-									"name": "title",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "localhost:8022",
-									"name": "host",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -369,48 +231,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "friend",
-									"name": "name",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "friend標籤描述",
-									"name": "description",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "標籤標題",
-									"name": "groupName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -437,36 +257,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "1",
-									"name": "code",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "不固定資料",
-									"name": "data",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"name": "msg",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -508,39 +298,9 @@
 								}
 							},
 							"required": [
-								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "friend",
-									"name": "tagName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "標籤標題",
-									"default": "好友",
-									"name": "summary",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
+								"fileName",
+								"tagName",
+								"summary"
 							]
 						}
 					}
@@ -580,29 +340,8 @@
 								}
 							},
 							"required": [
-								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "標籤key",
-									"default": "friend",
-									"name": "name",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
+								"fileName",
+								"name"
 							]
 						}
 					}
@@ -661,73 +400,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "/api/friend",
-									"name": "apiRoute",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "get",
-									"name": "apiType",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "tagKey",
-										"default": "friend"
-									},
-									"name": "tags",
-									"attrRequired": false,
-									"layerPath": [
-										
-									],
-									"attributes": [
-										{
-											"type": "string",
-											"description": "tagKey",
-											"default": "friend",
-											"name": "[array-item]",
-											"attrRequired": false,
-											"layerPath": [
-												"tags"
-											]
-										}
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "1-1.list friend",
-									"name": "summary",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -768,28 +440,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "friend",
-									"name": "tag",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -853,177 +503,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"name": "code",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "object",
-									"properties": {
-										"list": {
-											"type": "object",
-											"properties": {
-												"route": {
-													"type": "string",
-													"description": "",
-													"default": "/api/friend"
-												},
-												"apiType": {
-													"type": "string",
-													"description": "",
-													"default": "post"
-												},
-												"summary": {
-													"type": "string",
-													"description": "",
-													"default": "1-1.create friend"
-												},
-												"tags": {
-													"type": "array",
-													"items": {
-														"type": "string",
-														"description": "",
-														"default": "friend"
-													}
-												}
-											},
-											"required": [
-												"route",
-												"apiType",
-												"summary",
-												"tags"
-											]
-										}
-									},
-									"required": [
-										
-									],
-									"name": "data",
-									"attrRequired": false,
-									"layerPath": [
-										
-									],
-									"attributes": [
-										{
-											"type": "object",
-											"properties": {
-												"route": {
-													"type": "string",
-													"description": "",
-													"default": "/api/friend"
-												},
-												"apiType": {
-													"type": "string",
-													"description": "",
-													"default": "post"
-												},
-												"summary": {
-													"type": "string",
-													"description": "",
-													"default": "1-1.create friend"
-												},
-												"tags": {
-													"type": "array",
-													"items": {
-														"type": "string",
-														"description": "",
-														"default": "friend"
-													}
-												}
-											},
-											"required": [
-												"route",
-												"apiType",
-												"summary",
-												"tags"
-											],
-											"name": "list",
-											"attrRequired": false,
-											"layerPath": [
-												"data"
-											],
-											"attributes": [
-												{
-													"type": "string",
-													"description": "",
-													"default": "/api/friend",
-													"name": "route",
-													"attrRequired": true,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												},
-												{
-													"type": "string",
-													"description": "",
-													"default": "post",
-													"name": "apiType",
-													"attrRequired": true,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												},
-												{
-													"type": "string",
-													"description": "",
-													"default": "1-1.create friend",
-													"name": "summary",
-													"attrRequired": true,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												},
-												{
-													"type": "array",
-													"items": {
-														"type": "string",
-														"description": "",
-														"default": "friend"
-													},
-													"name": "tags",
-													"attrRequired": true,
-													"layerPath": [
-														"data",
-														"list"
-													],
-													"attributes": [
-														{
-															"type": "string",
-															"description": "",
-															"default": "friend",
-															"name": "[array-item]",
-															"attrRequired": false,
-															"layerPath": [
-																"data",
-																"list",
-																"tags"
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"name": "msg",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1066,38 +545,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "get",
-									"name": "apiType",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "/api/friend",
-									"name": "route",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1156,58 +603,6 @@
 								"apiRoute",
 								"apiType",
 								"rootType"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "/api/friend",
-									"name": "apiRoute",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "post",
-									"name": "apiType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "SYSTEM_FRIEND_LIST",
-									"name": "rootType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "gql input schema",
-									"default": "<gqlSchema>",
-									"name": "schema",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1276,77 +671,6 @@
 								"apiType",
 								"rootType",
 								"resType"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "/api/friend",
-									"name": "apiRoute",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "post",
-									"name": "apiType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "SYSTEM_FRIEND_LIST",
-									"name": "rootType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "<gqlSchema>",
-									"name": "schema",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "200",
-									"name": "resType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"name": "description",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1387,28 +711,6 @@
 							},
 							"required": [
 								"rootType"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "SYSTEM_FRIEND",
-									"name": "rootType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "<gqlSchema>",
-									"name": "schema",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1471,109 +773,6 @@
 							},
 							"required": [
 								
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"name": "code",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "object",
-									"properties": {
-										"list": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"name": {
-														"type": "string",
-														"description": "",
-														"default": "SYSTEM_API_ATTR"
-													},
-													"description": "aaaaaaaa"
-												},
-												"required": [
-													"name"
-												]
-											}
-										}
-									},
-									"required": [
-										
-									],
-									"name": "data",
-									"attrRequired": false,
-									"layerPath": [
-										
-									],
-									"attributes": [
-										{
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"name": {
-														"type": "string",
-														"description": "",
-														"default": "SYSTEM_API_ATTR"
-													},
-													"description": "aaaaaaaa"
-												},
-												"required": [
-													"name"
-												]
-											},
-											"name": "list",
-											"attrRequired": false,
-											"layerPath": [
-												"data"
-											],
-											"attributes": [
-												{
-													"type": "string",
-													"description": "",
-													"default": "SYSTEM_API_ATTR",
-													"name": "name",
-													"attrRequired": true,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												},
-												{
-													"0": "a",
-													"1": "a",
-													"2": "a",
-													"3": "a",
-													"4": "a",
-													"5": "a",
-													"6": "a",
-													"7": "a",
-													"name": "description",
-													"attrRequired": false,
-													"layerPath": [
-														"data",
-														"list"
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"name": "msg",
-									"attrRequired": false,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1612,28 +811,6 @@
 							"required": [
 								"rootType",
 								"fileName"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "SYSTEM_FRIEND",
-									"name": "rootType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1675,28 +852,6 @@
 							"required": [
 								"rootType",
 								"fileName"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "SYSTEM_FRIEND_LIST",
-									"name": "rootType",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								},
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1732,18 +887,6 @@
 							},
 							"required": [
 								"fileName"
-							],
-							"attributes": [
-								{
-									"type": "string",
-									"description": "",
-									"default": "qore-plus-api",
-									"name": "fileName",
-									"attrRequired": true,
-									"layerPath": [
-										
-									]
-								}
 							]
 						}
 					}
@@ -1800,7 +943,7 @@
 				"tags": [
 					"doc"
 				],
-				"summary": "1-5.跑每個schema(調整用)",
+				"summary": "1-5.跑每個schema(調整schema資料用)",
 				"parameters": [
 					{
 						"description": "Payload",
