@@ -975,6 +975,80 @@
 					
 				}
 			}
+		},
+		"/api/api/addQuery": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"api"
+				],
+				"summary": "3-5.新增URL上的query參數",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"fileName": {
+									"type": "string",
+									"description": ""
+								},
+								"apiRoute": {
+									"type": "string",
+									"description": ""
+								},
+								"apiType": {
+									"type": "string",
+									"description": ""
+								},
+								"type": {
+									"type": "string",
+									"description": ""
+								},
+								"name": {
+									"type": "string",
+									"description": ""
+								},
+								"in": {
+									"type": "string",
+									"description": ""
+								},
+								"default": {
+									"type": "string",
+									"description": ""
+								},
+								"description": {
+									"type": "string",
+									"description": ""
+								},
+								"enum": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": ""
+									}
+								}
+							},
+							"required": [
+								"fileName",
+								"apiRoute",
+								"apiType",
+								"type",
+								"name",
+								"in"
+							]
+						}
+					}
+				],
+				"responses": {
+					
+				}
+			}
 		}
 	}
 }

@@ -24,7 +24,35 @@
 				],
 				"summary": "1-1.第三方系統列表",
 				"parameters": [
-					
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數"
+					},
+					{
+						"type": "string",
+						"name": "pageSize",
+						"in": "query",
+						"default": "10",
+						"description": "單頁筆數"
+					},
+					{
+						"type": "string",
+						"name": "category",
+						"in": "query",
+						"default": "all",
+						"description": "類別",
+						"enum": [
+							"all",
+							"pos",
+							"erp",
+							"scrm",
+							"crm",
+							"ec"
+						]
+					}
 				],
 				"responses": {
 					

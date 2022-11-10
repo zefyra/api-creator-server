@@ -49,7 +49,7 @@ class SchemaManage {
     static autoLoadSchema() {
         // 只篩出.gql檔
         const gqlFileFileter = function (fileName) {
-            return /\.gql$/.test(fileName);
+            return /\.gql$/i.test(fileName);
         }
 
         const fileInfoList = new PathLoader(path.join(__dirname, './schema'), gqlFileFileter).load();

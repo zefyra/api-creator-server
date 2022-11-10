@@ -353,6 +353,41 @@ class SwaggerManage {
         return Promise.resolve(this.swagObj);
     }
 
+    addQuery(apiType, apiRoute, type, name, inVal, defaultVal, description, enumVal) {
+
+        // 檢查API是否存在
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`apiRoute not exist`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`apiRoute apiType not exist`);
+        }
+
+        const apiObj = this.swagObj.paths[apiRoute][apiType];
+
+        if (!apiObj.parameters) {
+            apiObj.parameters = [];
+        }
+
+        if (!type || !name || !inVal) {
+            return Promise.reject(`addQuery: arg leak`);
+        }
+
+        const queryParameter = {
+            type: type,
+            name: name,
+            in: inVal,
+        };
+
+        if (defaultVal != null) queryParameter['default'] = defaultVal;
+        if (description != null) queryParameter['description'] = description;
+        if (enumVal != null) queryParameter['enum'] = enumVal;
+
+        apiObj.parameters.push(queryParameter);
+
+        return Promise.resolve(this.swagObj);
+    }
+
     save(filePath, json) {
         const vm = this;
         if (!filePath) {

@@ -138,9 +138,9 @@ class SwaggerServer {
 
             await this.createSwaggerServer(fileName, route, swaggerPort);
 
-            const hostUrl = 'http://localhost:${swaggerPort}${route}';
+            const hostUrl = `http://localhost:${swaggerPort}${route}`;
 
-            console.log(`swagger server has on '${hostUrl}'`);
+            console.log(`swagger server has on \'${hostUrl}\'`);
 
             // apiDocInfoMap[fileName] = {
             //     fileName,
