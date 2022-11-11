@@ -55,7 +55,72 @@
 					}
 				],
 				"responses": {
-					
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"list": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"category": {
+												"type": "string",
+												"description": ""
+											},
+											"dataIntro": {
+												"type": "string",
+												"description": ""
+											},
+											"developTeam": {
+												"type": "string",
+												"description": ""
+											},
+											"enable": {
+												"type": "boolean",
+												"description": ""
+											},
+											"lang": {
+												"type": "string",
+												"description": ""
+											},
+											"moduleIntro": {
+												"type": "string",
+												"description": ""
+											},
+											"systemId": {
+												"type": "string",
+												"description": ""
+											},
+											"systemImg": {
+												"type": "string",
+												"description": ""
+											},
+											"systemName": {
+												"type": "string",
+												"description": ""
+											}
+										},
+										"required": [
+											"category",
+											"dataIntro",
+											"developTeam",
+											"enable",
+											"lang",
+											"moduleIntro",
+											"systemId",
+											"systemImg",
+											"systemName"
+										]
+									}
+								}
+							},
+							"required": [
+								"list"
+							]
+						}
+					}
 				}
 			},
 			"post": {
@@ -67,7 +132,74 @@
 				],
 				"summary": "1-2.新增第三方系統",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"category": {
+									"type": "string",
+									"description": "",
+									"default": "crm"
+								},
+								"developTeam": {
+									"type": "string",
+									"description": "",
+									"default": "cccc"
+								},
+								"flowQuota": {
+									"type": "string",
+									"description": "",
+									"default": "7"
+								},
+								"lang": {
+									"type": "string",
+									"description": "",
+									"default": "zh-CN"
+								},
+								"serverLocation": {
+									"type": "string",
+									"description": "",
+									"default": "bbbbbb"
+								},
+								"systemId": {
+									"type": "string",
+									"description": "",
+									"default": "ccc"
+								},
+								"systemIntroduction": {
+									"type": "string",
+									"description": "",
+									"default": "cddddd"
+								},
+								"systemName": {
+									"type": "string",
+									"description": "",
+									"default": "gggggg"
+								},
+								"bbbbb": {
+									"type": "string",
+									"description": "",
+									"default": "cccc"
+								}
+							},
+							"required": [
+								"category",
+								"developTeam",
+								"flowQuota",
+								"lang",
+								"serverLocation",
+								"systemId",
+								"systemIntroduction",
+								"systemName",
+								"bbbbb",
+								"bbbbb"
+							]
+						}
+					}
 				],
 				"responses": {
 					
@@ -84,7 +216,29 @@
 				],
 				"summary": "1-3.修改開放上架狀態",
 				"parameters": [
-					
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"systemId": {
+									"type": "string",
+									"description": ""
+								},
+								"enable": {
+									"type": "boolean",
+									"description": ""
+								}
+							},
+							"required": [
+								"systemId",
+								"enable"
+							]
+						}
+					}
 				],
 				"responses": {
 					
