@@ -602,6 +602,58 @@ class SwaggerManage {
         }
     }
 
+
+    editQueryParam(queryObj, attrData) {
+        if (!this.swagObj.paths) {
+            return Promise.reject(`editQueryParam: no paths`);
+        }
+
+        if (!this.swagObj.paths[queryObj.apiRoute]) {
+            return Promise.reject(`editQueryParam: apiRoute not found`);
+        }
+        if (!this.swagObj.paths[queryObj.apiRoute][queryObj.apiType]) {
+            return Promise.reject(`editQueryParam: apiType not found`);
+        }
+        const apiObj = this.swagObj.paths[queryObj.apiRoute][queryObj.apiType];
+
+        // console.log('editQueryParam', apiObj)
+
+        if (!apiObj.parameters) {
+            return Promise.reject(`editQueryParam: parameters not found`);
+        }
+
+        const paramIndex = apiObj.parameters.findIndex((paramInfo) => {
+            return paramInfo.in === 'query' && paramInfo.name === queryObj.attrName;
+        });
+
+        if (paramIndex < 0) {
+            return Promise.reject(`editQueryParam: parameter info not found`);
+        }
+        const paramObj = apiObj.parameters[paramIndex];
+
+        if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
+            paramObj.default = attrData.defaultValue;
+        }
+        if (attrData.valueType) {
+            paramObj.type = attrData.valueType;
+        }
+        if (attrData.description) {
+            paramObj.description = attrData.description;
+        }
+
+        if (attrData.required !== null) {
+            // return Promise.reject(`editQueryParam: required attr not support`)
+            // setRequired(attrData.required, upperObj, key);
+        }
+
+        if (attrData.attrName) {
+            paramObj.name = attrData.attrName;
+        }
+
+        return Promise.resolve();
+    }
+
+
     editAttr(queryObj, attrData) {
         // const queryObj = {
         //     apiType: req.body.apiType,

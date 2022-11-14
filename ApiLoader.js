@@ -276,6 +276,8 @@ module.exports = class ApiLoader {
             app.post(apiRoute, apiHandle);
         } else if (this.apiType === 'get') {
             app.get(apiRoute, apiHandle);
+        } else if (this.apiType === 'put') {
+            app.put(apiRoute, apiHandle);
         } else if (this.apiType === 'raw') {
             app.post(apiRoute, apiHandle);
             // 這些目前不支援

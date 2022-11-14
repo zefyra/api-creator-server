@@ -11,6 +11,11 @@
 			"name": "provider",
 			"description": "第三方系統管理頁面API",
 			"groupName": "第三方系統"
+		},
+		{
+			"name": "apiManage",
+			"description": "API管理",
+			"groupName": "API管理"
 		}
 	],
 	"paths": {
@@ -114,10 +119,15 @@
 											"systemName"
 										]
 									}
+								},
+								"rowsNum": {
+									"type": "integer",
+									"description": "資料總筆數"
 								}
 							},
 							"required": [
-								"list"
+								"list",
+								"rowsNum"
 							]
 						}
 					}
@@ -242,6 +252,121 @@
 				],
 				"responses": {
 					
+				}
+			}
+		},
+		"/api/apiManage": {
+			"get": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"apiManage"
+				],
+				"summary": "2-1.API管理列表(系統管理者)",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數"
+					},
+					{
+						"type": "string",
+						"name": "pageSize",
+						"in": "query",
+						"default": "10",
+						"description": "單頁筆數"
+					},
+					{
+						"type": "string",
+						"name": "apiMode",
+						"in": "query",
+						"default": "listenApi",
+						"description": "API模式(呼叫/監聽)",
+						"enum": [
+							"listenApi",
+							"callApi"
+						]
+					},
+					{
+						"type": "string",
+						"name": "systemId",
+						"in": "query",
+						"default": "R1",
+						"description": "系統ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"list": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"enable": {
+												"type": "boolean",
+												"description": "狀態",
+												"default": false
+											},
+											"apiId": {
+												"type": "string",
+												"description": "API ID",
+												"default": "q01"
+											},
+											"apiName": {
+												"type": "string",
+												"description": "API名稱"
+											},
+											"method": {
+												"type": "string",
+												"description": "方法"
+											},
+											"version": {
+												"type": "string",
+												"description": "版本號"
+											},
+											"apiRoute": {
+												"type": "string",
+												"description": "API路徑"
+											},
+											"apiDescription": {
+												"type": "string",
+												"description": "API說明"
+											},
+											"updateTime": {
+												"type": "string",
+												"description": "更新時間"
+											}
+										},
+										"required": [
+											"enable",
+											"apiId",
+											"apiName",
+											"method",
+											"version",
+											"apiRoute",
+											"apiDescription",
+											"updateTime"
+										]
+									}
+								},
+								"rowsNum": {
+									"type": "integer",
+									"description": "總筆數"
+								}
+							},
+							"required": [
+								"list",
+								"rowsNum"
+							]
+						}
+					}
 				}
 			}
 		}
