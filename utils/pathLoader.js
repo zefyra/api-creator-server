@@ -17,6 +17,7 @@ const fs = require('fs');
 module.exports = class PathLoader {
     folderPath = null;
     filter = null;
+    fileInfoList = null;
     constructor(folderPath, filter) {
         this.folderPath = folderPath;
         if (filter) {
@@ -31,15 +32,51 @@ module.exports = class PathLoader {
         return /\.js$/.test(fileName);
     }
 
-    load() {
+    async load() {
         const folderPath = this.folderPath;
         const vm = this;
         let fileNameList = fs.readdirSync(folderPath);
-        return fileNameList.filter(this.filter).map((fileName) => {
+        this.fileInfoList = fileNameList.filter(this.filter).map((fileName) => {
             return {
                 fileName,
                 path: vm.folderPath + '/' + fileName,
             }
         });
+        return this.fileInfoList;
+    }
+
+    async mapAsync(func) {
+
+        if (!this.fileInfoList) {
+            console.error(`mapAsync: fileInfoList not exist`);
+            return;
+        }
+        if (!Array.isArray(this.fileInfoList)) {
+            console.error(`mapAsync: fileInfoList not array`);
+            return;
+        }
+
+        let isErr = false;
+        const errHandle = (err) => {
+            isErr = true;
+            console.error(err)
+        };
+
+        const mapFile = async function (fileList) {
+            let newList = [];
+
+            for (let i = 0; i < fileList.length; i += 1) {
+                const newFile = await func(fileList[i]).catch(errHandle);
+                if (isErr) return;
+                newList.push(newFile);
+            }
+
+            return newList;
+        }
+
+        // 開啟每個apiDoc檔案，確認版本
+        this.fileInfoList = await mapFile(this.fileInfoList);
+        if (isErr) return Promise.reject(`mapAsync fail`);
+        return this.fileInfoList;
     }
 }

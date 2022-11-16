@@ -46,13 +46,13 @@ class SchemaManage {
     static listSchema() {
         return gqlSchemaList;
     }
-    static autoLoadSchema() {
+    static async autoLoadSchema() {
         // 只篩出.gql檔
         const gqlFileFileter = function (fileName) {
             return /\.gql$/i.test(fileName);
         }
 
-        const fileInfoList = new PathLoader(path.join(__dirname, './schema'), gqlFileFileter).load();
+        const fileInfoList = await new PathLoader(path.join(__dirname, './schema'), gqlFileFileter).load();
 
         // console.log('fileInfoList', fileInfoList)
 

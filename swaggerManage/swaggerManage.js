@@ -411,36 +411,106 @@ class SwaggerManage {
             return Promise.resolve(vm.swagObj);
         });
     }
-    static initApiDocInfoList() {
+
+
+
+    static getApiDocType(swagObj) {
+        if (swagObj.swagger) {
+            if (swagObj.swagger === '2.0') {
+                return 'swagger2';
+            }
+        } else if (swagObj.openapi) {
+            if (swagObj.openapi === '3.0.0') {
+                return 'openapi3';
+            }
+        }
+
+        return null;
+    }
+
+
+    static async initApiDocInfoList() {
         const folderPath = SwaggerManage.getFilePath();
 
         const loader = new PathLoader(folderPath, (fileName) => /\.json$/.test(fileName))
-        let newApiDocList = loader.load();
+        /* newApiDocList: [{fileName: 'api-creator.json',
+        path: 'c:\\ServerProject\\api-creator-server\\public\\apiDoc/api-creator.json'}] */
 
-        apiDocInfoList = newApiDocList.map((apiDocInfo) => {
-            // 去除副檔名
-            const fileName = apiDocInfo.fileName.replace(/\.[^/.]+$/, "");
+        let isErr = false;
+        const errHandle = (err) => {
+            isErr = true;
+            console.error(err)
+        };
 
-            return {
-                fileName: fileName,
-                path: `http://localhost:5050/apiDoc/${apiDocInfo.fileName}`
+        await loader.load();
+        apiDocInfoList = await loader.mapAsync(async (docInfo) => {
+
+            // type: 讀取、辨別檔案版本
+            const swagObj = await fileHelper.readJsonFile(docInfo.path).catch(errHandle);
+            if (isErr) return;
+            const docType = SwaggerManage.getApiDocType(swagObj)
+            if (!docType) {
+                errHandle(`initApiDocInfoList: docType not found`, docInfo.fileName);
+                return docInfo;
             }
-        })
+            docInfo.type = docType;
+
+            // path
+            docInfo.path = `http://localhost:5050/apiDoc/${docInfo.fileName}`;
+
+            // fileName: 去除副檔名
+            const rawFileName = docInfo.fileName.replace(/\.[^/.]+$/, "");
+            docInfo.fileName = rawFileName;
+
+            console.log(`json file has on '${docInfo.path}' - [${docInfo.fileName}] <${docType}>`);
+
+            return docInfo;
+            // console.log('swagObj', swagObj);
+        }).catch(errHandle);
+        if (isErr) return;
     }
 
-    static getApiDocList() {
-        if (!apiDocInfoList) {
-            new Promise((resolve, reject) => {
+    static async getApiDocList() {
+
+        const waitTime = function (period) {
+            return new Promise((resolve, reject) => {
                 setTimeout(function () {
-                    if (!apiDocInfoList) {
-                        return reject(`apiDocInfoList not exist`);
-                    }
-                    return resolve(apiDocInfoList.map(val => val));
-                }, 5000);
+                    resolve();
+                }, period);
             });
         }
 
-        return Promise.resolve(apiDocInfoList.map(val => val));
+        let isTimeout = false;
+        setTimeout(function () {
+            isTimeout = true;
+        }, 30 * 1000)
+        const checkIsTimeout = function () {
+            return isTimeout;
+        };
+
+        while (apiDocInfoList == null) {
+            console.log('waitTime');
+            await waitTime(3000);
+            if (checkIsTimeout()) {
+                return Promise.reject(`getApiDocList is timeout`);
+            }
+        }
+
+        return apiDocInfoList.map(val => val);
+
+        // if (!apiDocInfoList) {
+
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(function () {
+        //             if (!apiDocInfoList) {
+        //                 return reject(`apiDocInfoList not exist`);
+        //             }
+        //             return resolve(apiDocInfoList.map(val => val));
+        //         }, 5000);
+        //     });
+        // }
+
+        // return Promise.resolve(apiDocInfoList.map(val => val));
     }
 
     static getFilePath(fileName) {

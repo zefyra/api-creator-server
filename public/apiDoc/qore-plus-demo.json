@@ -16,6 +16,11 @@
 			"name": "apiManage",
 			"description": "API管理",
 			"groupName": "API管理"
+		},
+		{
+			"name": "login",
+			"description": "登入相關API",
+			"groupName": "登入"
 		}
 	],
 	"paths": {
@@ -364,6 +369,72 @@
 							"required": [
 								"list",
 								"rowsNum"
+							]
+						}
+					}
+				}
+			}
+		},
+		"/api/auth/signin": {
+			"post": {
+				"produces": [
+					"application/json"
+				],
+				"tags": [
+					"login"
+				],
+				"summary": "3-1.登入",
+				"parameters": [
+					{
+						"description": "Payload",
+						"name": "Body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string",
+									"description": ""
+								},
+								"password": {
+									"type": "string",
+									"description": ""
+								}
+							},
+							"required": [
+								"email",
+								"password"
+							]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "string",
+									"description": "",
+									"default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidCI6ImxvZ2luIiwiZXhwIjoxNjY3MTAxODg3LCJpc3MiOiJjcm9zc2JvdCJ9.7N5_Ehg6KKvfLsOFVFj4bo_-IeUXls40juwWV-mCJbU"
+								},
+								"code": {
+									"type": "string",
+									"description": "",
+									"default": "G0200"
+								},
+								"msg": {
+									"type": "string",
+									"description": "",
+									"default": "ok"
+								}
+							},
+							"required": [
+								"data",
+								"code",
+								"msg"
 							]
 						}
 					}
