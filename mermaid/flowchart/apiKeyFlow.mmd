@@ -1,0 +1,6 @@
+flowchart TD
+    A["[post]/friend"] --> B{FriendCheck}
+    B --> |Yes| C["[post]/closeFriend"]
+    B --> |No| D["[post]/farFriend"]
+    D --> E[noQuote]
+    C --> E

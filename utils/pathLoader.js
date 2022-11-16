@@ -79,4 +79,41 @@ module.exports = class PathLoader {
         if (isErr) return Promise.reject(`mapAsync fail`);
         return this.fileInfoList;
     }
+
+    async loadEachFile(func) {
+        const fileInfoList = this.fileInfoList;
+        if (!fileInfoList) {
+            console.error(`loadEachFile: fileInfoList not exist`);
+            return;
+        }
+        let isErr = false;
+        const errHandle = (err) => {
+            isErr = true;
+            console.error(err)
+        };
+
+        const readFile = function (fileInfo) {
+            return new Promise((resolve, reject) => {
+                fs.readFile(fileInfo.path, 'utf8', function (err, data) {
+                    // if (err) throw err;
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(data);
+                });
+            });
+        }
+
+        // 載入所有.gql檔案的字串
+        for (let i = 0; i < fileInfoList.length; i += 1) {
+
+            const fileInfo = fileInfoList[i];
+
+            const textData = await readFile(fileInfo).catch(errHandle);
+            if (isErr) return;
+
+            await func(fileInfo, textData).catch(errHandle);
+            if (isErr) return;
+        }
+    }
 }

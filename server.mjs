@@ -1,6 +1,4 @@
 // require('log-timestamp');
-var express = require('express');
-var cors = require('cors');
 // var path = require('path');
 // var fs = require('fs');
 
@@ -19,7 +17,22 @@ var cors = require('cors');
 
 // ApiTemplateHelper.initialize();
 
+// apiSender-----------------------------------------
 
+// const apiSender = require('./plugin/apiSender');
+import apiSender from './plugin/apiSender/index.js';
+
+console.log('apiSender', apiSender)
+
+// 手動生成一個require函式，來相容舊版的寫法
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+global.require = require;
+// ------------------------------------------------
+
+var express = require('express');
+var cors = require('cors');
 // lodding module------------------------------------------------
 
 const config = require('./config.js');
@@ -63,6 +76,16 @@ apiMockserver.run(app, config.apiFolder);
 
 
 
+
+// -----------------------------------------------------------
+
+const MermaidManage = require('./mermaid/mermaidManage');
+
+MermaidManage.initMermaidFlowchart();
+// .then(()=>{
+//     MermaidManage.runFlow('testFlow')
+// });
+
 // Swagger-----------------------------------------------------------
 /*
 
@@ -91,7 +114,6 @@ let server = app.listen(9001, function () {
 
 const swaggerServer = require('./swaggerServer.js');
 swaggerServer.initSwaggerServer(app);
-
 
 
 // public json--------------------------------------------------

@@ -1,0 +1,389 @@
+{
+    "data": {
+        "count": 54,
+        "next": null,
+        "previous": null,
+        "rows": [
+            {
+                "id": 1,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "accountList",
+                "parentResource": null
+            },
+            {
+                "id": 2,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "logHistory",
+                "parentResource": null
+            },
+            {
+                "id": 3,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "moduleShop",
+                "parentResource": null
+            },
+            {
+                "id": 4,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "moduleManage",
+                "parentResource": null
+            },
+            {
+                "id": 5,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "quotaRangeManage",
+                "parentResource": null
+            },
+            {
+                "id": 6,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "purchasedModule",
+                "parentResource": null
+            },
+            {
+                "id": 7,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "myOrder",
+                "parentResource": null
+            },
+            {
+                "id": 8,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "platformPerference",
+                "parentResource": null
+            },
+            {
+                "id": 9,
+                "enabled": true,
+                "roleName": "user",
+                "resourceName": "dataExchange",
+                "parentResource": null
+            },
+            {
+                "id": 10,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "setting",
+                "parentResource": null
+            },
+            {
+                "id": 11,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "users",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 12,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "subUsers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 13,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "developers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 14,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "messagesHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 15,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "operationHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 16,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "payRelated",
+                "parentResource": "setting"
+            },
+            {
+                "id": 17,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "defaultAuth",
+                "parentResource": "setting"
+            },
+            {
+                "id": 18,
+                "enabled": false,
+                "roleName": "user",
+                "resourceName": "otherSetting",
+                "parentResource": "setting"
+            },
+            {
+                "id": 19,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "accountList",
+                "parentResource": null
+            },
+            {
+                "id": 20,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "logHistory",
+                "parentResource": null
+            },
+            {
+                "id": 21,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "moduleShop",
+                "parentResource": null
+            },
+            {
+                "id": 22,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "moduleManage",
+                "parentResource": null
+            },
+            {
+                "id": 23,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "quotaRangeManage",
+                "parentResource": null
+            },
+            {
+                "id": 24,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "purchasedModule",
+                "parentResource": null
+            },
+            {
+                "id": 25,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "myOrder",
+                "parentResource": null
+            },
+            {
+                "id": 26,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "platformPerference",
+                "parentResource": null
+            },
+            {
+                "id": 27,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "dataExchange",
+                "parentResource": null
+            },
+            {
+                "id": 28,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "setting",
+                "parentResource": null
+            },
+            {
+                "id": 29,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "users",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 30,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "subUsers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 31,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "developers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 32,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "messagesHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 33,
+                "enabled": true,
+                "roleName": "premiumUser",
+                "resourceName": "operationHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 34,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "payRelated",
+                "parentResource": "setting"
+            },
+            {
+                "id": 35,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "defaultAuth",
+                "parentResource": "setting"
+            },
+            {
+                "id": 36,
+                "enabled": false,
+                "roleName": "premiumUser",
+                "resourceName": "otherSetting",
+                "parentResource": "setting"
+            },
+            {
+                "id": 37,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "accountList",
+                "parentResource": null
+            },
+            {
+                "id": 38,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "logHistory",
+                "parentResource": null
+            },
+            {
+                "id": 39,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "moduleShop",
+                "parentResource": null
+            },
+            {
+                "id": 40,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "moduleManage",
+                "parentResource": null
+            },
+            {
+                "id": 41,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "quotaRangeManage",
+                "parentResource": null
+            },
+            {
+                "id": 42,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "purchasedModule",
+                "parentResource": null
+            },
+            {
+                "id": 43,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "myOrder",
+                "parentResource": null
+            },
+            {
+                "id": 44,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "platformPerference",
+                "parentResource": null
+            },
+            {
+                "id": 45,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "dataExchange",
+                "parentResource": null
+            },
+            {
+                "id": 46,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "setting",
+                "parentResource": null
+            },
+            {
+                "id": 47,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "users",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 48,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "subUsers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 49,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "developers",
+                "parentResource": "accountList"
+            },
+            {
+                "id": 50,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "messagesHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 51,
+                "enabled": true,
+                "roleName": "developer",
+                "resourceName": "operationHistory",
+                "parentResource": "logHistory"
+            },
+            {
+                "id": 52,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "payRelated",
+                "parentResource": "setting"
+            },
+            {
+                "id": 53,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "defaultAuth",
+                "parentResource": "setting"
+            },
+            {
+                "id": 54,
+                "enabled": false,
+                "roleName": "developer",
+                "resourceName": "otherSetting",
+                "parentResource": "setting"
+            }
+        ]
+    },
+    "code": "G0200",
+    "msg": "ok"
+}

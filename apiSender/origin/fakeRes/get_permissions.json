@@ -1,0 +1,384 @@
+{
+    "code": "g0200",
+    "msg": "ok",
+    "data": [
+        {
+            "id": 1,
+            "roleName": "user",
+            "resourceName": "accountList",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 37,
+            "roleName": "developer",
+            "resourceName": "accountList",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 19,
+            "roleName": "premiumUser",
+            "resourceName": "accountList",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 38,
+            "roleName": "developer",
+            "resourceName": "logHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 20,
+            "roleName": "premiumUser",
+            "resourceName": "logHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 2,
+            "roleName": "user",
+            "resourceName": "logHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 39,
+            "roleName": "developer",
+            "resourceName": "moduleShop",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 21,
+            "roleName": "premiumUser",
+            "resourceName": "moduleShop",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 3,
+            "roleName": "user",
+            "resourceName": "moduleShop",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 40,
+            "roleName": "developer",
+            "resourceName": "moduleManage",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 22,
+            "roleName": "premiumUser",
+            "resourceName": "moduleManage",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 4,
+            "roleName": "user",
+            "resourceName": "moduleManage",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 41,
+            "roleName": "developer",
+            "resourceName": "quotaRangeManage",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 23,
+            "roleName": "premiumUser",
+            "resourceName": "quotaRangeManage",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 5,
+            "roleName": "user",
+            "resourceName": "quotaRangeManage",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 42,
+            "roleName": "developer",
+            "resourceName": "purchasedModule",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 24,
+            "roleName": "premiumUser",
+            "resourceName": "purchasedModule",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 6,
+            "roleName": "user",
+            "resourceName": "purchasedModule",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 43,
+            "roleName": "developer",
+            "resourceName": "myOrder",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 25,
+            "roleName": "premiumUser",
+            "resourceName": "myOrder",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 7,
+            "roleName": "user",
+            "resourceName": "myOrder",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 44,
+            "roleName": "developer",
+            "resourceName": "platformPerference",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 26,
+            "roleName": "premiumUser",
+            "resourceName": "platformPerference",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 8,
+            "roleName": "user",
+            "resourceName": "platformPerference",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 45,
+            "roleName": "developer",
+            "resourceName": "dataExchange",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 27,
+            "roleName": "premiumUser",
+            "resourceName": "dataExchange",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 9,
+            "roleName": "user",
+            "resourceName": "dataExchange",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 46,
+            "roleName": "developer",
+            "resourceName": "setting",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 28,
+            "roleName": "premiumUser",
+            "resourceName": "setting",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 10,
+            "roleName": "user",
+            "resourceName": "setting",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 47,
+            "roleName": "developer",
+            "resourceName": "users",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 29,
+            "roleName": "premiumUser",
+            "resourceName": "users",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 11,
+            "roleName": "user",
+            "resourceName": "users",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 48,
+            "roleName": "developer",
+            "resourceName": "subUsers",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 30,
+            "roleName": "premiumUser",
+            "resourceName": "subUsers",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 12,
+            "roleName": "user",
+            "resourceName": "subUsers",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 49,
+            "roleName": "developer",
+            "resourceName": "developers",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 31,
+            "roleName": "premiumUser",
+            "resourceName": "developers",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 13,
+            "roleName": "user",
+            "resourceName": "developers",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 50,
+            "roleName": "developer",
+            "resourceName": "messagesHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 32,
+            "roleName": "premiumUser",
+            "resourceName": "messagesHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 14,
+            "roleName": "user",
+            "resourceName": "messagesHistory",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 51,
+            "roleName": "developer",
+            "resourceName": "operationHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 33,
+            "roleName": "premiumUser",
+            "resourceName": "operationHistory",
+            "parentResource": null,
+            "enabled": true
+        },
+        {
+            "id": 15,
+            "roleName": "user",
+            "resourceName": "operationHistory",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 52,
+            "roleName": "developer",
+            "resourceName": "payRelated",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 34,
+            "roleName": "premiumUser",
+            "resourceName": "payRelated",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 16,
+            "roleName": "user",
+            "resourceName": "payRelated",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 53,
+            "roleName": "developer",
+            "resourceName": "defaultAuth",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 35,
+            "roleName": "premiumUser",
+            "resourceName": "defaultAuth",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 17,
+            "roleName": "user",
+            "resourceName": "defaultAuth",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 54,
+            "roleName": "developer",
+            "resourceName": "otherSetting",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 36,
+            "roleName": "premiumUser",
+            "resourceName": "otherSetting",
+            "parentResource": null,
+            "enabled": false
+        },
+        {
+            "id": 18,
+            "roleName": "user",
+            "resourceName": "otherSetting",
+            "parentResource": null,
+            "enabled": false
+        }
+    ]
+}
