@@ -36,7 +36,6 @@ var cors = require('cors');
 // lodding module------------------------------------------------
 
 const config = require('./config.js');
-const apiPrehandler = require('./apiPrehandler.js');
 const apiMockserver = require('./apiMockserver.js');
 
 
@@ -70,8 +69,6 @@ app.use(express.json());
 // app.use(cookieParser());
 
 // 預先設定好各類API的prehandle
-apiPrehandler.initApiPrehandler(config.apiFolder);
-
 apiMockserver.run(app, config.apiFolder);
 
 

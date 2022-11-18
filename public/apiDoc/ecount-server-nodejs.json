@@ -1,0 +1,9 @@
+{
+	"swagger": "2.0",
+	"host": "localhost:8008",
+	"info": {
+		"description": "",
+		"version": "1.0.0",
+		"title": "ECount串接伺服器"
+	}
+}

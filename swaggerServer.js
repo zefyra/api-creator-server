@@ -91,6 +91,17 @@ class SwaggerServer {
         app.use(route, swaggerUi.serve, (...args) => swaggerUi.setup(swaggerDocument)(...args));
         // ==> 'http://localhost:9000/api-docs/'
 
+        // OpenAPI UI
+        // app.use(
+        //     "/api-documentation",
+        //     swaggerUi.serve,
+        //     swaggerUi.setup(null, {
+        //         swaggerOptions: {
+        //             url: "http://localhost:3030/api-docs",
+        //         },
+        //     })
+        // );
+
 
         // https://stackoverflow.com/questions/55273857/swagger-ui-express-multiple-routes-for-different-api-documentation
         // let swaggerDocEdi = require('./edi-openapi.json');

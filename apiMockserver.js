@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 
-const apiPrehandler = require('./apiPrehandler.js');
 const ApiLoader = require('./ApiLoader.js');
 // Mock Server--------------------------------------------------------
 
