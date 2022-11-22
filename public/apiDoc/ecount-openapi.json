@@ -1,0 +1,563 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "https://sboapi.ecount.com/OAPI/V2"
+        }
+    ],
+    "info": {
+        "description": "Daily call Ecount, send total of date by store_id",
+        "version": "1.0.0",
+        "title": "QorePlusEcount"
+    },
+    "tags": [
+        {
+            "name": "login",
+            "description": "login",
+            "externalDocs": {
+                "description": "ApiDoc",
+                "url": "https://sboapi.ecount.com/ECERP/OAPI/OAPIView?lan_type=zh-TW#"
+            }
+        },
+        {
+            "name": "InvoiceAuto",
+            "description": "InvoiceAuto"
+        }
+    ],
+    "paths": {
+        "/Zone": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "1-1.Get Zone Info",
+                "description": "",
+                "operationId": "getZoneInfo",
+                "responses": {
+                    "200": {
+                        "description": "successful get zone info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ApiResponse"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "Data": {
+                                                    "$ref": "#/components/schemas/ZoneInfo"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "error"
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Zone"
+                },
+                "parameters": []
+            }
+        },
+        "/OAPILogin": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "1-1.Get Zone Info",
+                "description": "",
+                "operationId": "getLoginInfo",
+                "responses": {
+                    "200": {
+                        "description": "successful get zone info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ApiResponse"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "Data": {
+                                                    "$ref": "#/components/schemas/LoginInfo"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "error"
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Login"
+                },
+                "parameters": []
+            }
+        },
+        "/InvoiceAuto/SaveInvoiceAuto": {
+            "post": {
+                "tags": [
+                    "InvoiceAuto"
+                ],
+                "summary": "2-1.SaveInvoiceAuto",
+                "description": "",
+                "operationId": "saveInvoiceAuto",
+                "responses": {
+                    "200": {
+                        "description": "successful get zone info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ApiResponse"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "Data": {
+                                                    "$ref": "#/components/schemas/LoginInfo"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "error"
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/InvoiceAutoList"
+                },
+                "parameters": [
+                    {
+                        "name": "SESSION_ID",
+                        "in": "query",
+                        "description": "SESSION_ID in Login",
+                        "required": true,
+                        "explode": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "3930373432327c54484f4d4153:IA-APYlviogK5Sru"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Ecount API",
+        "url": "https://sboapi.ecount.com/ECERP/OAPI/OAPIView?lan_type=zh-TW#"
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "Status": {
+                        "type": "string",
+                        "default": "200"
+                    },
+                    "Errors": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "Error": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "Timestamp": {
+                        "type": "string",
+                        "default": "2022-11-17 12:38:06.242"
+                    },
+                    "RequestKey": {
+                        "type": "string"
+                    },
+                    "IsEnableNoL4": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "RefreshTimestamp": {
+                        "type": "string",
+                        "default": "0"
+                    },
+                    "AsyncActionKey": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "Data": {
+                        "type": "object",
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "description": "Order Status",
+                                "enum": [
+                                    "placed",
+                                    "approved",
+                                    "delivered"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "ZoneInfo": {
+                "type": "object",
+                "properties": {
+                    "EXPIRE_DATE": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "COM_CODE": {
+                        "type": "string",
+                        "default": "907422"
+                    },
+                    "DOMAIN": {
+                        "type": "string",
+                        "default": ".ecount.com"
+                    },
+                    "STATUS": {
+                        "type": "string",
+                        "default": "E"
+                    },
+                    "ZONE": {
+                        "type": "string",
+                        "default": "IA",
+                        "description": "zone param will use in login"
+                    },
+                    "CS_COM_CODE": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "ACCESS_ALL": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "APP_DT_FROM": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "APP_DT_TO": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "MSG": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "DB_CON_FLAG": {
+                        "type": "string",
+                        "default": "51"
+                    },
+                    "EMPTY_ZONE": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "SIP": {
+                        "type": "string",
+                        "default": "5a465144410b16030404020a1f5e"
+                    }
+                }
+            },
+            "LoginInfo": {
+                "type": "object",
+                "properties": {
+                    "EXPIRE_DATE": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "NOTICE": {
+                        "type": "string",
+                        "default": "907422"
+                    },
+                    "Code": {
+                        "type": "string",
+                        "default": ".ecount.com"
+                    },
+                    "Message": {
+                        "type": "string",
+                        "default": "E"
+                    },
+                    "FailCount": {
+                        "type": "string",
+                        "default": "IA",
+                        "description": "zone param will use in login"
+                    },
+                    "RedirectUrl": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "LoginErrcountResult": {
+                        "type": "string",
+                        "default": null
+                    },
+                    "Datas": {
+                        "type": "object",
+                        "properties": {
+                            "SESSION_ID": {
+                                "type": "string",
+                                "default": "3930373432327c54484f4d4153:IA-APYlviogK5Sru",
+                                "description": "SESSION_ID will be security param of other authed api"
+                            },
+                            "HOST_URL": {
+                                "type": "string",
+                                "default": "sboapiia.ecount.com"
+                            },
+                            "COM_CODE": {
+                                "type": "string",
+                                "default": "907422"
+                            },
+                            "USER_ID": {
+                                "type": "string",
+                                "default": "THOMAS"
+                            }
+                        }
+                    }
+                }
+            },
+            "Invoice": {
+                "type": "object",
+                "properties": {
+                    "Line": {
+                        "type": "string",
+                        "default": "2",
+                        "description": "流水號: API 傳送時，每筆資料隨機賦予的序號"
+                    },
+                    "BulkDatas": {
+                        "type": "object",
+                        "properties": {
+                            "TRX_DATE": {
+                                "type": "string",
+                                "default": "20221117",
+                                "description": "$憑證日期(交易日期) :未輸入時預設為今日 \"20181113\""
+                            },
+                            "ACCT_DOC_NO": {
+                                "type": "string",
+                                "default": "20221117-001",
+                                "description": "$會計憑證號碼 系統設定 > 自主設定 > 功能設定 > 會計 > 會計憑證號碼"
+                            },
+                            "TAX_GUBUN": {
+                                "type": "string",
+                                "default": "71",
+                                "description": "$營業稅類型(銷售/採購類型)  #[系統設定 > 自主設定 > 功能設定 > 共同 > 會計-銷售營業稅(採購營業稅)中的營業稅類型編碼]"
+                            },
+                            "S_NO": {
+                                "type": "string",
+                                "default": "",
+                                "description": "X輸入信用卡或是認證號碼"
+                            },
+                            "CUST": {
+                                "type": "string",
+                                "default": "10001",
+                                "description": "$客戶/供應商: #[進銷存 > 基本資料 > 客戶/供應商]"
+                            },
+                            "CUST_DES": {
+                                "type": "string",
+                                "default": "ECOUNT",
+                                "description": "$客戶/供應商名稱"
+                            },
+                            "CR_CODE": {
+                                "type": "string",
+                                "default": "4117",
+                                "description": "$銷售會計科目編碼  銷售: 輸入銷售科目編碼 例) 4117(勞務收入) #[會計 > 基本資料 > 會計科目]"
+                            },
+                            "DR_CODE": {
+                                "type": "string",
+                                "default": "",
+                                "description": "採購科目編碼 採購: 輸入採購科目編碼 例) 1221(商品存貨)"
+                            },
+                            "SUPPLY_AMT": {
+                                "type": "string",
+                                "default": "60000",
+                                "description": "稅前價格"
+                            },
+                            "VAT_AMT": {
+                                "type": "string",
+                                "default": "6000",
+                                "description": "營業稅"
+                            },
+                            "ACCT_NO": {
+                                "type": "string",
+                                "default": "",
+                                "description": "收款類型: (應付憑證II) 收款帳戶編碼 / (應收憑證II) 輸入付款帳戶編碼的編碼或是名稱。"
+                            },
+                            "REMARKS_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "摘要編碼"
+                            },
+                            "REMARKS": {
+                                "type": "string",
+                                "default": "",
+                                "description": "摘要"
+                            },
+                            "SITE_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "部門編碼"
+                            },
+                            "PJT_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "專案"
+                            },
+                            "ITEM1_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位1(編碼型)"
+                            },
+                            "ITEM2_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位2(編碼型)"
+                            },
+                            "ITEM3_CD": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位3(編碼型)"
+                            },
+                            "ITEM4": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位4(文字型)"
+                            },
+                            "ITEM5": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位5(文字型)"
+                            },
+                            "ITEM6": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位6(文字型)"
+                            },
+                            "ITEM7": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位7(文字型)"
+                            },
+                            "ITEM8": {
+                                "type": "string",
+                                "default": "",
+                                "description": "自訂欄位8(文字型)"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "Zone": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "COM_CODE"
+                            ],
+                            "properties": {
+                                "COM_CODE": {
+                                    "type": "string",
+                                    "example": "100023"
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Zone Param",
+                "required": true
+            },
+            "Login": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "COM_CODE",
+                                "USER_ID",
+                                "API_CERT_KEY",
+                                "LAN_TYPE",
+                                "ZONE"
+                            ],
+                            "properties": {
+                                "COM_CODE": {
+                                    "type": "string",
+                                    "example": "100023",
+                                    "description": "USER COM_CODE input"
+                                },
+                                "USER_ID": {
+                                    "type": "string",
+                                    "example": "Thomas",
+                                    "description": "USER USER_ID input"
+                                },
+                                "API_CERT_KEY": {
+                                    "type": "string",
+                                    "example": "xxxxxxxxxxxxxxxxxxx",
+                                    "description": "USER API_CERT_KEY input"
+                                },
+                                "LAN_TYPE": {
+                                    "type": "string",
+                                    "example": "zh-TW",
+                                    "description": "USER LAN_TYPE input"
+                                },
+                                "ZONE": {
+                                    "type": "string",
+                                    "example": "IA",
+                                    "description": "USER ZONE input"
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Zone Param",
+                "required": true
+            },
+            "InvoiceAutoList": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "InvoiceAutoList"
+                            ],
+                            "properties": {
+                                "InvoiceAutoList": {
+                                    "type": "array",
+                                    "description": "InvoiceAuto Param List",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Invoice"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "SaveInvoiceAuto Param",
+                "required": true
+            }
+        },
+        "securitySchemes": {},
+        "links": {},
+        "callbacks": {}
+    },
+    "security": []
+}

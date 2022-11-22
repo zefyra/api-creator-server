@@ -48,11 +48,11 @@ class SchemaManage {
     }
     static async autoLoadSchema() {
         // 只篩出.gql檔
-        const gqlFileFileter = function (fileName) {
+        const gqlFileFilter = function (fileName) {
             return /\.gql$/i.test(fileName);
         }
 
-        const fileInfoList = await new PathLoader(path.join(__dirname, './schema'), gqlFileFileter).load();
+        const fileInfoList = await new PathLoader(path.join(__dirname, './schema'), gqlFileFilter).load();
 
         // console.log('fileInfoList', fileInfoList)
 

@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const gql = require('graphql-tag');
 
-const PathLoader = require('../utils/pathLoader');
+// const PathLoader = require('../utils/pathLoader');
 
 const GraphTypeDef = require('./graphTypeDef');
 

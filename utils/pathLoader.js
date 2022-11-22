@@ -18,6 +18,7 @@ module.exports = class PathLoader {
     folderPath = null;
     filter = null;
     fileInfoList = null;
+    readFileFunc = null;
     constructor(folderPath, filter) {
         this.folderPath = folderPath;
         if (filter) {
@@ -80,6 +81,10 @@ module.exports = class PathLoader {
         return this.fileInfoList;
     }
 
+    setFileLoader(func) {
+        this.readFileFunc = func;
+    }
+
     async loadEachFile(func) {
         const fileInfoList = this.fileInfoList;
         if (!fileInfoList) {
@@ -92,7 +97,8 @@ module.exports = class PathLoader {
             console.error(err)
         };
 
-        const readFile = function (fileInfo) {
+        // 預設讀取檔案的函式
+        let readFile = function (fileInfo) {
             return new Promise((resolve, reject) => {
                 fs.readFile(fileInfo.path, 'utf8', function (err, data) {
                     // if (err) throw err;
@@ -102,6 +108,9 @@ module.exports = class PathLoader {
                     resolve(data);
                 });
             });
+        }
+        if (this.readFileFunc) { // 代表有設定讀取檔案的
+            readFile = this.readFileFunc;
         }
 
         // 載入所有.gql檔案的字串
