@@ -17,28 +17,20 @@ const SwaggerManage = require('../swaggerManage/swaggerManage');
 
 const checkRequired = require('../utils/checkRequired');
 const fileHelper = require('../utils/fileHelper');
+const PrehandleBuilder = require('../utils/PrehandleBuilder');
 
 // 生成一個基本的swagger格式
 const apiData = {
     apiType: 'post',
     reactType: 'json', // raw
-    apiRoute: '/api/genSwagger', // 指定API路由
-    preRequestScript: async function () {
-
-    },
+    apiRoute: '/api/doc/createJson', // 指定API路由
+    prehandle: new PrehandleBuilder().checkRequired({
+        title: true,
+        host: true,
+        fileName: true,
+        docType: true,
+    }),
     handle: async function (req, res) {
-        // const gSchema = new GraphSchema(GraphType.SYSTEM_FRIEND_LIST);
-        // console.log('gSchema', gSchema);
-
-        // const gSwagObj = new GraphSwagger(gSchema);
-        // const swagJson = gSwagObj.convertSwaggerJson();
-
-        const errList = checkRequired(req.body, ['title', 'host', 'fileName']);
-        if (errList.length !== 0) {
-            return res.refuse("fail", errList);
-        }
-        // const swagMngObj = new SwaggerManage();
-
         // host: 'localhost:8020' <--沒有http
         const swagObj = SwaggerManage.createSwagger(req.body);
 

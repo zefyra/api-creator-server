@@ -9,6 +9,7 @@ const PathLoader = require('../utils/pathLoader');
 
 let apiDocInfoList = null;
 /* [{
+    type   // (docType)
     fileName,
     path
 }] */
@@ -17,10 +18,12 @@ let apiDocInfoList = null;
 class SwaggerManage {
     swagObj = null; // swagger json轉成的物件
     filePath = '';
-    constructor(swagObj, filePath) {
+    constructor(swagObj, filePath, docType) {
         this.swagObj = swagObj;
 
         this.filePath = filePath; // 用來存檔用的
+
+        this.docType = docType;
     }
 
     getObj() {
@@ -50,6 +53,8 @@ class SwaggerManage {
         if (!this.swagObj.tags) {
             this.swagObj.tags = [];
         }
+
+        // if( this.)
 
         this.swagObj.tags.push({
             "name": name,
@@ -99,17 +104,28 @@ class SwaggerManage {
             return Promise.reject(`apiHasExist`);
         }
 
-        this.swagObj.paths[apiRoute][apiType] = {
-            "produces": [
-                "application/json"
-            ],
-            "tags": tags,
-            // "tags": [
-            //     ""
-            // ],
-            "summary": summary, // API名稱
-            "parameters": [], // 參數 (body或是path param)
-            "responses": {}, // '200' 是成功、'500' 是 error
+        if (this.docType === 'swagger2') {
+            this.swagObj.paths[apiRoute][apiType] = {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": tags,
+                // "tags": [
+                //     ""
+                // ],
+                "summary": summary, // API名稱
+                "parameters": [], // 參數 (body或是path param)
+                "responses": {}, // '200' 是成功、'500' 是 error
+            }
+        } else if (this.docType === 'openapi3') {
+            this.swagObj.paths[apiRoute][apiType] = {
+                "tags": tags,
+                "summary": summary, // API名稱
+                "parameters": [], // 參數 (body或是path param)
+                "responses": {}, // '200' 是成功、'500' 是 error
+            }
+        } else {
+            return Promise.reject('docType unknown');
         }
 
         return Promise.resolve();
@@ -292,10 +308,29 @@ class SwaggerManage {
             return Promise.reject(err);
         }
 
-        apiObj.responses[resType] = {
-            "description": description, // "OK"
-            "schema": swagSchemaObj,
+
+        if (this.docType === 'swagger2') {
+            apiObj.responses[resType] = {
+                "description": description, // "OK"
+                "schema": swagSchemaObj,
+            }
+        } else if (this.docType === 'openapi3') {
+            apiObj.responses[resType] = {
+                "description": description, // "OK"
+                "content": {
+                    "application/json": {
+                        "schema": swagSchemaObj,
+                    }
+                }
+            }
+        } else {
+            return Promise.reject('docType unknown');
         }
+
+        // apiObj.responses[resType] = {
+        //     "description": description, // "OK"
+        //     "schema": swagSchemaObj,
+        // }
         return Promise.resolve(this.swagObj);
     }
 
@@ -342,13 +377,27 @@ class SwaggerManage {
         } catch (err) {
             return Promise.reject(err);
         }
-        apiObj.parameters.push({
-            "description": "Payload",
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "schema": swagSchemaObj,
-        });
+
+
+        if (this.docType === 'swagger2') {
+            apiObj.parameters.push({
+                "description": "Payload",
+                "name": "Body",
+                "in": "body",
+                "required": true,
+                "schema": swagSchemaObj,
+            });
+        } else if (this.docType === 'openapi3') {
+            apiObj.requestBody = {
+                content: {
+                    "application/json": {
+                        "schema": swagSchemaObj,
+                    }
+                }
+            }
+        } else {
+            return Promise.reject('docType unknown');
+        }
 
         return Promise.resolve(this.swagObj);
     }
@@ -521,6 +570,15 @@ class SwaggerManage {
         return path.join(__dirname, `../public/apiDoc/${fileName}.json`);
     }
 
+    static getDocInfo(fileName) {
+        if (!apiDocInfoList) {
+            return null;
+        }
+        return apiDocInfoList.find((docInfo) => {
+            return docInfo.fileName === fileName;
+        });
+    }
+
     static initByFileName(fileName) {
         // not required: 'description'
         // const fileName = req.body.fileName;
@@ -528,7 +586,14 @@ class SwaggerManage {
         const filePath = SwaggerManage.getFilePath(fileName);
 
         return fileHelper.readJsonFile(filePath).then((swaggerObj) => {
-            return new SwaggerManage(swaggerObj, filePath);
+
+            const docInfo = SwaggerManage.getDocInfo(fileName);
+            if (!docInfo) {
+                return Promise.reject(`initByFileName: docInfo not found`);
+            }
+            const docType = docInfo.type;
+
+            return new SwaggerManage(swaggerObj, filePath, docType);
         });
     }
 
@@ -538,6 +603,49 @@ class SwaggerManage {
         const description = obj.description;
         const version = obj.version;
         const host = obj.host;
+        const docType = obj.docType;
+
+        if (docType === 'openapi3') {
+            let servers = [];
+
+            const url = host; // 不另外開欄位，直接使用host
+            if (url) {
+                servers.push({
+                    url: url,
+                });
+            }
+
+            const openapiJson = {
+                "openapi": "3.0.0",
+                "servers": servers,
+                // "servers": [
+                //     {
+                //         "url": "http://petstore.swagger.io/v2"
+                //     }
+                // ],
+                "info": {
+                    "description": description || "",
+                    "version": version || "1.0.0",
+                    "title": title,
+                }
+                // "info": {
+                //     "description": ":dog: :cat: :rabbit: This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+                //     "version": "1.0.0",
+                //     "title": "Swagger Petstore",
+                //     "termsOfService": "http://swagger.io/terms/",
+                //     "contact": {
+                //         "email": "apiteam@swagger.io"
+                //     },
+                //     "license": {
+                //         "name": "Apache 2.0",
+                //         "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+                //     }
+                // },
+            };
+            return openapiJson;
+        }
+
+        // swagger 2.0---------------------------------
 
         /* {
             "swagger": "2.0",

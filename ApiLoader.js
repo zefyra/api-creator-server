@@ -193,31 +193,17 @@ module.exports = class ApiLoader {
     }
 
 
-    async apiHeaderPrehandle(req, res) {
+    async apiPrehandle(req, res) {
         const apiObj = this.apiObj;
+        if (apiObj.prehandle) { // 代表有需要預處理
+            // apiObj.prehandle: <PrehandleBuilder>
 
-        /* // 目前不支援prehandle
-        if (apiObj.prehandleList) {
-            // 代表有需要前置處理
-            for (let i = 0; i < apiObj.prehandleList.length; i += 1) {
-
-                if (typeof apiObj.prehandleList[i] === 'function') {
-                    await apiObj.prehandleList[i].apply(apiObj, [req, res]);
-                }
-            }
-
-            // 代表該API有設定preRequestScript
-            if (apiObj.preRequestScript) {
-                await apiObj.preRequestScript.apply(apiObj, [req, res]);
-            }
-
-            return Promise.resolve();
-        } */
+            return apiObj.prehandle.run(req, res);
+        }
 
         // 沒有額外處理
         return Promise.resolve();
     }
-
 
     // 目前不支援
     async handleApiMiddleware(req) {
@@ -244,7 +230,7 @@ module.exports = class ApiLoader {
         this.installReact(req, res);
 
         // prehandleList--------------------------------
-        return this.apiHeaderPrehandle(req, res).then(() => {
+        return this.apiPrehandle(req, res).then(() => {
 
             // Middleware--------------------------------
             if (!vm.middleware) {

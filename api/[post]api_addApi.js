@@ -1,33 +1,26 @@
-// const fs = require('fs');
-// const path = require('path');
-
 const SwaggerManage = require("../swaggerManage/swaggerManage");
 
-// const GraphType = require('../graphQuery/graphType');
-
-// // const GraphValidate = require('../graphQuery/graphValidate.js');
-// const GraphSchema = require('../graphQuery/graphSchema');
-// const GraphSwagger = require('../graphQuery/graphSwagger');
-
-// const SwaggerManage = require('../swaggerManage/swaggerManage');
-
 const checkRequired = require('../utils/checkRequired');
-// const fileHelper = require('../utils/fileHelper');
+const PrehandleBuilder = require("../utils/PrehandleBuilder");
 
 // 生成gql檔
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/addApi', // 指定API路由
-    preRequestScript: async function () {
-
-    },
+    apiRoute: '/api/api/addApi', // 指定API路由
+    prehandle: new PrehandleBuilder().checkRequired({
+        fileName: true,
+        apiRoute: true,
+        apiType: true,
+        tags: true,
+        summary: true,
+    }),
     handle: async function (req, res) {
-        const errList = checkRequired(req.body,
-            ['fileName', 'apiRoute', 'apiType', 'tags', 'summary']);
-        if (errList.length !== 0) {
-            return res.refuse("fail", errList);
-        }
+        // const errList = checkRequired(req.body,
+        //     ['fileName', 'apiRoute', 'apiType', 'tags', 'summary']);
+        // if (errList.length !== 0) {
+        //     return res.refuse("fail", errList);
+        // }
         const fileName = req.body.fileName;
 
         let isErr = false;
