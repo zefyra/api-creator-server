@@ -7,7 +7,7 @@ const PrehandleBuilder = require("../utils/PrehandleBuilder");
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/api/loadApiSetting', // 指定API路由
+    apiRoute: '/api/api/setApiSetting', // 指定API路由
     prehandle: new PrehandleBuilder().checkRequired({
         fileName: true,
         apiRoute: true,

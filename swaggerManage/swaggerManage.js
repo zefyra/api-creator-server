@@ -164,17 +164,53 @@ class SwaggerManage {
             return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
         }
 
-        if (!this.swagObj.paths[apiRoute][apiType].security) {
-            this.swagObj.paths[apiRoute][apiType].security = [];
-        }
-        this.swagObj.paths[apiRoute][apiType].security.push({
+        // 直接取代舊的(目前不做多選，只能單選securityKey)
+        this.swagObj.paths[apiRoute][apiType].security = [{
             [securityKey]: [],
-        });
+        }];
+
+        // if (!this.swagObj.paths[apiRoute][apiType].security) {
+        //     this.swagObj.paths[apiRoute][apiType].security = [];
+        // }
+        // this.swagObj.paths[apiRoute][apiType].security.push({
+        //     [securityKey]: [],
+        // });
         /* 	"security": [{
             "Token": []
         }], */
 
         return;
+    }
+
+    async getDocSecurity() {
+
+        if (!this.swagObj.components) {
+            return [];
+        }
+        if (!this.swagObj.components.securitySchemes) {
+            return [];
+        }
+        /* "components": {
+            "securitySchemes": {
+                "Token": {
+                    "type": "apiKey",
+                    "name": "authorization",
+                    "in": "header",
+                    "description": "login取得的token"
+                }
+            }
+        } */
+        const securitySchemes = this.swagObj.components.securitySchemes;
+
+        const securityList = Object.keys(securitySchemes).map((securityKey) => {
+            let obj = securitySchemes[securityKey];
+            obj = {
+                ...obj,
+                securityKey,
+            };
+            return obj;
+        });
+        return securityList;
     }
 
     listApi(tag) {
