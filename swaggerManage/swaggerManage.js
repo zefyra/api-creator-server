@@ -131,6 +131,52 @@ class SwaggerManage {
         return Promise.resolve();
     }
 
+    async loadApiSecurity(apiRoute, apiType) {
+        // console.log('this.swagObj', this.swagObj);
+
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject('swagObj.paths not exist');
+        }
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+        }
+
+        return this.swagObj.paths[apiRoute][apiType].security || [];
+    }
+
+    async setApiSecurity(apiRoute, apiType, securityKey) {
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject('swagObj.paths not exist');
+        }
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+        }
+
+        if (!this.swagObj.paths[apiRoute][apiType].security) {
+            this.swagObj.paths[apiRoute][apiType].security = [];
+        }
+        this.swagObj.paths[apiRoute][apiType].security.push({
+            [securityKey]: [],
+        });
+        /* 	"security": [{
+            "Token": []
+        }], */
+
+        return;
+    }
+
     listApi(tag) {
         if (!this.swagObj.paths) {
             return Promise.resolve([]);
@@ -831,6 +877,38 @@ class SwaggerManage {
         return Promise.resolve();
     }
 
+    addSecurity({ securityKey, key, type, dataIn, description }) {
+        const swagObj = this.swagObj;
+        /* 在json內加入以下內容
+            "components": {
+                "securitySchemes": {
+                    "Token": {
+                        "type": "apiKey",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "The authorization token for the API."
+                    }
+                }
+            },
+        */
+
+        if (!swagObj.components) {
+            swagObj.components = {};
+        }
+        if (!swagObj.components.securitySchemes) {
+            swagObj.components.securitySchemes = {};
+        }
+
+        swagObj.components.securitySchemes[securityKey] = {
+            "type": type, // "apiKey",
+            "name": key, // "authorization",
+            "in": dataIn, // "header",
+            "description": description, // "The authorization token for the API."
+        }
+
+        return Promise.resolve();
+    }
+
 
     editAttr(queryObj, attrData) {
         // const queryObj = {
@@ -869,11 +947,24 @@ class SwaggerManage {
             if (!apiObj.parameters) {
                 return Promise.reject(`editAttr: no parameters`);
             }
-            const bodyParameter = apiObj.parameters.find(paramObj => paramObj.in === 'body');
-            if (!bodyParameter) {
-                return Promise.reject(`editAttr: bodyParameter not found`);
+            let bodyParameter;
+            if (this.docType === 'swagger2') {
+                bodyParameter = apiObj.parameters.find(paramObj => paramObj.in === 'body');
+                if (!bodyParameter) {
+                    return Promise.reject(`editAttr: bodyParameter not found`);
+                }
+                schema = bodyParameter.schema;
+            } else if (this.docType === 'openapi3') {
+                try {
+                    schema = apiObj.requestBody.content["application/json"].schema;
+                } catch (error) {
+                    return Promise.reject(error);
+                }
+            } else {
+                return Promise.reject('editAttr: docType unknown on get bodyParameter');
             }
-            schema = bodyParameter.schema;
+            // const bodyParameter = apiObj.parameters.find(paramObj => paramObj.in === 'body');
+            // schema = bodyParameter.schema;
         } else if (srcType === AttrSrc.resBody) {
             if (!apiObj.responses) {
                 return Promise.reject(`editAttr: no responses`);
@@ -885,7 +976,13 @@ class SwaggerManage {
             if (!apiObj.responses[statusCode]) {
                 return Promise.reject(`editAttr: responses statusCode ${statusCode} not found`);
             }
-            schema = apiObj.responses[statusCode].schema;
+            if (this.docType === 'swagger2') {
+                schema = apiObj.responses[statusCode].schema;
+            } else if (this.docType === 'openapi3') {
+                schema = apiObj.responses[statusCode].content["application/json"].schema;
+            } else {
+                return Promise.reject('editAttr: docType unknown');
+            }
         }
         if (!schema) {
             return Promise.reject(`editAttr: schema not exist`);

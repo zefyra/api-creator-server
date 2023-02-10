@@ -1,0 +1,718 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"description": "",
+		"version": "1.0.0",
+		"title": "qore-console"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8012/backend"
+		}
+	],
+	"tags": [
+		{
+			"name": "account",
+			"description": "account",
+			"groupName": "account"
+		},
+		{
+			"name": "qore/account",
+			"description": "qore/account",
+			"groupName": "qore/account"
+		}
+	],
+	"paths": {
+		"/qore/account": {
+			"get": {
+				"tags": [
+					"qore/account"
+				],
+				"summary": "[6001]qore+帳號_取得(/qore/account)",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數(從1開始)"
+					},
+					{
+						"type": "string",
+						"name": "pageSize",
+						"in": "query",
+						"default": "10",
+						"description": "頁寬度"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "錯誤代碼",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"account": {
+																"type": "string",
+																"description": "",
+																"default": "justkitchen"
+															},
+															"password": {
+																"type": "string",
+																"description": "",
+																"default": "1qaz2wsx"
+															},
+															"pickup_no_prefix": {
+																"type": "string",
+																"description": "取餐號開頭(2~3碼)",
+																"default": "HK"
+															},
+															"enable": {
+																"type": "string",
+																"description": "1: true, 0: false",
+																"default": "1"
+															},
+															"auth": {
+																"type": "string",
+																"description": "權限等級",
+																"default": "1"
+															},
+															"vendor_id": {
+																"type": "string",
+																"description": "商家ID",
+																"default": "JUSTKITCHEN"
+															},
+															"token": {
+																"type": "string",
+																"description": "登入crm用的token",
+																"default": "f6aea4337b414bc1ab5c29e36c3ec5b9"
+															},
+															"token_date": {
+																"type": "string",
+																"description": "登入crm用的",
+																"default": "2099-12-31T09:35:05.000Z"
+															},
+															"created_at": {
+																"type": "string",
+																"description": "建立時間",
+																"default": "2021-03-12T10:22:52.000Z"
+															},
+															"updated_at": {
+																"type": "string",
+																"description": "更新時間",
+																"default": "2021-03-12T10:22:52.000Z"
+															}
+														},
+														"required": [
+															"id",
+															"account",
+															"password",
+															"pickup_no_prefix",
+															"enable",
+															"auth",
+															"vendor_id",
+															"token",
+															"token_date",
+															"created_at",
+															"updated_at"
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "資料總筆數",
+													"default": 37
+												}
+											},
+											"required": [
+												"list",
+												"rowsNum"
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "訊息字串",
+											"default": "ok"
+										}
+									},
+									"required": [
+										"code",
+										"data",
+										"msg"
+									]
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"qore/account"
+				],
+				"summary": "[6005]qore+帳號_修改(/qore/account)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"status": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"result": {
+															"type": "string",
+															"description": "",
+															"default": "修改成功"
+														},
+														"message": {
+															"type": "object",
+															"properties": {
+																"tokenAuth": {
+																	"type": "string",
+																	"description": "",
+																	"default": "呼叫成功"
+																}
+															},
+															"required": [
+																
+															]
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer",
+										"description": "account表單id",
+										"default": 52
+									},
+									"password": {
+										"type": "string",
+										"description": "",
+										"default": "qwer1234"
+									},
+									"enable": {
+										"type": "string",
+										"description": "",
+										"default": "1"
+									}
+								},
+								"required": [
+									"id"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/account/login": {
+			"post": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1001]登入(/account/login)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"token": {
+													"type": "string",
+													"description": "",
+													"default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc2MDA2NTY4LCJleHAiOjE2NzYwOTI5Njh9.bVKXtZcStmLR6KtR0OGn6Zc7kkG8e2cdE851Y_OFCxc"
+												},
+												"role": {
+													"type": "string",
+													"description": "",
+													"default": "admin"
+												},
+												"account": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"description": "",
+															"default": 2
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												"account"
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										"data"
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"account": {
+										"type": "string",
+										"description": "帳號",
+										"default": "thomaswang@reas.com.tw"
+									},
+									"password": {
+										"type": "string",
+										"description": "密碼",
+										"default": "123456"
+									}
+								},
+								"required": [
+									"account",
+									"password"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/account/profile": {
+			"get": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1003]個人後台帳號資料_取得(/account/profile)",
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				],
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": ""
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer",
+													"description": "",
+													"default": 2
+												},
+												"account": {
+													"type": "string",
+													"description": "",
+													"default": "thomaswang@reas.com.tw"
+												},
+												"email": {
+													"type": "string",
+													"description": "",
+													"default": "thomaswang@reas.com.tw"
+												},
+												"name": {
+													"type": "string",
+													"description": "",
+													"default": "Thomas"
+												},
+												"enabled": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"last_login_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-02-02T06:51:16.000Z"
+												},
+												"activated": {
+													"type": "boolean",
+													"description": "",
+													"default": false
+												},
+												"created_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-02-02T06:51:16.000Z"
+												},
+												"updated_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-02-02T06:51:16.000Z"
+												},
+												"role_id": {
+													"type": "integer",
+													"description": "",
+													"default": 1
+												},
+												"role_key": {
+													"type": "string",
+													"description": "",
+													"default": "admin"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1004]個人後台帳號資料_修改(/account/profile)",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"description": ""
+									},
+									"password": {
+										"type": "string",
+										"description": ""
+									}
+								},
+								"required": [
+									
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/account": {
+			"post": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1011]帳號資料_新增",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"account": {
+										"type": "string",
+										"description": ""
+									},
+									"password": {
+										"type": "string",
+										"description": ""
+									},
+									"name": {
+										"type": "string",
+										"description": ""
+									}
+								},
+								"required": [
+									"account",
+									"password",
+									"name"
+								]
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1012]帳號資料_取得",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "id",
+						"in": "query",
+						"default": "2",
+						"description": "account_id"
+					}
+				],
+				"responses": {
+					
+				}
+			},
+			"patch": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1013]帳號資料_修改",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer",
+										"description": "account_id",
+										"default": 2
+									},
+									"name": {
+										"type": "string",
+										"description": "帳號名稱",
+										"default": "Thomas"
+									},
+									"password": {
+										"type": "string",
+										"description": "密碼",
+										"default": "123456"
+									},
+									"email": {
+										"type": "string",
+										"description": "",
+										"default": "aaaa@bbb.ccc"
+									},
+									"enabled": {
+										"type": "boolean",
+										"description": "帳號可用",
+										"default": true
+									},
+									"activated": {
+										"type": "boolean",
+										"description": "帳號已激活",
+										"default": true
+									}
+								},
+								"required": [
+									"id"
+								]
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1014]帳號資料_刪除",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/account/role": {
+			"put": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1015]帳號角色_更新",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": ""
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": ""
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": ""
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer",
+										"description": ""
+									},
+									"role": {
+										"type": "string",
+										"description": ""
+									}
+								},
+								"required": [
+									"id",
+									"role"
+								]
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"Token": {
+				"type": "apiKey",
+				"name": "authorization",
+				"in": "header",
+				"description": "login取得的token"
+			}
+		}
+	}
+}
