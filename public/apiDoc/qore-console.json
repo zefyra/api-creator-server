@@ -20,6 +20,16 @@
 			"name": "qore/account",
 			"description": "qore/account",
 			"groupName": "qore/account"
+		},
+		{
+			"name": "qore/auth",
+			"description": "API權限",
+			"groupName": "qore/auth"
+		},
+		{
+			"name": "qore/vendors",
+			"description": "商家",
+			"groupName": "qore/vendors"
 		}
 	],
 	"paths": {
@@ -241,6 +251,23 @@
 									"required": [
 										
 									]
+								},
+								"examples": {
+									"stateChange": {
+										"value": {
+											"code": 0,
+											"data": {
+												"apiRes": {
+													"status": true,
+													"result": "修改成功",
+													"message": {
+														"tokenAuth": "呼叫成功，由 shakuDev 呼叫"
+													}
+												}
+											},
+											"msg": "ok"
+										}
+									}
 								}
 							}
 						}
@@ -271,6 +298,20 @@
 								"required": [
 									"id"
 								]
+							},
+							"examples": {
+								"stateChange": {
+									"value": {
+										"id": 52,
+										"enable": "1"
+									}
+								},
+								"passwordChange": {
+									"value": {
+										"id": 52,
+										"password": "qwer12345"
+									}
+								}
 							}
 						}
 					}
@@ -282,6 +323,105 @@
 						]
 					}
 				]
+			},
+			"post": {
+				"tags": [
+					"qore/account"
+				],
+				"summary": "[6002]qore+帳號_新增(/qore/account)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "string",
+													"description": "",
+													"default": "create success"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"account": {
+										"type": "string",
+										"description": "",
+										"default": "testThomas"
+									},
+									"password": {
+										"type": "string",
+										"description": "",
+										"default": "123456"
+									},
+									"vendorId": {
+										"type": "string",
+										"description": "",
+										"default": "JUSTKITCHEN"
+									},
+									"auth": {
+										"type": "string",
+										"description": "",
+										"default": "1"
+									},
+									"pickupNoPrefix": {
+										"type": "string",
+										"description": "",
+										"default": "HK"
+									}
+								},
+								"required": [
+									"account",
+									"password",
+									"vendorId",
+									"auth",
+									"pickupNoPrefix"
+								]
+							}
+						}
+					}
+				}
 			}
 		},
 		"/account/login": {
@@ -747,6 +887,153 @@
 									"id",
 									"role"
 								]
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			}
+		},
+		"/qore/vendor": {
+			"get": {
+				"tags": [
+					"qore/vendors"
+				],
+				"summary": "[6021]qore+商家_查詢(/qore/vendor)",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": ""
+					},
+					{
+						"type": "string",
+						"name": "pageSize",
+						"in": "query",
+						"default": "10",
+						"description": ""
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"vendor_id": {
+																"type": "string",
+																"description": "",
+																"default": "JUSTKITCHEN"
+															},
+															"crm_id": {
+																"type": "string",
+																"description": "",
+																"default": "echoss"
+															},
+															"vendor_name": {
+																"type": "string",
+																"description": "",
+																"default": "JUST KITCHEN 軒饌廚坊"
+															},
+															"vat_no": {
+																"type": "string",
+																"description": "",
+																"default": "82899761"
+															},
+															"vendor_pic": {
+																"type": "string",
+																"description": "",
+																"default": "FB_IMG_1607101132384.jpg"
+															},
+															"vendor_desc": {
+																"type": "string",
+																"description": "",
+																"default": "Just Kitchen 虛擬廚房"
+															},
+															"vendor_web": {
+																"type": "string",
+																"description": "",
+																"default": "https://www.justkitchen.com/"
+															},
+															"vendor_tel": {
+																"type": "string",
+																"description": "",
+																"default": "02-2658-0808"
+															},
+															"vendor_email": {
+																"type": "string",
+																"description": "",
+																"default": "info@justkitchen.com"
+															},
+															"vendor_addr": {
+																"type": "string",
+																"description": "",
+																"default": "台北市內湖區陽光街 365 巷 39 號 1 樓"
+															},
+															"created_at": {
+																"type": "string",
+																"description": "",
+																"default": "2020-12-26T05:20:00.000Z"
+															},
+															"updated_at": {
+																"type": "string",
+																"description": "",
+																"default": "2022-08-04T17:56:20.000Z"
+															}
+														},
+														"required": [
+															
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 5
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
 							}
 						}
 					}

@@ -104,6 +104,7 @@ class GraphField {
 
         this.fieldKind = fieldObj.type.kind;
 
+        // !== undefined
         if (fieldObj.defaultValue) {
             this.defaultValueKind = fieldObj.defaultValue.kind;
             // 'IntValue', 'StringValue'
@@ -351,7 +352,7 @@ class GraphField {
             "description": "" // 欄位描述
         };
 
-        if (this.defaultValue) { // 代表有預設值
+        if (this.defaultValue != null) { // 代表有預設值
             swagPropertyObj['default'] = this.defaultValue;
         }
 

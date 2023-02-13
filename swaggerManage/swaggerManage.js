@@ -131,9 +131,25 @@ class SwaggerManage {
         return Promise.resolve();
     }
 
-    async loadApiSecurity(apiRoute, apiType) {
-        // console.log('this.swagObj', this.swagObj);
+    // async loadApiSecurity(apiRoute, apiType) {
+    //     // console.log('this.swagObj', this.swagObj);
 
+    //     if (!this.swagObj) {
+    //         return Promise.reject('swagObj not exist');
+    //     }
+    //     if (!this.swagObj.paths) {
+    //         return Promise.reject('swagObj.paths not exist');
+    //     }
+    //     if (!this.swagObj.paths[apiRoute]) {
+    //         return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+    //     }
+    //     if (!this.swagObj.paths[apiRoute][apiType]) {
+    //         return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+    //     }
+
+    //     return this.swagObj.paths[apiRoute][apiType].security || [];
+    // }
+    async loadApiObj(apiRoute, apiType) {
         if (!this.swagObj) {
             return Promise.reject('swagObj not exist');
         }
@@ -146,11 +162,15 @@ class SwaggerManage {
         if (!this.swagObj.paths[apiRoute][apiType]) {
             return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
         }
-
-        return this.swagObj.paths[apiRoute][apiType].security || [];
+        return this.swagObj.paths[apiRoute][apiType];
+        // return this.swagObj.paths[apiRoute][apiType].security || [];
     }
 
     async setApiSecurity(apiRoute, apiType, securityKey) {
+        if (this.docType === 'swagger2') {
+            return Promise.reject('swagger2 not support');
+        }
+
         if (!this.swagObj) {
             return Promise.reject('swagObj not exist');
         }
@@ -168,16 +188,33 @@ class SwaggerManage {
         this.swagObj.paths[apiRoute][apiType].security = [{
             [securityKey]: [],
         }];
-
-        // if (!this.swagObj.paths[apiRoute][apiType].security) {
-        //     this.swagObj.paths[apiRoute][apiType].security = [];
-        // }
-        // this.swagObj.paths[apiRoute][apiType].security.push({
-        //     [securityKey]: [],
-        // });
         /* 	"security": [{
             "Token": []
         }], */
+
+        return;
+    }
+
+    async setApiSummary(apiRoute, apiType, summary) {
+        if (this.docType === 'swagger2') {
+            return Promise.reject('swagger2 not support');
+        }
+
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject('swagObj.paths not exist');
+        }
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+        }
+
+        // 直接取代舊的
+        this.swagObj.paths[apiRoute][apiType].summary = summary;
 
         return;
     }
@@ -943,6 +980,101 @@ class SwaggerManage {
         }
 
         return Promise.resolve();
+    }
+
+    async getExampleList(apiRoute, apiType, mode,) {
+        if (this.docType === 'swagger2') {
+            return Promise.reject('swagger2 not support');
+        }
+
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject('swagObj.paths not exist');
+        }
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+        }
+
+        const apiObj = this.swagObj.paths[apiRoute][apiType];
+
+        let jsonDefObj;
+        try {
+            if (mode === 'reqBody') {
+                jsonDefObj = apiObj.requestBody.content["application/json"];
+            } else if (mode === 'resBody') {
+                jsonDefObj = apiObj.responses["200"].content["application/json"];
+            } else {
+                console.error(`mode not support ${mode}`);
+                return Promise.reject(`mode not support ${mode}`);
+            }
+        } catch (err) {
+            console.error(err);
+            return Promise.reject(`apiObj example field fetch fail`);
+        }
+
+        if (!jsonDefObj.examples) {
+            return [];
+        }
+
+        const exampleList = Object.keys(jsonDefObj.examples).map((name) => {
+            return {
+                name: name,
+                value: jsonDefObj.examples[name].value
+            };
+        });
+
+        return exampleList
+    }
+
+    async addExample(apiRoute, apiType, mode, name, schema) {
+        if (this.docType === 'swagger2') {
+            return Promise.reject('swagger2 not support');
+        }
+
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject('swagObj.paths not exist');
+        }
+        if (!this.swagObj.paths[apiRoute]) {
+            return Promise.reject(`swagObj.paths apiRoute not exist, ${apiRoute}`);
+        }
+        if (!this.swagObj.paths[apiRoute][apiType]) {
+            return Promise.reject(`swagObj.paths[<apiRoute>] apiType not exist, ${apiRoute}, ${apiType}`);
+        }
+
+        const apiObj = this.swagObj.paths[apiRoute][apiType];
+
+        let jsonDefObj;
+        try {
+            if (mode === 'reqBody') {
+                jsonDefObj = apiObj.requestBody.content["application/json"];
+            } else if (mode === 'resBody') {
+                jsonDefObj = apiObj.responses["200"].content["application/json"];
+            } else {
+                console.error(`mode not support ${mode}`);
+                return Promise.reject(`mode not support ${mode}`);
+            }
+        } catch (err) {
+            console.error(err);
+            return Promise.reject(`apiObj example field fetch fail`);
+        }
+
+        if (!jsonDefObj.examples) {
+            jsonDefObj.examples = {};
+        }
+
+        jsonDefObj.examples[name] = {
+            value: schema,
+        };
+
+        return;
     }
 
 

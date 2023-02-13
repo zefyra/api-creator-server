@@ -7,14 +7,18 @@ const PrehandleBuilder = require("../utils/PrehandleBuilder");
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/api/loadApiSetting', // 指定API路由
+    apiRoute: '/api/example/list', // 指定API路由
     prehandle: new PrehandleBuilder().checkRequired({
         fileName: true,
-        apiRoute: true,
         apiType: true,
+        apiRoute: true,
+        mode: true
     }),
     handle: async function (req, res) {
         const fileName = req.body.fileName;
+        const apiType = req.body.apiType;
+        const apiRoute = req.body.apiRoute;
+        const mode = req.body.mode;
 
         let isErr = false;
         const errHandle = (err) => {
@@ -25,25 +29,12 @@ const apiData = {
         let swagMgObj = await SwaggerManage.initByFileName(fileName).catch(errHandle);
         if (isErr) return;
 
-        const apiRoute = req.body.apiRoute;
-        const apiType = req.body.apiType;
-
-        // const securityList = await swagMgObj.loadApiSecurity(apiRoute, apiType).catch(errHandle);
-        const apiObj = await swagMgObj.loadApiObj(apiRoute, apiType).catch(errHandle);
+        const exampleList = await swagMgObj.getExampleList(apiRoute, apiType, mode).catch(errHandle);
         if (isErr) return;
-        /* 	apiObj.security: [{
-            "Token": []
-        }], */
 
         res.react({
-            summary: apiObj.summary,
-            security: apiObj.security,
+            list: exampleList,
         });
-
-        // swagMgObj = await swagMgObj.save().catch(errHandle);
-        // if (isErr) return;
-
-        // res.react(swagMgObj);
     }
 }
 module.exports = apiData;
