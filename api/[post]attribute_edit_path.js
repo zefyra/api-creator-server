@@ -2,22 +2,26 @@
 const SwaggerManage = require('../swaggerManage/swaggerManage');
 
 const checkRequired = require('../utils/checkRequired');
+const PrehandleBuilder = require('../utils/PrehandleBuilder');
 
 // 生成gql檔
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/editAttr', // 指定API路由
-    preRequestScript: async function () {
-
-    },
+    apiRoute: '/api/attribute/edit/path', // 指定API路由
+    prehandle: new PrehandleBuilder().checkRequired({
+        fileName: true,
+        // queryObj----------------------------------
+        apiType: true,
+        apiRoute: true,
+        tags: true,
+        attrName: true,
+        // attrSrc: true,
+        // attrData----------------------------------
+        // layerPath: true, // 不需要判斷層
+        attrData: true,
+    }),
     handle: async function (req, res) {
-        const errList = checkRequired(req.body, ['fileName', 'apiType', 'apiRoute',
-            'tags', 'attrName', 'layerPath', 'attrSrc', 'attrData']);
-        if (errList.length !== 0) {
-            return res.refuse("fail", errList);
-        }
-
         let isErr;
         const errHandle = (err) => {
             console.error(`err`, err);
@@ -34,11 +38,11 @@ const apiData = {
             apiRoute: req.body.apiRoute,
             tags: req.body.tags,
             attrName: req.body.attrName,
-            layerPath: req.body.layerPath,
-            attrSrc: req.body.attrSrc,
+            // layerPath: req.body.layerPath,
+            // attrSrc: req.body.attrSrc,
         };
 
-        await swagMgObj.editAttr(queryObj, req.body.attrData).catch(errHandle);
+        await swagMgObj.editAttrInPath(queryObj, req.body.attrData).catch(errHandle);
         if (isErr) return;
 
         const swagObj = await swagMgObj.save().catch(errHandle);

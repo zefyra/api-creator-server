@@ -899,6 +899,41 @@ class SwaggerManage {
         }
     }
 
+    addParamInPath(queryObj, paramObj) {
+        /* const paramObj = {
+            name: req.body.name,
+            default: req.body.default,
+            description: req.body.description,
+        }; */
+        if (!this.swagObj.paths) {
+            return Promise.reject(`editQueryParam: no paths`);
+        }
+
+        if (!this.swagObj.paths[queryObj.apiRoute]) {
+            return Promise.reject(`editQueryParam: apiRoute not found`);
+        }
+        if (!this.swagObj.paths[queryObj.apiRoute][queryObj.apiType]) {
+            return Promise.reject(`editQueryParam: apiType not found`);
+        }
+        const apiObj = this.swagObj.paths[queryObj.apiRoute][queryObj.apiType];
+
+        if (!apiObj.parameters) {
+            apiObj.parameters = [];
+        }
+
+        apiObj.parameters.push({
+            "name": paramObj.name,
+            "in": "path",
+            "description": paramObj.description,
+            "required": true, // 目前固定是 true
+            "schema": {
+                "type": "string" // 目前固定是string
+            },
+            "default": paramObj.default,
+        });
+
+        return Promise.resolve();
+    }
 
     editQueryParam(queryObj, attrData) {
         if (!this.swagObj.paths) {
@@ -1007,6 +1042,11 @@ class SwaggerManage {
             if (mode === 'reqBody') {
                 jsonDefObj = apiObj.requestBody.content["application/json"];
             } else if (mode === 'resBody') {
+                if (!apiObj.responses["200"]) {
+                    console.error(`response 200 not exist`);
+                    return Promise.reject(`response 200 not exist`);
+                }
+
                 jsonDefObj = apiObj.responses["200"].content["application/json"];
             } else {
                 console.error(`mode not support ${mode}`);
@@ -1075,6 +1115,73 @@ class SwaggerManage {
         };
 
         return;
+    }
+
+
+    editAttrInPath(queryObj, attrData) {
+        /* queryObj = {
+            apiType: req.body.apiType,
+            apiRoute: req.body.apiRoute,
+            tags: req.body.tags,
+            attrName: req.body.attrName,
+        } 
+        attrData = {
+            attrName: null,
+            defaultValue: "1",
+            valueType: null, // 沒用到的欄位
+            description: "aaaaaaa",
+            required: true,
+        }*/
+
+        if (this.docType === 'swagger2') {
+            return Promise.reject('swagger2 not support');
+        }
+        if (!this.swagObj) {
+            return Promise.reject('swagObj not exist');
+        }
+        if (!this.swagObj.paths) {
+            return Promise.reject(`editAttrInPath: no paths`);
+        }
+        if (!this.swagObj.paths[queryObj.apiRoute]) {
+            return Promise.reject(`editAttrInPath: apiRoute not found`, queryObj.apiRoute);
+        }
+        if (!this.swagObj.paths[queryObj.apiRoute][queryObj.apiType]) {
+            return Promise.reject(`editAttrInPath: apiType not found`, queryObj.apiType);
+        }
+        const apiObj = this.swagObj.paths[queryObj.apiRoute][queryObj.apiType];
+
+        if (!apiObj.parameters) {
+            return Promise.reject(`editAttrInPath: apiObj.parameters not exist`);
+        }
+
+        const paramItem = apiObj.parameters.find(item => (item.name === queryObj.attrName))
+        /* paramItem = {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the account to retrieve",
+            "required": true,
+            "default": "1",
+            "schema": {
+                "type": "string"
+            }
+        } */
+        if (!paramItem) {
+            return Promise.reject(`editAttrInPath: paramItem not found, by attrName=`, attrData.attrName);
+        }
+
+        if (attrData.attrName) {
+            paramItem.name = attrData.attrName;
+        }
+        if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
+            paramItem.default = attrData.defaultValue;
+        }
+        if (attrData.description) {
+            paramItem.description = attrData.description;
+        }
+        if (attrData.required !== null) {
+            paramItem.required = attrData.required;
+        }
+        return Promise.resolve();
     }
 
 

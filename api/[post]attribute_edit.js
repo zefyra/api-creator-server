@@ -5,21 +5,18 @@ const checkRequired = require('../utils/checkRequired');
 
 // 生成gql檔
 const apiData = {
-    apiType: 'put',
+    apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/api/editQueryParam', // 指定API路由
+    apiRoute: '/api/attribute/edit', // 指定API路由
     preRequestScript: async function () {
 
     },
     handle: async function (req, res) {
         const errList = checkRequired(req.body, ['fileName', 'apiType', 'apiRoute',
-            'tags', 'attrName', 'attrData']);
-        // 'layerPath', 'attrSrc', 這二個參數不會有
+            'tags', 'attrName', 'layerPath', 'attrSrc', 'attrData']);
         if (errList.length !== 0) {
             return res.refuse("fail", errList);
         }
-
-        console.log('req.body', req.body)
 
         let isErr;
         const errHandle = (err) => {
@@ -37,19 +34,12 @@ const apiData = {
             apiRoute: req.body.apiRoute,
             tags: req.body.tags,
             attrName: req.body.attrName,
-            // layerPath: req.body.layerPath,
-            // attrSrc: req.body.attrSrc,
+            layerPath: req.body.layerPath,
+            attrSrc: req.body.attrSrc,
         };
 
-        console.log('queryObj', queryObj);
-
-        console.log('attrData', req.body.attrData);
-
-        await swagMgObj.editQueryParam(queryObj, req.body.attrData).catch(errHandle);
+        await swagMgObj.editAttr(queryObj, req.body.attrData).catch(errHandle);
         if (isErr) return;
-
-        // await swagMgObj.editAttr(queryObj, req.body.attrData).catch(errHandle);
-        // if (isErr) return;
 
         const swagObj = await swagMgObj.save().catch(errHandle);
         if (isErr) return;

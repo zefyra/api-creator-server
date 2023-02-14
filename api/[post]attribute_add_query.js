@@ -18,7 +18,8 @@ const fileHelper = require('../utils/fileHelper');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/api/addQuery', // 指定API路由
+    // apiRoute: '/api/api/addQuery',
+    apiRoute: '/api/attribute/add/query', // 指定API路由
     preRequestScript: async function () {
 
     },
