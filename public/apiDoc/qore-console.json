@@ -182,148 +182,6 @@
 					}
 				]
 			},
-			"patch": {
-				"tags": [
-					"qore/account"
-				],
-				"summary": "[6005]qore+帳號_修改(/qore/account)",
-				"parameters": [
-					
-				],
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"code": {
-											"type": "integer",
-											"description": "",
-											"default": 0
-										},
-										"data": {
-											"type": "object",
-											"properties": {
-												"apiRes": {
-													"type": "object",
-													"properties": {
-														"status": {
-															"type": "boolean",
-															"description": "",
-															"default": true
-														},
-														"result": {
-															"type": "string",
-															"description": "",
-															"default": "修改成功"
-														},
-														"message": {
-															"type": "object",
-															"properties": {
-																"tokenAuth": {
-																	"type": "string",
-																	"description": "",
-																	"default": "呼叫成功"
-																}
-															},
-															"required": [
-																
-															]
-														}
-													},
-													"required": [
-														
-													]
-												}
-											},
-											"required": [
-												
-											]
-										},
-										"msg": {
-											"type": "string",
-											"description": "",
-											"default": "ok"
-										}
-									},
-									"required": [
-										
-									]
-								},
-								"examples": {
-									"stateChange": {
-										"value": {
-											"code": 0,
-											"data": {
-												"apiRes": {
-													"status": true,
-													"result": "修改成功",
-													"message": {
-														"tokenAuth": "呼叫成功，由 shakuDev 呼叫"
-													}
-												}
-											},
-											"msg": "ok"
-										}
-									}
-								}
-							}
-						}
-					}
-				},
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "integer",
-										"description": "account表單id",
-										"default": 52
-									},
-									"password": {
-										"type": "string",
-										"description": "",
-										"default": "qwer1234"
-									},
-									"enable": {
-										"type": "string",
-										"description": "",
-										"default": "1"
-									}
-								},
-								"required": [
-									"id"
-								]
-							},
-							"examples": {
-								"stateChange": {
-									"value": {
-										"id": 52,
-										"enable": "1"
-									}
-								},
-								"passwordChange": {
-									"value": {
-										"id": 52,
-										"password": "qwer12345"
-									}
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"Token": [
-							
-						]
-					}
-				]
-			},
 			"post": {
 				"tags": [
 					"qore/account"
@@ -332,46 +190,6 @@
 				"parameters": [
 					
 				],
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"code": {
-											"type": "integer",
-											"description": "",
-											"default": 0
-										},
-										"data": {
-											"type": "object",
-											"properties": {
-												"result": {
-													"type": "string",
-													"description": "",
-													"default": "create success"
-												}
-											},
-											"required": [
-												
-											]
-										},
-										"msg": {
-											"type": "string",
-											"description": "",
-											"default": "ok"
-										}
-									},
-									"required": [
-										
-									]
-								}
-							}
-						}
-					}
-				},
 				"security": [
 					{
 						"Token": [
@@ -388,14 +206,14 @@
 									"account": {
 										"type": "string",
 										"description": "",
-										"default": "testThomas"
+										"default": "useThomas"
 									},
 									"password": {
 										"type": "string",
 										"description": "",
-										"default": "123456"
+										"default": "test123456"
 									},
-									"vendorId": {
+									"vendor_id": {
 										"type": "string",
 										"description": "",
 										"default": "JUSTKITCHEN"
@@ -405,19 +223,44 @@
 										"description": "",
 										"default": "1"
 									},
-									"pickupNoPrefix": {
+									"token_date": {
+										"type": "string",
+										"description": "",
+										"default": "2023-02-15T03:59:25.932Z"
+									},
+									"pickup_no_prefix": {
 										"type": "string",
 										"description": "",
 										"default": "HK"
+									},
+									"enable": {
+										"type": "boolean",
+										"description": "",
+										"default": true
 									}
 								},
 								"required": [
 									"account",
 									"password",
-									"vendorId",
+									"vendor_id",
 									"auth",
-									"pickupNoPrefix"
+									"token_date",
+									"pickup_no_prefix",
+									"enable"
 								]
+							},
+							"examples": {
+								"useThomas": {
+									"value": {
+										"account": "useThomas",
+										"password": "test123456",
+										"vendor_id": "JUSTKITCHEN",
+										"auth": "1",
+										"token_date": "2023-02-15T03:59:25.932Z",
+										"pickup_no_prefix": "HK",
+										"enable": true
+									}
+								}
 							}
 						}
 					}
@@ -1089,12 +932,12 @@
 													"default": "HK"
 												},
 												"enable": {
-													"type": "string",
+													"type": "boolean",
 													"description": "",
-													"default": "1"
+													"default": true
 												},
 												"auth": {
-													"type": "string",
+													"type": "integer",
 													"description": "",
 													"default": "1"
 												},
@@ -1139,40 +982,21 @@
 									]
 								},
 								"examples": {
-									"JudyUat": {
+									"useThomas": {
 										"value": {
 											"code": 0,
 											"data": {
-												"id": 52,
-												"account": "JudyUat",
+												"id": 56,
+												"account": "useThomas",
 												"password": null,
 												"pickup_no_prefix": "HK",
-												"enable": "1",
-												"auth": "1",
+												"enable": true,
+												"auth": 1,
 												"vendor_id": "SHAKU",
-												"token": "5e2b3c1ff56ca35e98bf5848bac065b5",
-												"token_date": "2099-12-31T00:00:00.000Z",
-												"created_at": "2023-01-11T14:59:35.000Z",
-												"updated_at": "2023-02-09T12:00:02.000Z"
-											},
-											"msg": "ok"
-										}
-									},
-									"helloThomas": {
-										"value": {
-											"code": 0,
-											"data": {
-												"id": 53,
-												"account": "helloThomas",
-												"password": null,
-												"pickup_no_prefix": "HK",
-												"enable": "1",
-												"auth": "1",
-												"vendor_id": "SHAKU",
-												"token": "495ca6f0db03d7c8d3198dd445bc7727",
-												"token_date": "2099-12-31T00:00:00.000Z",
-												"created_at": "2023-02-13T10:27:18.000Z",
-												"updated_at": "2023-02-13T14:30:16.000Z"
+												"token": "0b13e7041c2202f8bdb6bfad4f0532b7",
+												"token_date": "2023-02-15T00:00:00.000Z",
+												"created_at": "2023-02-15T12:12:44.000Z",
+												"updated_at": "2023-02-15T17:58:56.000Z"
 											},
 											"msg": "ok"
 										}
@@ -1198,9 +1022,268 @@
 						"schema": {
 							"type": "string"
 						},
-						"default": "52"
+						"default": "56"
 					}
 				]
+			},
+			"patch": {
+				"tags": [
+					"qore/account"
+				],
+				"summary": "[6005]qore+帳號_修改(/qore/account)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"status": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"result": {
+															"type": "string",
+															"description": "",
+															"default": "修改成功"
+														},
+														"message": {
+															"type": "object",
+															"properties": {
+																"tokenAuth": {
+																	"type": "string",
+																	"description": "",
+																	"default": "呼叫成功"
+																}
+															},
+															"required": [
+																
+															]
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"examples": {
+									"stateChange": {
+										"value": {
+											"code": 0,
+											"data": {
+												"apiRes": {
+													"status": true,
+													"result": "修改成功",
+													"message": {
+														"tokenAuth": "呼叫成功，由 shakuDev 呼叫"
+													}
+												}
+											},
+											"msg": "ok"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"enable": {
+										"type": "boolean",
+										"description": "",
+										"default": true
+									}
+								},
+								"required": [
+									"enable"
+								]
+							},
+							"examples": {
+								"stateEnable": {
+									"value": {
+										"enable": true
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"qore/account"
+				],
+				"summary": "[6007]qore+帳號_更新(/qore/account/{id})",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "account_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"default": "56"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"success": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"message": {
+															"type": "string",
+															"description": "",
+															"default": ""
+														},
+														"response": {
+															"type": "object",
+															"description": "",
+															"properties": {
+																
+															}
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"password": {
+										"type": "string",
+										"description": "",
+										"default": "123456"
+									},
+									"pickup_no_prefix": {
+										"type": "string",
+										"description": "",
+										"default": "HK"
+									},
+									"enable": {
+										"type": "boolean",
+										"description": "",
+										"default": false
+									},
+									"auth": {
+										"type": "integer",
+										"description": "",
+										"default": 1
+									},
+									"vendor_id": {
+										"type": "string",
+										"description": "",
+										"default": "SHAKU"
+									},
+									"token_date": {
+										"type": "string",
+										"description": "",
+										"default": "2023-03-30T16:00:00.000Z"
+									}
+								},
+								"required": [
+									"password",
+									"pickup_no_prefix",
+									"enable",
+									"auth",
+									"vendor_id",
+									"token_date"
+								]
+							}
+						}
+					}
+				}
 			}
 		}
 	},
