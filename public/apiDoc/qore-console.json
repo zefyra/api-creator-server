@@ -1285,6 +1285,120 @@
 					}
 				}
 			}
+		},
+		"/qore/auth": {
+			"get": {
+				"tags": [
+					"qore/auth"
+				],
+				"summary": "[6041]Qore+API權限_查詢(/qore/auth)",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數"
+					},
+					{
+						"type": "string",
+						"name": "size",
+						"in": "query",
+						"default": "10",
+						"description": "查詢量"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"description": "",
+															"default": 1
+														},
+														"url": {
+															"type": "string",
+															"description": "",
+															"default": "/api/order"
+														},
+														"method": {
+															"type": "string",
+															"description": "",
+															"default": "POST"
+														},
+														"auth": {
+															"type": "string",
+															"description": "",
+															"default": "2"
+														},
+														"enable": {
+															"type": "string",
+															"description": "",
+															"default": "1"
+														},
+														"created_at": {
+															"type": "string",
+															"description": "",
+															"default": "2021-04-23T17:32:02.000Z"
+														},
+														"updated_at": {
+															"type": "string",
+															"description": "",
+															"default": "2021-04-23T17:32:02.000Z"
+														}
+													},
+													"required": [
+														
+													]
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 91
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			}
 		}
 	},
 	"components": {
