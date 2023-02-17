@@ -1343,14 +1343,19 @@
 															"default": "POST"
 														},
 														"auth": {
-															"type": "string",
+															"type": "integer",
 															"description": "",
 															"default": "2"
 														},
-														"enable": {
+														"memo": {
 															"type": "string",
+															"description": "備註",
+															"default": "備註內容"
+														},
+														"enable": {
+															"type": "boolean",
 															"description": "",
-															"default": "1"
+															"default": true
 														},
 														"created_at": {
 															"type": "string",

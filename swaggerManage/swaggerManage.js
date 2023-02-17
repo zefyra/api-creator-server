@@ -6,6 +6,7 @@ const { format: formatJSON } = require('json-string-formatter');
 const SchemaManage = require('../graphQuery/schemaManage');
 const AttrSrc = require('../enum/apiConnect/AttrSrc');
 const PathLoader = require('../utils/pathLoader');
+const ApiDocFetcher = require('./ApiDocFetcher');
 
 let apiDocInfoList = null;
 /* [{
@@ -1182,6 +1183,69 @@ class SwaggerManage {
             paramItem.required = attrData.required;
         }
         return Promise.resolve();
+    }
+
+    async removeAttr(queryObj) {
+        // const queryObj = {
+        //     apiType: req.body.apiType,
+        //     apiRoute: req.body.apiRoute,
+        //     layerPath: req.body.layerPath,
+        //     attrSrc: 'resBody.200',
+        //     name: req.body.name,
+        // };
+
+        const docFetcherObj = new ApiDocFetcher(this.swagObj, this.docType);
+
+        try {
+            const apiObj = docFetcherObj.getApiInFetch(queryObj.apiRoute, queryObj.apiType);
+            const fieldObj = apiObj.getAttributeInFetch(queryObj.attrSrc, queryObj.layerPath);
+            fieldObj.removeAttribute(queryObj.name);
+        } catch (error) {
+            if (typeof error === 'string') {
+                return Promise.reject(`removeAttr: ${error}`);
+            }
+            return Promise.reject(error);
+        }
+
+    }
+
+    async addAttr(queryObj, attrData) {
+        // const queryObj = {
+        //     apiType: req.body.apiType,
+        //     apiRoute: req.body.apiRoute,
+        //     layerPath: req.body.layerPath,
+        //     attrSrc: 'resBody.200',
+        //     name: req.body.name,
+        // };
+
+        // attrData: {
+        //     name: attrName,
+        //     default: default,
+        //     valueType: valueType,
+        //     description: description,
+        //     required: true,
+        // },
+
+        const docFetcherObj = new ApiDocFetcher(this.swagObj, this.docType);
+
+        try {
+            const apiObj = docFetcherObj.getApiInFetch(queryObj.apiRoute, queryObj.apiType);
+            const fieldObj = apiObj.getAttributeInFetch(queryObj.attrSrc, queryObj.layerPath);
+
+            const newFieldObj = {
+                type: attrData.valueType,
+                description: attrData.description,
+                default: attrData.default,
+            }
+
+            fieldObj.addAttributeAfter(queryObj.name, attrData.name, newFieldObj, attrData.required);
+
+        } catch (error) {
+            if (typeof error === 'string') {
+                return Promise.reject(`addAttr: ${error}`);
+            }
+            return Promise.reject(error);
+        }
     }
 
 
