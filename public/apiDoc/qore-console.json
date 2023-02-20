@@ -13,23 +13,23 @@
 	"tags": [
 		{
 			"name": "account",
-			"description": "account",
-			"groupName": "account"
+			"description": "後台帳號",
+			"groupName": "AAA"
 		},
 		{
 			"name": "qore/account",
-			"description": "qore/account",
-			"groupName": "qore/account"
+			"description": "qore帳號",
+			"groupName": "AAA"
 		},
 		{
 			"name": "qore/auth",
 			"description": "API權限",
-			"groupName": "qore/auth"
+			"groupName": "AAA"
 		},
 		{
 			"name": "qore/vendors",
 			"description": "商家",
-			"groupName": "qore/vendors"
+			"groupName": "AAA"
 		}
 	],
 	"paths": {
@@ -1403,6 +1403,221 @@
 						]
 					}
 				]
+			},
+			"post": {
+				"tags": [
+					"qore/auth"
+				],
+				"summary": "[6042]Qore+API權限_新增(/qore/auth)",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"success": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"message": {
+															"type": "integer",
+															"description": "",
+															"default": 0
+														},
+														"response": {
+															"type": "object",
+															"properties": {
+																
+															},
+															"required": [
+																
+															]
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"apiRoute": {
+										"type": "string",
+										"description": "",
+										"default": "/test/thomas/008"
+									},
+									"methodType": {
+										"type": "string",
+										"description": "",
+										"default": "put"
+									},
+									"auth": {
+										"type": "integer",
+										"description": "",
+										"default": 1
+									},
+									"memo": {
+										"type": "string",
+										"description": "",
+										"default": "/test/thomas/008"
+									}
+								},
+								"required": [
+									"apiRoute",
+									"methodType",
+									"auth",
+									"memo"
+								]
+							},
+							"examples": {
+								"/test/thomas/008": {
+									"value": {
+										"apiRoute": "/test/thomas/008",
+										"methodType": "put",
+										"auth": 1,
+										"memo": "/test/thomas/008"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/qore/auth/{id}": {
+			"get": {
+				"tags": [
+					"qore/auth"
+				],
+				"summary": "[6046]Qore+API權限_以id查詢(/qore/auth/{id})",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "id",
+						"in": "query",
+						"default": "96",
+						"description": "auth_id"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer",
+													"description": "",
+													"default": 96
+												},
+												"url": {
+													"type": "string",
+													"description": "",
+													"default": "/test/thomas/002"
+												},
+												"method": {
+													"type": "string",
+													"description": "",
+													"default": "POST"
+												},
+												"auth": {
+													"type": "integer",
+													"description": "",
+													"default": 1
+												},
+												"memo": {
+													"type": "string",
+													"description": "",
+													"default": "message"
+												},
+												"enable": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"created_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-02-18T17:35:14.000Z"
+												},
+												"updated_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-02-18T17:35:14.000Z"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	},

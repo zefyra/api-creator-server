@@ -22,36 +22,24 @@ const apiData = {
     prehandle: new PrehandleBuilder().checkRequired({
         fileName: true,
         name: true,
-        groupName: true,
+        description: true,
+        // groupName: true,
     }),
     handle: async function (req, res) {
-        // const errList = checkRequired(req.body, ['fileName', 'name', 'groupName']);
-        // if (errList.length !== 0) {
-        //     return res.refuse("fail", errList);
-        // }
-
-        // let isErr;
-        // const errHandle = (err) => {
-        //     res.refuse(err);
-        //     isErr = true;
-        // }
 
         const eh = new ErrorHandle(error => res.refuse(error));
         const errHandle = eh.catchor();
 
-
-        // not required: 'description'
         const fileName = req.body.fileName;
-        // const filePath = SwaggerManage.getFilePath(fileName);
         const swagMgObj = await SwaggerManage.initByFileName(fileName).catch(errHandle);
         if (eh.isErr) return;
 
         const name = req.body.name;
         const description = req.body.description || '';
-        const groupName = req.body.groupName;
+        // const groupName = req.body.groupName;
 
-        // console.log('swagMgObj', swagMgObj);
-        await swagMgObj.addTag(name, description, groupName).catch(errHandle);
+        await swagMgObj.addTag(name, description).catch(errHandle);
+        // , groupName
         if (eh.isErr) return;
 
         const swagObj = await swagMgObj.save().catch(errHandle);

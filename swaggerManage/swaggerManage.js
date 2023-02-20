@@ -50,12 +50,10 @@ class SwaggerManage {
         return Promise.resolve();
     }
 
-    addTag(name, description, groupName) {
+    addTag(name, description) {
         if (!this.swagObj.tags) {
             this.swagObj.tags = [];
         }
-
-        // if( this.)
 
         this.swagObj.tags.push({
             "name": name,
@@ -64,7 +62,7 @@ class SwaggerManage {
             //     "description": "Find out more",
             //     "url": "http://swagger.io"
             // },
-            "groupName": groupName,
+            // "groupName": groupName, // 放棄使用groupName
         });
 
         return Promise.resolve();
