@@ -13,23 +13,23 @@
 	"tags": [
 		{
 			"name": "account",
-			"description": "後台帳號",
-			"groupName": "AAA"
+			"description": "後台帳號"
 		},
 		{
 			"name": "qore/account",
-			"description": "qore帳號",
-			"groupName": "AAA"
+			"description": "qore帳號"
 		},
 		{
 			"name": "qore/auth",
-			"description": "API權限",
-			"groupName": "AAA"
+			"description": "API權限"
 		},
 		{
 			"name": "qore/vendors",
-			"description": "商家",
-			"groupName": "AAA"
+			"description": "商家"
+		},
+		{
+			"name": "security",
+			"description": "資安相關"
 		}
 	],
 	"paths": {
@@ -1308,6 +1308,13 @@
 						"description": "查詢量"
 					}
 				],
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "",
@@ -1325,57 +1332,55 @@
 											"type": "object",
 											"properties": {
 												"list": {
-													"type": "object",
-													"properties": {
-														"id": {
-															"type": "integer",
-															"description": "",
-															"default": 1
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"url": {
+																"type": "string",
+																"description": "",
+																"default": "/api/order"
+															},
+															"method": {
+																"type": "string",
+																"description": "",
+																"default": "POST"
+															},
+															"auth": {
+																"type": "integer",
+																"description": "",
+																"default": 2
+															},
+															"enable": {
+																"type": "boolean",
+																"description": "",
+																"default": true
+															},
+															"created_at": {
+																"type": "string",
+																"description": "",
+																"default": "2021-04-23T17:32:02.000Z"
+															},
+															"updated_at": {
+																"type": "string",
+																"description": "",
+																"default": "2021-04-23T17:32:02.000Z"
+															}
 														},
-														"url": {
-															"type": "string",
-															"description": "",
-															"default": "/api/order"
-														},
-														"method": {
-															"type": "string",
-															"description": "",
-															"default": "POST"
-														},
-														"auth": {
-															"type": "integer",
-															"description": "",
-															"default": "2"
-														},
-														"memo": {
-															"type": "string",
-															"description": "備註",
-															"default": "備註內容"
-														},
-														"enable": {
-															"type": "boolean",
-															"description": "",
-															"default": true
-														},
-														"created_at": {
-															"type": "string",
-															"description": "",
-															"default": "2021-04-23T17:32:02.000Z"
-														},
-														"updated_at": {
-															"type": "string",
-															"description": "",
-															"default": "2021-04-23T17:32:02.000Z"
-														}
-													},
-													"required": [
-														
-													]
+														"required": [
+															
+														]
+													}
 												},
 												"rowsNum": {
 													"type": "integer",
 													"description": "",
-													"default": 91
+													"default": 101
 												}
 											},
 											"required": [
@@ -1395,14 +1400,7 @@
 							}
 						}
 					}
-				},
-				"security": [
-					{
-						"Token": [
-							
-						]
-					}
-				]
+				}
 			},
 			"post": {
 				"tags": [
@@ -1614,6 +1612,82 @@
 										
 									]
 								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/security/pubkey": {
+			"get": {
+				"tags": [
+					"security"
+				],
+				"summary": "[get]/security/pubkey",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/security/pubkey/encrypt": {
+			"post": {
+				"tags": [
+					"security"
+				],
+				"summary": "[post]/security/pubkey/encrypt",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "string",
+											"description": "",
+											"default": "pv9ffUqyaCglm27WBtR4wh4P1g3hpdoMOx2zVZoa0sPipFpBXOqemyCL7Uk/CiWMPfYfzlJq6CTr2+W9LOxipKn5zaQlkSMv15IJvnsfParwzX0RidE8qPqIOYgz04Yr6Lx+H8LFGUhczMfzKbhUD+sCEK/crtprnMjNmwAgd0Sq1TsSfsSPBENR12kauk6rMjd0IeLPS8tgr6pacyt8vbiLQuahh0/KdFanEZWxmkIoms7Rt7aRHiKm7ncU5pxxed5gXcKief05SSA9ncuwTpzwx+tCu8Tqxn1Zp7tab+3dc/3ckgLu9k4FrlOT7u8uZH6uJg+KzzSYmpmhGJcb4w=="
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"message": {
+										"type": "string",
+										"description": "",
+										"default": "123456"
+									}
+								},
+								"required": [
+									"message"
+								]
 							}
 						}
 					}
