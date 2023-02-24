@@ -5,8 +5,11 @@ class FieldFetcher {
         this.fieldObj = fieldObj;
     }
     removeAttribute(name) {
-        const fieldObj = this.fieldObj;
+        let fieldObj = this.fieldObj;
 
+        if (fieldObj.type === 'array') {
+            fieldObj = fieldObj.items; // array的型態，要直接拿內部的items欄位
+        }
         if (fieldObj.type !== 'object') { // 只有object型態可以再往內部加欄位
             throw `removeAttribute: fieldObj type is not object`;
         }

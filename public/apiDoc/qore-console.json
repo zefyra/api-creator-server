@@ -97,12 +97,12 @@
 																"default": "HK"
 															},
 															"enable": {
-																"type": "string",
+																"type": "boolean",
 																"description": "1: true, 0: false",
-																"default": "1"
+																"default": true
 															},
 															"auth": {
-																"type": "string",
+																"type": "integer",
 																"description": "權限等級",
 																"default": "1"
 															},
@@ -110,11 +110,6 @@
 																"type": "string",
 																"description": "商家ID",
 																"default": "JUSTKITCHEN"
-															},
-															"token": {
-																"type": "string",
-																"description": "登入crm用的token",
-																"default": "f6aea4337b414bc1ab5c29e36c3ec5b9"
 															},
 															"token_date": {
 																"type": "string",
@@ -133,17 +128,7 @@
 															}
 														},
 														"required": [
-															"id",
-															"account",
-															"password",
-															"pickup_no_prefix",
-															"enable",
-															"auth",
-															"vendor_id",
-															"token",
-															"token_date",
-															"created_at",
-															"updated_at"
+															
 														]
 													}
 												},
@@ -154,8 +139,7 @@
 												}
 											},
 											"required": [
-												"list",
-												"rowsNum"
+												"list"
 											]
 										},
 										"msg": {
@@ -165,9 +149,7 @@
 										}
 									},
 									"required": [
-										"code",
-										"data",
-										"msg"
+										"data"
 									]
 								}
 							}
@@ -348,7 +330,7 @@
 									"password": {
 										"type": "string",
 										"description": "密碼",
-										"default": "123456"
+										"default": "isd12LckBxRLD3DAJl78gb2xhV1h6WmfLAiI2pgnbacEEdrNPWJpz4a...."
 									}
 								},
 								"required": [
@@ -1306,6 +1288,34 @@
 						"in": "query",
 						"default": "10",
 						"description": "查詢量"
+					},
+					{
+						"type": "string",
+						"name": "url",
+						"in": "query",
+						"default": "/test/thomas",
+						"description": "API路由"
+					},
+					{
+						"type": "string",
+						"name": "auth",
+						"in": "query",
+						"default": "1",
+						"description": "權限等級"
+					},
+					{
+						"type": "string",
+						"name": "method",
+						"in": "query",
+						"default": "get",
+						"description": "協議/方法"
+					},
+					{
+						"type": "string",
+						"name": "enable",
+						"in": "query",
+						"default": "true",
+						"description": "啟用"
 					}
 				],
 				"security": [
@@ -1536,7 +1546,7 @@
 					{
 						"type": "string",
 						"name": "id",
-						"in": "query",
+						"in": "path",
 						"default": "96",
 						"description": "auth_id"
 					}
@@ -1596,6 +1606,272 @@
 													"type": "string",
 													"description": "",
 													"default": "2023-02-18T17:35:14.000Z"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"qore/auth"
+				],
+				"summary": "[6047]Qore+API權限_以id修改(/qore/auth/{id})",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "auth_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"default": "104"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"success": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"message": {
+															"type": "string",
+															"description": "",
+															"default": ""
+														},
+														"response": {
+															"type": "object",
+															"properties": {
+																
+															},
+															"description": ""
+														}
+													},
+													"required": [
+														
+													]
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"apiRoute": {
+										"type": "string",
+										"description": "",
+										"default": "/test/thomas/014"
+									},
+									"methodType": {
+										"type": "string",
+										"description": "",
+										"default": "put"
+									},
+									"auth": {
+										"type": "integer",
+										"description": "",
+										"default": 2
+									},
+									"state": {
+										"type": "boolean",
+										"description": "",
+										"default": true
+									},
+									"memo": {
+										"type": "string",
+										"description": "",
+										"default": ""
+									}
+								},
+								"required": [
+									"apiRoute",
+									"methodType",
+									"auth",
+									"state",
+									"memo"
+								]
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"qore/auth"
+				],
+				"summary": "[6048]Qore+API權限_以id更新(/qore/auth/{id})",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "auth_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"default": "104"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"state": {
+										"type": "boolean",
+										"description": "",
+										"default": false
+									}
+								},
+								"required": [
+									"state"
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"authResult": {
+													"type": "object",
+													"properties": {
+														"id": {
+															"type": "integer",
+															"description": "",
+															"default": 109
+														},
+														"url": {
+															"type": "string",
+															"description": "",
+															"default": "/test/thomas/015"
+														},
+														"method": {
+															"type": "string",
+															"description": "",
+															"default": "POST"
+														},
+														"auth": {
+															"type": "integer",
+															"description": "",
+															"default": 1
+														},
+														"enable": {
+															"type": "integer",
+															"description": "",
+															"default": 1
+														},
+														"memo": {
+															"type": "string",
+															"description": "",
+															"default": ""
+														}
+													},
+													"required": [
+														
+													]
+												},
+												"apiRes": {
+													"type": "object",
+													"properties": {
+														"success": {
+															"type": "boolean",
+															"description": "",
+															"default": true
+														},
+														"message": {
+															"type": "string",
+															"description": "",
+															"default": ""
+														},
+														"response": {
+															"type": "object",
+															"properties": {
+																
+															},
+															"description": ""
+														}
+													},
+													"required": [
+														
+													]
 												}
 											},
 											"required": [
