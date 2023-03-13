@@ -75,6 +75,11 @@ class ApiFetcher {
 
 
     findAttr(obj, keyList, handle) {
+        // if (keyList.length === 0) {
+        //     return handle(firstKey, propObj, obj.properties, obj, obj.type);
+        //     // return obj;
+        // }
+
         const firstKey = keyList[0];
         const nextKeyList = keyList.slice(1, keyList.length)
 
@@ -82,6 +87,11 @@ class ApiFetcher {
             if (!obj.properties) {
                 throw `findAttr: no properties`;
             }
+            if (keyList.length === 0) { // 代表第一層即是底，直接將obj當成propObj丟下取
+                return handle(null, obj, null, null, null);
+                // function (key, propObj, propMap, upperObj, upperType) {
+            }
+
             const propObj = obj.properties[firstKey];
             if (!propObj) {
                 throw `findAttr: properties ${firstKey} not exist`;

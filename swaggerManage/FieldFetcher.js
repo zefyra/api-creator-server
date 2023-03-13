@@ -55,7 +55,10 @@ class FieldFetcher {
         }
 
         if (required) {
-            newFieldObj.required.push(name);
+            if (!fieldObj.required) {
+                fieldObj.required = [];
+            }
+            fieldObj.required.push(name);
         }
     }
     addAttribute(name, newFieldObj, required = false) {

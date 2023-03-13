@@ -7,7 +7,12 @@
 	},
 	"servers": [
 		{
-			"url": "http://localhost:8012/backend"
+			"url": "http://localhost:8012/backend",
+			"description": "Local development"
+		},
+		{
+			"url": "http://3.25.154.18:8012/backend",
+			"description": "ecount-server_2(dev server)"
 		}
 	],
 	"tags": [
@@ -325,7 +330,7 @@
 									"account": {
 										"type": "string",
 										"description": "帳號",
-										"default": "thomaswang@reas.com.tw"
+										"default": "thomaswang@shaku.com.tw"
 									},
 									"password": {
 										"type": "string",
@@ -382,12 +387,12 @@
 												"account": {
 													"type": "string",
 													"description": "",
-													"default": "thomaswang@reas.com.tw"
+													"default": "thomaswang@shaku.com.tw"
 												},
 												"email": {
 													"type": "string",
 													"description": "",
-													"default": "thomaswang@reas.com.tw"
+													"default": "thomaswang@shaku.com.tw"
 												},
 												"name": {
 													"type": "string",
@@ -501,7 +506,84 @@
 					
 				],
 				"responses": {
-					
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer",
+													"description": "account_id",
+													"default": "2"
+												},
+												"account": {
+													"type": "string",
+													"description": "",
+													"default": "lannyshieh@shaku.com.tw"
+												},
+												"email": {
+													"type": "string",
+													"description": "",
+													"default": "lannyshieh@shaku.com.tw"
+												},
+												"name": {
+													"type": "string",
+													"description": "",
+													"default": "lannyshieh"
+												},
+												"enabled": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"last_login_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-03T11:00:23.945Z"
+												},
+												"activated": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"created_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-03T11:00:23.945Z"
+												},
+												"updated_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-03T11:00:23.945Z"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
 				},
 				"requestBody": {
 					"content": {
@@ -517,6 +599,10 @@
 										"type": "string",
 										"description": ""
 									},
+									"email": {
+										"type": "string",
+										"description": ""
+									},
 									"name": {
 										"type": "string",
 										"description": ""
@@ -525,7 +611,9 @@
 								"required": [
 									"account",
 									"password",
-									"name"
+									"email",
+									"name",
+									"test"
 								]
 							}
 						}
@@ -1899,7 +1987,7 @@
 				"tags": [
 					"security"
 				],
-				"summary": "[get]/security/pubkey",
+				"summary": "[1081]公鑰_取得",
 				"parameters": [
 					
 				],
@@ -1913,7 +2001,7 @@
 				"tags": [
 					"security"
 				],
-				"summary": "[post]/security/pubkey/encrypt",
+				"summary": "[1081]使用公鑰_加密",
 				"parameters": [
 					
 				],

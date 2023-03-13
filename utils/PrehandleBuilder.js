@@ -17,7 +17,7 @@ class RequiredChecker extends PrehandleUnit {
     checkRequired(bodyObj, requiredKeyList) {
         let errorList = [];
         requiredKeyList.forEach((key) => {
-            if (!bodyObj[key]) {
+            if (bodyObj[key] == null) {
                 errorList.push(`key '${key}' is required!`);
             }
         });
