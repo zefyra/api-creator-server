@@ -6,10 +6,6 @@ class ApiDocUtil {
             const isLast = i >= (args.length - 1);
             const key = args[i];
             return isLast ? runDest(current, key) : runDive(runEach(current, key), current[key], args, i + 1);
-            // if (isLast) {
-            //     return runDest(current, key);
-            // }
-            // return runDive(current[key], args, i, runEach(current, key));
         }
 
         const entityObj = {
