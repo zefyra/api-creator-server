@@ -7,19 +7,30 @@ class PrehandleUnit {
 }
 
 class RequiredChecker extends PrehandleUnit {
+    requiredJsonMap = {};
     requiredKeyList = [];
 
-    constructor(requiredKeyList) {
+    constructor(requiredJsonMap) {
+        const requiredKeyList = Object.keys(requiredJsonMap);
         super();
+        this.requiredJsonMap = requiredJsonMap;
         this.requiredKeyList = requiredKeyList;
     }
 
     checkRequired(bodyObj, requiredKeyList) {
         let errorList = [];
+        const requiredJsonMap = this.requiredJsonMap;
         requiredKeyList.forEach((key) => {
+
             if (bodyObj[key] == null) {
-                errorList.push(`key '${key}' is required!`);
+                if (requiredJsonMap[key] === true) {
+                    errorList.push(`key '${key}' is required!`);
+                }
             }
+
+            // if (bodyObj[key] == null) {
+            //     errorList.push(`key '${key}' is required!`);
+            // }
         });
         return errorList;
     }
@@ -40,7 +51,7 @@ class RequiredChecker extends PrehandleUnit {
 class PrehandleBuilder {
     prehandleObjList = [];
     checkRequired(requiredJsonMap) {
-        this.prehandleObjList.push(new RequiredChecker(Object.keys(requiredJsonMap)));
+        this.prehandleObjList.push(new RequiredChecker(requiredJsonMap));
         return this;
     }
 

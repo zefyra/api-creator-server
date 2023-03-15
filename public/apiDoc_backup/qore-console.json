@@ -670,6 +670,31 @@
 					}
 				]
 			},
+			"get": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1012]帳號資料_取得",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "id",
+						"in": "query",
+						"default": "2",
+						"description": "account_id"
+					}
+				],
+				"responses": {
+					
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			},
 			"patch": {
 				"tags": [
 					"account"
@@ -2102,33 +2127,6 @@
 						}
 					}
 				}
-			}
-		},
-		"/account/{id}": {
-			"get": {
-				"tags": [
-					"account"
-				],
-				"summary": "[1012]帳號資料_取得",
-				"parameters": [
-					{
-						"type": "string",
-						"name": "id",
-						"in": "query",
-						"default": "2",
-						"description": "account_id"
-					}
-				],
-				"responses": {
-					
-				},
-				"security": [
-					{
-						"Token": [
-							
-						]
-					}
-				]
 			}
 		}
 	},

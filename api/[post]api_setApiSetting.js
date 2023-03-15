@@ -14,6 +14,8 @@ const apiData = {
         apiType: true,
         summary: false,
         securityKey: false,
+        apiRouteVar: false,
+        apiTypeVar: false,
     }),
     handle: async function (req, res) {
         const fileName = req.body.fileName;
@@ -32,6 +34,9 @@ const apiData = {
         const summary = req.body.summary;
         const securityKey = req.body.securityKey;
 
+        const apiRouteVar = req.body.apiRouteVar;
+        const apiTypeVar = req.body.apiTypeVar;
+
         if (summary) {
             await swagMgObj.setApiSummary(apiRoute, apiType, summary).catch(errHandle);
             if (isErr) return;
@@ -43,6 +48,11 @@ const apiData = {
             /* 	securityList: [{
                     "Token": []
                 }], */
+        }
+
+        if (apiRouteVar || apiTypeVar) {
+            await swagMgObj.moveApi(apiRoute, apiType, apiRouteVar, apiTypeVar).catch(errHandle);
+            if (isErr) return;
         }
 
         swagMgObj = await swagMgObj.save().catch(errHandle);

@@ -7,6 +7,7 @@ const SchemaManage = require('../graphQuery/schemaManage');
 const AttrSrc = require('../enum/apiConnect/AttrSrc');
 const PathLoader = require('../utils/pathLoader');
 const ApiDocFetcher = require('./ApiDocFetcher');
+const ApiDocUtil = require('./ApiDocUtil');
 
 let apiDocInfoList = null;
 /* [{
@@ -1081,6 +1082,46 @@ class SwaggerManage {
         });
 
         return exampleList
+    }
+
+    async moveApi(apiRoute, apiType, apiRouteVar, apiTypeVar) {
+        if (this.docType === 'swagger2') {
+            return Promise.reject('moveApi: swagger2 not support');
+        }
+        let apiObj;
+        try {
+            apiObj = this.swagObj.paths[apiRoute][apiType];
+        } catch (err) {
+            console.error(err);
+            return Promise.reject(`moveApi: apiObj fetch fail: [${apiType}]${apiRoute}`);
+        }
+
+        if (!apiRouteVar) {
+            apiRouteVar = apiRoute;
+        }
+        if (!apiTypeVar) {
+            apiTypeVar = apiType;
+        }
+
+        try {
+            ApiDocUtil.diveObj(this.swagObj, 'paths', apiRouteVar, apiTypeVar)
+                .onEach((obj, key) => {
+                    if (!obj[key]) { // 若該層沒有物件，自動建一個
+                        obj[key] = {};
+                    }
+                })
+                .onDest((obj, key) => { // 最後一層
+                    if (obj[key]) { // 代表目的地有其他API物件了
+                        throw `already have other apiObj`;
+                    }
+                    obj[key] = apiObj;
+                }).dive();
+
+            delete this.swagObj.paths[apiRoute][apiType];
+        } catch (err) {
+            console.error(err);
+            return Promise.reject(`moveApi: apiObj move fail: [${apiTypeVar}]${apiRouteVar}`);
+        }
     }
 
     async addExample(apiRoute, apiType, mode, name, schema) {
