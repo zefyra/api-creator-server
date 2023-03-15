@@ -14,23 +14,27 @@ const SwaggerManage = require("../swaggerManage/swaggerManage");
 const checkRequired = require('../utils/checkRequired');
 // const fileHelper = require('../utils/fileHelper');
 
+
+// 這支API沒用到
+
+
 // 生成gql檔
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/listApiDoc', // 指定API路由
+    apiRoute: '/api/listApi', // 指定API路由
     preRequestScript: async function () {
 
     },
     handle: async function (req, res) {
-        // const errList = checkRequired(req.body,
-        //     ['fileName']);
-        // // optional: 'tag'
+        const errList = checkRequired(req.body,
+            ['fileName']);
+        // optional: 'tag'
 
-        // // 'apiRoute', 'apiType', 'tags', 'summary'
-        // if (errList.length !== 0) {
-        //     return res.refuse("fail", errList);
-        // }
+        // 'apiRoute', 'apiType', 'tags', 'summary'
+        if (errList.length !== 0) {
+            return res.refuse("fail", errList);
+        }
         const fileName = req.body.fileName;
 
         let isErr = false;
@@ -39,11 +43,19 @@ const apiData = {
             isErr = true;
         }
 
-        let apiDocList = await SwaggerManage.getApiDocList().catch(errHandle);
+        let swagMgObj = await SwaggerManage.initByFileName(fileName).catch(errHandle);
+        if (isErr) return;
+
+        // const apiRoute = req.body.apiRoute;
+        // const apiType = req.body.apiType;
+        // const tags = req.body.tags;
+        // const summary = req.body.summary;
+
+        const apiList = await swagMgObj.listApi(req.body.tag).catch(errHandle);
         if (isErr) return;
 
         res.react({
-            list: apiDocList,
+            list: apiList,
         });
     }
 }

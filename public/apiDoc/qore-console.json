@@ -54,10 +54,53 @@
 					},
 					{
 						"type": "string",
-						"name": "pageSize",
+						"name": "size",
 						"in": "query",
 						"default": "10",
 						"description": "頁寬度"
+					},
+					{
+						"type": "string",
+						"name": "account",
+						"in": "query",
+						"default": "justkitchen",
+						"description": "帳號搜尋關鍵字"
+					},
+					{
+						"type": "string",
+						"name": "vendor_id",
+						"in": "query",
+						"default": "JUSTKITCHEN",
+						"description": "廠商編號"
+					},
+					{
+						"type": "string",
+						"name": "enable",
+						"in": "query",
+						"default": "true",
+						"description": "帳號狀態(啟用/關閉)",
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"type": "string",
+						"name": "tokenExpired",
+						"in": "query",
+						"default": "true",
+						"description": "token已過期",
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"type": "string",
+						"name": "auth",
+						"in": "query",
+						"default": "1",
+						"description": "權限"
 					}
 				],
 				"responses": {
@@ -829,7 +872,7 @@
 					},
 					{
 						"type": "string",
-						"name": "pageSize",
+						"name": "size",
 						"in": "query",
 						"default": "10",
 						"description": ""
@@ -1621,7 +1664,14 @@
 							}
 						}
 					}
-				}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
 			}
 		},
 		"/qore/auth/{id}": {
@@ -1713,7 +1763,14 @@
 							}
 						}
 					}
-				}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
 			},
 			"put": {
 				"tags": [
@@ -1839,7 +1896,14 @@
 							}
 						}
 					}
-				}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
 			},
 			"patch": {
 				"tags": [
@@ -1979,7 +2043,14 @@
 							}
 						}
 					}
-				}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
 			}
 		},
 		"/security/pubkey": {

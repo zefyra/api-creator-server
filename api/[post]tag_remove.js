@@ -16,7 +16,7 @@ const fileHelper = require('../utils/fileHelper');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/removeTag', // 指定API路由
+    apiRoute: '/api/tag/remove', // 指定API路由
     preRequestScript: async function () {
 
     },

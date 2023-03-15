@@ -7,7 +7,7 @@ const checkRequired = require('../utils/checkRequired');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/editTag', // 指定API路由
+    apiRoute: '/api/tag/edit', // 指定API路由
     preRequestScript: async function () {
 
     },

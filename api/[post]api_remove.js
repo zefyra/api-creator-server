@@ -18,7 +18,7 @@ const checkRequired = require('../utils/checkRequired');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/removeApi', // 指定API路由
+    apiRoute: '/api/api/remove', // 指定API路由
     preRequestScript: async function () {
 
     },

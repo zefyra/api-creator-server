@@ -1,7 +1,9 @@
 // const fs = require('fs');
 // const path = require('path');
 
+const ServerManage = require("../serverManage");
 const SwaggerManage = require("../swaggerManage/swaggerManage");
+const swaggerServer = require("../swaggerServer");
 
 // const GraphType = require('../graphQuery/graphType');
 
@@ -18,20 +20,16 @@ const checkRequired = require('../utils/checkRequired');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/listApi', // 指定API路由
+    apiRoute: '/api/doc/restartSwagger', // 指定API路由
     preRequestScript: async function () {
 
     },
     handle: async function (req, res) {
         const errList = checkRequired(req.body,
             ['fileName']);
-        // optional: 'tag'
-
-        // 'apiRoute', 'apiType', 'tags', 'summary'
         if (errList.length !== 0) {
             return res.refuse("fail", errList);
         }
-        const fileName = req.body.fileName;
 
         let isErr = false;
         const errHandle = (err) => {
@@ -39,20 +37,22 @@ const apiData = {
             isErr = true;
         }
 
-        let swagMgObj = await SwaggerManage.initByFileName(fileName).catch(errHandle);
+        // await swaggerServer.createSwaggerServer(req.body.fileName);
+        const swaggerServerObj = swaggerServer.getSwaggerServer();
+        if (!swaggerServerObj) {
+            return res.refuse(`swaggerServerObj not exist`);
+        }
+
+        // 關閉舊的server
+        await ServerManage.closeServer(swaggerServerObj.serverName);
         if (isErr) return;
 
-        // const apiRoute = req.body.apiRoute;
-        // const apiType = req.body.apiType;
-        // const tags = req.body.tags;
-        // const summary = req.body.summary;
+        console.log(`swagger server is closed, \`${swaggerServerObj.serverName}\``);
 
-        const apiList = await swagMgObj.listApi(req.body.tag).catch(errHandle);
-        if (isErr) return;
+        // 重新初始化
+        swaggerServerObj.initApiDocSwaggerServer();
 
-        res.react({
-            list: apiList,
-        });
+        res.react(null);
     }
 }
 module.exports = apiData;

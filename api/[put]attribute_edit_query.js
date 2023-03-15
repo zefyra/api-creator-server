@@ -42,9 +42,9 @@ const apiData = {
             // attrSrc: req.body.attrSrc,
         };
 
-        console.log('queryObj', queryObj);
+        // console.log('queryObj', queryObj);
 
-        console.log('attrData', req.body.attrData);
+        // console.log('attrData', req.body.attrData);
 
         await swagMgObj.editQueryParam(queryObj, req.body.attrData).catch(errHandle);
         if (isErr) return;

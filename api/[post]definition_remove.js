@@ -17,7 +17,7 @@ const SchemaManage = require('../graphQuery/schemaManage');
 const apiData = {
     apiType: 'post',
     reactType: 'rest', // 'json', // raw
-    apiRoute: '/api/addDefinition', // 指定API路由
+    apiRoute: '/api/definition/remove', // 指定API路由
     preRequestScript: async function () {
 
     },
@@ -51,10 +51,7 @@ const apiData = {
             return;
         }
 
-        const gSchema = new GraphSchema(req.body.rootType, schema);
-
-
-        await swagMgObj.addDefinition(gSchema).catch(errHandle);
+        await swagMgObj.removeDefinition(req.body.rootType).catch(errHandle);
         if (isErr) return;
 
         const swagObj = await swagMgObj.save().catch(errHandle);

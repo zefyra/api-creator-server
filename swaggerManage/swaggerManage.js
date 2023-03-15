@@ -76,7 +76,7 @@ class SwaggerManage {
         if (tagIndex < 0) {
             return Promise.resolve(`editTag: tag not found`); // 代表沒有任何tag
         }
-        this.swagObj.tags[tagIndex].groupName = summary;
+        this.swagObj.tags[tagIndex].description = summary;
 
         return Promise.resolve();
     }
@@ -520,7 +520,12 @@ class SwaggerManage {
         return Promise.resolve(this.swagObj);
     }
 
-    addQuery(apiType, apiRoute, type, name, inVal, defaultVal, description, enumVal) {
+    addQuery(apiType, apiRoute, type, name, inVal, defaultVal, description, enumStr) {
+        // enumStr: "aaaa,bbbb"
+        let enumVal = null;
+        if (enumStr) {
+            enumVal = enumStr.split(',');
+        }
 
         // 檢查API是否存在
         if (!this.swagObj.paths[apiRoute]) {
@@ -956,10 +961,18 @@ class SwaggerManage {
         const paramIndex = apiObj.parameters.findIndex((paramInfo) => {
             return paramInfo.in === 'query' && paramInfo.name === queryObj.attrName;
         });
-
         if (paramIndex < 0) {
             return Promise.reject(`editQueryParam: parameter info not found`);
         }
+
+        // 防止欄位名稱重複
+        const repeatIndex = apiObj.parameters.findIndex((paramInfo) => {
+            return paramInfo.in === 'query' && paramInfo.name === attrData.attrName;
+        });
+        if (repeatIndex >= 0) { // 代表已存在該名稱的欄位
+            return Promise.reject(`editQueryParam: renamed attrName has exist`);
+        }
+
         const paramObj = apiObj.parameters[paramIndex];
 
         if (attrData.defaultValue !== null && attrData.defaultValue !== undefined) {
