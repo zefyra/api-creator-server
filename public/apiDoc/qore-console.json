@@ -670,97 +670,33 @@
 					}
 				]
 			},
-			"patch": {
+			"get": {
 				"tags": [
 					"account"
 				],
-				"summary": "[1013]帳號資料_修改",
+				"summary": "[1016]帳號資料_列表",
 				"parameters": [
-					
-				],
-				"responses": {
-					
-				},
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "integer",
-										"description": "account_id",
-										"default": 2
-									},
-									"name": {
-										"type": "string",
-										"description": "帳號名稱",
-										"default": "Thomas"
-									},
-									"password": {
-										"type": "string",
-										"description": "密碼",
-										"default": "123456"
-									},
-									"email": {
-										"type": "string",
-										"description": "",
-										"default": "aaaa@bbb.ccc"
-									},
-									"enabled": {
-										"type": "boolean",
-										"description": "帳號可用",
-										"default": true
-									},
-									"activated": {
-										"type": "boolean",
-										"description": "帳號已激活",
-										"default": true
-									}
-								},
-								"required": [
-									"id"
-								]
-							}
-						}
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": ""
+					},
+					{
+						"type": "string",
+						"name": "size",
+						"in": "query",
+						"default": "10",
+						"description": ""
 					}
-				},
+				],
 				"security": [
 					{
 						"Token": [
 							
 						]
 					}
-				]
-			},
-			"delete": {
-				"tags": [
-					"account"
-				],
-				"summary": "[1014]帳號資料_刪除",
-				"parameters": [
-					
-				],
-				"responses": {
-					
-				},
-				"security": [
-					{
-						"Token": [
-							
-						]
-					}
-				]
-			}
-		},
-		"/account/role": {
-			"put": {
-				"tags": [
-					"account"
-				],
-				"summary": "[1015]帳號角色_更新",
-				"parameters": [
-					
 				],
 				"responses": {
 					"200": {
@@ -772,14 +708,72 @@
 									"properties": {
 										"code": {
 											"type": "integer",
-											"description": ""
+											"description": "",
+											"default": 0
 										},
 										"data": {
 											"type": "object",
 											"properties": {
-												"result": {
-													"type": "boolean",
-													"description": ""
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"account": {
+																"type": "string",
+																"description": "",
+																"default": "admin"
+															},
+															"email": {
+																"type": "string",
+																"description": "",
+																"default": "admin@shaku.com.tw"
+															},
+															"name": {
+																"type": "string",
+																"description": "",
+																"default": "Admin"
+															},
+															"enabled": {
+																"type": "boolean",
+																"description": "",
+																"default": true
+															},
+															"last_login_at": {
+																"type": "string",
+																"description": "",
+																"default": "2023-03-01T04:19:59.000Z"
+															},
+															"activated": {
+																"type": "boolean",
+																"description": "",
+																"default": true
+															},
+															"created_at": {
+																"type": "string",
+																"description": "",
+																"default": "2023-03-01T04:19:59.000Z"
+															},
+															"updated_at": {
+																"type": "string",
+																"description": "",
+																"default": "2023-03-01T04:19:59.000Z"
+															}
+														},
+														"required": [
+															
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 5
 												}
 											},
 											"required": [
@@ -788,7 +782,8 @@
 										},
 										"msg": {
 											"type": "string",
-											"description": ""
+											"description": "",
+											"default": "ok"
 										}
 									},
 									"required": [
@@ -798,38 +793,11 @@
 							}
 						}
 					}
-				},
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "integer",
-										"description": ""
-									},
-									"role": {
-										"type": "string",
-										"description": ""
-									}
-								},
-								"required": [
-									"id",
-									"role"
-								]
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"Token": [
-							
-						]
-					}
-				]
+				}
 			}
+		},
+		"/account/role": {
+			
 		},
 		"/qore/vendor": {
 			"get": {
@@ -2121,6 +2089,436 @@
 				],
 				"responses": {
 					
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			},
+			"patch": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1013]帳號資料_修改",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "account_id",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"default": "3"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"description": "帳號名稱",
+										"default": "Thomas"
+									},
+									"password": {
+										"type": "string",
+										"description": "密碼",
+										"default": "123456"
+									},
+									"email": {
+										"type": "string",
+										"description": "",
+										"default": "aaaa@bbb.ccc"
+									},
+									"enabled": {
+										"type": "boolean",
+										"description": "帳號可用",
+										"default": true
+									},
+									"activated": {
+										"type": "boolean",
+										"description": "帳號已激活",
+										"default": true
+									}
+								},
+								"required": [
+									
+								]
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1014]帳號資料_刪除",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			}
+		},
+		"/account/role/{id}": {
+			"put": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1015]帳號角色_更新",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "account_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"default": "3"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": ""
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": ""
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": ""
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"role": {
+										"type": "string",
+										"description": "role_id",
+										"default": "1"
+									}
+								},
+								"required": [
+									"role"
+								]
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			}
+		},
+		"/role": {
+			"get": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1051]角色_列表",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"name": {
+																"type": "string",
+																"description": "",
+																"default": "系統管理者"
+															},
+															"role_key": {
+																"type": "string",
+																"description": "",
+																"default": "admin"
+															}
+														},
+														"required": [
+															
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 3
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								},
+								"examples": {
+									"roleList": {
+										"value": {
+											"code": 0,
+											"data": {
+												"list": [
+													{
+														"id": 1,
+														"name": "系統管理者",
+														"role_key": "admin"
+													},
+													{
+														"id": 2,
+														"name": "第三方應用",
+														"role_key": "provider"
+													},
+													{
+														"id": 3,
+														"name": "商家",
+														"role_key": "vender"
+													}
+												],
+												"rowsNum": 3
+											},
+											"msg": "ok"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			}
+		},
+		"/account/profile/{id}": {
+			"get": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1005]帳號_詳細_查詢",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "account_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"default": "2"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer",
+													"description": "",
+													"default": 2
+												},
+												"account": {
+													"type": "string",
+													"description": "",
+													"default": "thomaswang@shaku.com.tw"
+												},
+												"email": {
+													"type": "string",
+													"description": "",
+													"default": "thomaswang@shaku.com.tw"
+												},
+												"name": {
+													"type": "string",
+													"description": "",
+													"default": "Thomas"
+												},
+												"enabled": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"last_login_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-01T04:19:59.000Z"
+												},
+												"activated": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												},
+												"created_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-01T04:19:59.000Z"
+												},
+												"updated_at": {
+													"type": "string",
+													"description": "",
+													"default": "2023-03-01T04:19:59.000Z"
+												},
+												"role": {
+													"type": "string",
+													"description": "",
+													"default": "vender"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
 				},
 				"security": [
 					{
