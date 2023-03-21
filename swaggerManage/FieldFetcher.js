@@ -30,7 +30,12 @@ class FieldFetcher {
     }
     addAttributeAfter(cursorName, name, insertFieldObj, required = false) {
         // cursorName: 要插入的位置的欄位名稱
-        const fieldObj = this.fieldObj;
+        let fieldObj = this.fieldObj;
+
+        if (fieldObj.type === 'array') {
+            fieldObj = fieldObj.items;
+        }
+
         if (fieldObj.type !== 'object') { // 只有object型態可以再往內部加欄位
             throw `addAttributeAfter: fieldObj type is not object`;
         }

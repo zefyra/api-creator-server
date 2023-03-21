@@ -1284,10 +1284,25 @@ class SwaggerManage {
             const apiObj = docFetcherObj.getApiInFetch(queryObj.apiRoute, queryObj.apiType);
             const fieldObj = apiObj.getAttributeInFetch(queryObj.attrSrc, queryObj.layerPath);
 
-            const newFieldObj = {
-                type: attrData.valueType,
-                description: attrData.description,
-                default: attrData.default,
+            // const newFieldObj = {
+            //     type: attrData.valueType,
+            //     description: attrData.description,
+            //     default: attrData.default,
+            // }
+
+            let newFieldObj;
+            if (attrData.valueType === 'object') {
+                newFieldObj = {
+                    type: attrData.valueType,
+                    properties: {},
+                    required: [],
+                }
+            } else {
+                newFieldObj = {
+                    type: attrData.valueType,
+                    description: attrData.description,
+                    default: attrData.default,
+                }
             }
 
             fieldObj.addAttributeAfter(queryObj.name, attrData.name, newFieldObj, attrData.required);

@@ -35,6 +35,10 @@
 		{
 			"name": "security",
 			"description": "資安相關"
+		},
+		{
+			"name": "qore/account_store",
+			"description": "帳號店家設定"
 		}
 	],
 	"paths": {
@@ -689,6 +693,36 @@
 						"in": "query",
 						"default": "10",
 						"description": ""
+					},
+					{
+						"type": "string",
+						"name": "account",
+						"in": "query",
+						"default": "thomas",
+						"description": "帳號關鍵字"
+					},
+					{
+						"type": "string",
+						"name": "enabled",
+						"in": "query",
+						"default": "true",
+						"description": "狀態(啟用/關閉)",
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"type": "string",
+						"name": "role",
+						"in": "query",
+						"default": "app",
+						"description": "角色",
+						"enum": [
+							"admin",
+							"app",
+							"vender"
+						]
 					}
 				],
 				"security": [
@@ -721,8 +755,8 @@
 														"properties": {
 															"id": {
 																"type": "integer",
-																"description": "",
-																"default": 1
+																"description": "role_id",
+																"default": 2
 															},
 															"account": {
 																"type": "string",
@@ -763,6 +797,29 @@
 																"type": "string",
 																"description": "",
 																"default": "2023-03-01T04:19:59.000Z"
+															},
+															"role": {
+																"type": "object",
+																"properties": {
+																	"id": {
+																		"type": "integer",
+																		"description": "",
+																		"default": 1
+																	},
+																	"name": {
+																		"type": "string",
+																		"description": "角色名稱",
+																		"default": "第三方應用"
+																	},
+																	"role_key": {
+																		"type": "string",
+																		"description": "角色key",
+																		"default": "app"
+																	}
+																},
+																"required": [
+																	
+																]
 															}
 														},
 														"required": [
@@ -789,6 +846,35 @@
 									"required": [
 										
 									]
+								},
+								"examples": {
+									"role_app": {
+										"value": {
+											"code": 0,
+											"data": {
+												"list": [
+													{
+														"id": 3,
+														"account": "vanlee@shaku.com.tw",
+														"email": "vanlee@shaku.com.tw",
+														"name": "Van",
+														"enabled": true,
+														"last_login_at": null,
+														"activated": true,
+														"created_at": "2023-03-20T07:44:33.000Z",
+														"updated_at": "2023-03-20T07:44:33.000Z",
+														"role": {
+															"id": 2,
+															"name": "第三方應用",
+															"role_key": "app"
+														}
+													}
+												],
+												"rowsNum": 1
+											},
+											"msg": "ok"
+										}
+									}
 								}
 							}
 						}
@@ -2500,6 +2586,182 @@
 													"type": "string",
 													"description": "",
 													"default": "vender"
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"Token": [
+							
+						]
+					}
+				]
+			},
+			"patch": {
+				"tags": [
+					"account"
+				],
+				"summary": "[1006]帳號_詳細_編輯",
+				"parameters": [
+					
+				],
+				"responses": {
+					
+				}
+			}
+		},
+		"/qore/account_store": {
+			"get": {
+				"tags": [
+					"qore/account_store"
+				],
+				"summary": "[6101]Qore+帳號店家_查詢",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數"
+					},
+					{
+						"type": "string",
+						"name": "size",
+						"in": "query",
+						"default": "10",
+						"description": "資料量"
+					},
+					{
+						"type": "string",
+						"name": "vendor_id",
+						"in": "query",
+						"default": "SHAKU",
+						"description": "vendor_id"
+					},
+					{
+						"type": "string",
+						"name": "available_store_id",
+						"in": "query",
+						"default": "TWNe01",
+						"description": "available_store_id"
+					},
+					{
+						"type": "string",
+						"name": "account_id",
+						"in": "query",
+						"default": "shaku",
+						"description": "account_id"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"vendor_id": {
+																"type": "string",
+																"description": "",
+																"default": "JUSTKITCHEN"
+															},
+															"available_store_id": {
+																"type": "string",
+																"description": "",
+																"default": "panasonic_test_001"
+															},
+															"account_id": {
+																"type": "string",
+																"description": "",
+																"default": "panasonic"
+															},
+															"activated": {
+																"type": "integer",
+																"description": "",
+																"default": 1
+															},
+															"max_order_quantity": {
+																"type": "integer",
+																"description": "",
+																"default": 3
+															},
+															"daily_max_order": {
+																"type": "integer",
+																"description": "",
+																"default": 12
+															},
+															"delivery_city": {
+																"type": "string",
+																"description": ""
+															},
+															"delivery_area": {
+																"type": "string",
+																"description": ""
+															},
+															"delivery_addr": {
+																"type": "string",
+																"description": ""
+															},
+															"delivery_zipcode": {
+																"type": "string",
+																"description": ""
+															},
+															"created_at": {
+																"type": "string",
+																"description": "",
+																"default": "2021-12-27T14:09:44.000Z"
+															},
+															"updated_at": {
+																"type": "string",
+																"description": "",
+																"default": "2021-12-27T14:09:44.000Z"
+															}
+														},
+														"required": [
+															
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 657
 												}
 											},
 											"required": [
