@@ -38,7 +38,11 @@
 		},
 		{
 			"name": "qore/account_store",
-			"description": "帳號店家設定"
+			"description": "帳號店鋪設定"
+		},
+		{
+			"name": "qore/store",
+			"description": "店鋪"
 		}
 	],
 	"paths": {
@@ -2789,6 +2793,265 @@
 						]
 					}
 				]
+			}
+		},
+		"/qore/store/account_store": {
+			"get": {
+				"tags": [
+					"qore/store"
+				],
+				"summary": "[6131]Qore+店鋪_列表(帳號篩選)",
+				"parameters": [
+					{
+						"type": "string",
+						"name": "page",
+						"in": "query",
+						"default": "1",
+						"description": "頁數"
+					},
+					{
+						"type": "string",
+						"name": "size",
+						"in": "query",
+						"default": "10",
+						"description": "查詢量"
+					},
+					{
+						"type": "string",
+						"name": "account_id",
+						"in": "query",
+						"default": "helloThomas",
+						"description": "帳號"
+					},
+					{
+						"type": "string",
+						"name": "has_auth",
+						"in": "query",
+						"default": "false",
+						"description": "限制有店鋪權限",
+						"enum": [
+							"false",
+							"true"
+						]
+					},
+					{
+						"type": "string",
+						"name": "vendor_id",
+						"in": "query",
+						"default": "SHAKU",
+						"description": "商戶ID"
+					},
+					{
+						"type": "string",
+						"name": "store_id",
+						"in": "query",
+						"default": "TEST1001",
+						"description": "店鋪ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"list": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "integer",
+																"description": "",
+																"default": 4
+															},
+															"store_id": {
+																"type": "string",
+																"description": "",
+																"default": "TEST1001"
+															},
+															"store_name": {
+																"type": "string",
+																"description": "",
+																"default": "Just Kitchen 南港店（益欣測試店）"
+															},
+															"vendor_id": {
+																"type": "string",
+																"description": "",
+																"default": "SHAKU"
+															},
+															"activated": {
+																"type": "integer",
+																"description": "帳號有店鋪權限",
+																"default": 1
+															},
+															"account_exists": {
+																"type": "integer",
+																"description": "是否有account_store資料",
+																"default": 1
+															}
+														},
+														"required": [
+															
+														]
+													}
+												},
+												"rowsNum": {
+													"type": "integer",
+													"description": "",
+													"default": 1
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/qore/account_store/account_id": {
+			"put": {
+				"tags": [
+					"qore/account_store"
+				],
+				"summary": "[6107]Qore+帳號店鋪_更新",
+				"parameters": [
+					
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {
+											"type": "integer",
+											"description": "",
+											"default": 0
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"result": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												}
+											},
+											"required": [
+												
+											]
+										},
+										"msg": {
+											"type": "string",
+											"description": "",
+											"default": "ok"
+										}
+									},
+									"required": [
+										
+									]
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"account_id": {
+										"type": "string",
+										"description": "",
+										"default": "helloThomas"
+									},
+									"list": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"vendor_id": {
+													"type": "string",
+													"description": "",
+													"default": "SHAKU"
+												},
+												"available_store_id": {
+													"type": "string",
+													"description": "",
+													"default": "the_market"
+												},
+												"activated": {
+													"type": "boolean",
+													"description": "",
+													"default": true
+												}
+											},
+											"required": [
+												"vendor_id",
+												"available_store_id",
+												"activated"
+											]
+										}
+									}
+								},
+								"required": [
+									"account_id"
+								]
+							},
+							"examples": {
+								"helloThomas": {
+									"value": {
+										"account_id": "helloThomas",
+										"list": [
+											{
+												"vendor_id": "SHAKU",
+												"available_store_id": "the_market",
+												"activated": true
+											},
+											{
+												"vendor_id": "SHAKU",
+												"available_store_id": "99801",
+												"activated": true
+											},
+											{
+												"vendor_id": "junyifood",
+												"available_store_id": "junyifood_store_demo_001",
+												"activated": true
+											}
+										]
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	},
