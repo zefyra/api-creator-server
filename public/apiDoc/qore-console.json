@@ -2910,6 +2910,11 @@
 													"type": "integer",
 													"description": "",
 													"default": 1
+												},
+												"aaaaa": {
+													"type": "string",
+													"description": "這個是A",
+													"default": "1111"
 												}
 											},
 											"required": [

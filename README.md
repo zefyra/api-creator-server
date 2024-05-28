@@ -1,4 +1,5 @@
 
+
 # API CREATOR SERVER Project
 
 It's a node.js server that have modulized design. The server can set many groups of API. The project `api-creator-server` has an API group directory `/api` that contains all APIs about `Swagger API file GUI`.
@@ -191,3 +192,19 @@ The following is a part of swagger file `/public/apiDoc/api-creator.json`. It's 
     }
 }
 ```
+
+
+# 資料格式輸入
+
+## 匯入物件陣列的方法
+rootType填入`TYPE_LWPWMA4J`即可以該物件為基底生成巢狀資料
+
+
+```gql
+input TYPE_LWPWMA4J {
+   aaaa: [TYPE_LWPWMIJX]
+}
+input TYPE_LWPWMIJX {
+   bbbb: String = "bb"
+}
+````
