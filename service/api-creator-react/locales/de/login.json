@@ -1,0 +1,23 @@
+{
+    "login.login": "Anmelden",
+    "regist.regist": "Registrieren",
+    "login.signin": "Anmelden",
+    "login.signup": "Registrieren",
+    "login.plsInputEmail": "E-Mail eingeben",
+    "login.plsInputPassword": "Passwort eingeben",
+    "regist.plsInputEmail": "Registrierungs-E-Mail eingeben",
+    "regist.plsInputPassword": "Registrierpasswort eingeben",
+    "regist.accountNotMatchFormat": "Kontoformat stimmt nicht überein",
+    "regist.accountFormatMatched": "Dies wird das Konto zum Anmelden",
+    "regist.passwordNotMatchFormat": "Passwortformat stimmt nicht überein",
+    "regist.passwordFormatMatched": "Dies wird das Passwort für die Anmeldung sein",
+    "facebook.facebookLogin": "Anmeldung über Facebook",
+    "login.haventRegist": "Haben Sie sich noch nicht registriert? Drücken Sie hier, um ",
+    "login.registNow": "Jetzt registrieren",
+    "regist.pressButtonAgree": "Drücken Sie die Schaltfläche, die bedeutet, dass Sie einverstanden sind",
+    "regist.serviceTerms": "Servicebedingungen",
+    "registr.und": " und ",
+    "regist.privacyPolicy": "Datenschutzrichtlinie",
+    "login.forgetPassword": "Passwort vergessen",
+    "regist.resendVerifyEmail": "Bestätigungs-E-Mail erneut senden"
+}

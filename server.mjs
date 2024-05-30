@@ -44,7 +44,8 @@ const corsOptions = {
     origin: [
         'http://localhost:8080', // Vue
         'http://localhost:3000', // React
-        'http://localhost:3009', // api-creator-react
+        'http://localhost:3009', // React - 避免port衝突
+        'http://localhost:8089', // api-creator-react publish
         'http://localhost:9001', // Swagger
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -124,3 +125,10 @@ app.use('/apiDoc', express.static(SwaggerManage.getFilePath())); //Serves resour
 app.listen(5050);
 
 console.log(`apiDoc File server on http://localhost:5050/apiDoc`);
+
+
+// // 啟動api-creator React前端build的版本
+// app.use(express.static('./service/api-creator-react'));
+// app.listen(8089, function () {
+//     console.log('api-creator-react run on port 8089');
+// });

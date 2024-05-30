@@ -1,0 +1,898 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger Petstore - OpenAPI 3.0",
+    "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://petstore3.swagger.io/api/v3"
+    }
+  ],
+  "tags": [
+    {
+      "name": "account-entities",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      },
+      "groupName": "1.帳號資料"
+    },
+    {
+      "name": "accounts",
+      "description": "Crossbot account-entities",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      },
+      "groupName": "2.帳號"
+    }
+  ],
+  "paths": {
+    "/account-entities": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "account-entities"
+        ],
+        "summary": "[2-1] List account-entities",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "Bearer \u003cAdd access token here\u003e",
+            "description": "Access token",
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "email",
+            "in": "query",
+            "default": "aaa@bbb.ccc",
+            "description": "用戶帳號"
+          },
+          {
+            "type": "string",
+            "format": "date",
+            "name": "endDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "entityName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query",
+            "default": "asc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "排序"
+          },
+          {
+            "type": "integer",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "date",
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/service.AccountEntityWrap"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/account-entities/{accountID}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "account-entities"
+        ],
+        "summary": "[1-2] Enable/disable account",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "Bearer \u003cAdd access token here\u003e",
+            "description": "Access token",
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/service.AccountEntityEnabled"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/service.AccountEntityWrap"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "account-entities"
+        ],
+        "summary": "[1-2] [2-1-2] Update an existed user with his/her entity",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "Bearer \u003cAdd access token here\u003e",
+            "description": "Access token",
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/service.AccountEntityWrap"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/service.AccountEntityWrap"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "account-entities"
+        ],
+        "summary": "[2-1] Delete the account",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "Bearer \u003cAdd access token here\u003e",
+            "description": "Access token",
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/profile": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "accounts"
+        ],
+        "summary": "2-1.取得登入者的Profile",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "Bearer \u003cAdd access token here\u003e",
+            "description": "Access token",
+            "name": "Authorization",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/service.AccountProfile"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{id}/sub-accounts": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "accounts"
+        ],
+        "summary": "2-2.用ID取得子用戶(API名稱)",
+        "description": "這個是2-2.API的詳細描述",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/service.AccountWrap"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK(200回應的描述)",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/models.Account"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{id}/sub-accounts/{sub-id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "accounts"
+        ],
+        "summary": "2-3.取得子用戶",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Sub-account id",
+            "name": "sub-id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/service.AccountWrap"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/models.Account"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/array": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "accounts"
+        ],
+        "summary": "2-4.測試array",
+        "description": "2-4.測試array的詳細描述",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Account id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "payload",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/service.AccountArray"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK(200回應的描述)",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/app.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/models.Account"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account.Object": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "service.AccountWrap": {
+      "type": "object",
+      "properties": {
+        "activated": {
+          "type": "boolean",
+          "default": true,
+          "description": "帳號是否已激活"
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "",
+          "description": "帳號創建日期"
+        },
+        "email": {
+          "type": "string",
+          "default": "email@aaa.bbb",
+          "description": "帳號"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否啟用(false為禁用)"
+        },
+        "id": {
+          "type": "integer",
+          "default": 0,
+          "description": "帳號ID"
+        },
+        "lastLoginAt": {
+          "type": "string",
+          "default": "",
+          "description": "最後登入時間"
+        },
+        "parentID": {
+          "type": "integer",
+          "default": 0,
+          "description": "父用戶ID"
+        },
+        "password": {
+          "type": "string",
+          "default": "password",
+          "description": "密碼"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "default": "091234567",
+          "description": "帳號ID"
+        },
+        "role": {
+          "type": "string",
+          "default": "user",
+          "description": "角色",
+          "enum": [
+            "admin",
+            "user",
+            "subUser",
+            "premiumUser",
+            "developer"
+          ]
+        },
+        "updatedAt": {
+          "type": "string",
+          "default": "",
+          "description": "帳號資料更新時間"
+        },
+        "username": {
+          "type": "string",
+          "default": "",
+          "description": "用戶名稱"
+        }
+      },
+      "minProperties": 3,
+      "maxProperties": 12,
+      "additionalProperties": false,
+      "required": [
+        "email",
+        "id",
+        "role"
+      ]
+    },
+    "null.Bool": {
+      "type": "object",
+      "properties": {
+        "bool": {
+          "type": "boolean",
+          "description": "布林值",
+          "default": false
+        },
+        "valid": {
+          "type": "boolean",
+          "description": "布林值",
+          "default": false
+        }
+      }
+    },
+    "null.Int": {
+      "type": "object",
+      "properties": {
+        "int": {
+          "type": "integer"
+        },
+        "valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "null.String": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string"
+        },
+        "valid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "app.Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "錯誤代碼"
+        },
+        "data": {},
+        "msg": {
+          "type": "string",
+          "description": "API狀態描述"
+        }
+      }
+    },
+    "models.Account": {
+      "type": "object",
+      "properties": {
+        "activated": {
+          "type": "boolean",
+          "default": true,
+          "description": "帳號是否已激活"
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "",
+          "description": "帳號創建日期"
+        },
+        "email": {
+          "type": "string",
+          "default": "",
+          "description": "帳號"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否啟用(false為禁用)"
+        },
+        "id": {
+          "type": "integer",
+          "default": 0,
+          "description": "帳號ID"
+        },
+        "lastLoginAt": {
+          "type": "string",
+          "default": "",
+          "description": "最後登入時間"
+        },
+        "parentID": {
+          "type": "integer",
+          "default": 0,
+          "description": "父用戶ID"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "default": "",
+          "description": "09123456789"
+        },
+        "updatedAt": {
+          "type": "string",
+          "default": "",
+          "description": "帳號資料更新時間"
+        },
+        "username": {
+          "type": "string",
+          "default": "",
+          "description": "用戶名稱"
+        }
+      }
+    },
+    "service.EntityWrap": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "#/definitions/null.String"
+        },
+        "business": {
+          "$ref": "#/definitions/null.String"
+        },
+        "dueDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "industryID": {
+          "$ref": "#/definitions/null.Int"
+        },
+        "name": {
+          "type": "string"
+        },
+        "notes": {
+          "$ref": "#/definitions/null.String"
+        },
+        "numOfSubAccounts": {
+          "type": "integer"
+        },
+        "phoneNumber": {
+          "$ref": "#/definitions/null.String"
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/service.Platform"
+          }
+        },
+        "quota": {
+          "$ref": "#/definitions/null.Int"
+        },
+        "usage": {
+          "$ref": "#/definitions/null.Int"
+        }
+      }
+    },
+    "service.AccountEntityWrap": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/service.AccountWrap"
+        },
+        "entity": {
+          "$ref": "#/definitions/service.EntityWrap"
+        }
+      }
+    },
+    "service.AccountProfile": {
+      "type": "object",
+      "properties": {
+        "activated": {
+          "$ref": "#/definitions/null.Bool"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enabled": {
+          "$ref": "#/definitions/null.Bool"
+        },
+        "entityID": {
+          "$ref": "#/definitions/null.Int"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "lastLoginAt": {
+          "type": "string"
+        },
+        "parentID": {
+          "$ref": "#/definitions/null.Int"
+        },
+        "phoneNumber": {
+          "$ref": "#/definitions/null.String"
+        },
+        "role": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "username": {
+          "$ref": "#/definitions/null.String"
+        }
+      }
+    },
+    "service.AccountEntityEnabled": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "service.AccountArray": {
+      "type": "object",
+      "properties": {
+        "accountObject": {
+          "$ref": "#/definitions/account.Object"
+        },
+        "idArray": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 24,
+            "maxLength": 24,
+            "required": true,
+            "default": "aaa"
+          },
+          "description": "帳號列表"
+        },
+        "accountArray": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "minProperties": 2,
+            "maxProperties": 2,
+            "additionalProperties": false,
+            "properties": {
+              "serial": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 80
+              },
+              "time": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 30
+              }
+            },
+            "required": [
+              "serial",
+              "time"
+            ]
+          },
+          "description": "帳號列表"
+        }
+      }
+    },
+    "service.Platform": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "numOfFans": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

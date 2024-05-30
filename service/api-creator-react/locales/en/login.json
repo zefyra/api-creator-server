@@ -1,0 +1,23 @@
+{
+    "login.login": "Login",
+    "regist.regist": "Regist",
+    "login.signin": "Login",
+    "login.signup": "Regist",
+    "login.plsInputEmail": "Input Email",
+    "login.plsInputPassword": "Input Password",
+    "regist.plsInputEmail": "Input Regist Email",
+    "regist.plsInputPassword": "Input Regist Password",
+    "regist.accountNotMatchFormat": "Account format is not Matched",
+    "regist.accountFormatMatched": "This will be account to login",
+    "regist.passwordNotMatchFormat": "Password format is not Matched",
+    "regist.passwordFormatMatched": "This will be password to login",
+    "facebook.facebookLogin": "Login by facebook",
+    "login.haventRegist": "Do yo haven't regist? Press here to ",
+    "login.registNow": "Regist Now",
+    "regist.pressButtonAgree": "press the button that means you are agree",
+    "regist.serviceTerms": "Service Terms",
+    "regist.and": " and ",
+    "regist.privacyPolicy": "Privacy Policy",
+    "login.forgetPassword": "Forget Password",
+    "regist.resendVerifyEmail": "Resend Verify Email"
+}

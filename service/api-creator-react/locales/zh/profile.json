@@ -1,0 +1,19 @@
+{
+    "form.accountManage": "帳號管理",
+    "form.account": "帳號",
+    "form.password": "用戶密碼",
+    "form.userName": "用戶名稱",
+    "form.industry": "產業",
+    "form.phone": "聯繫電話",
+    "form.userAuth": "用戶權限",
+    "footer.thirdPartyLoginBind": "第三方登入綁定",
+    "footer.bindFacebook": "使用Facebook綁定",
+    "footer.facebookComment": "若要將Facebook粉絲專頁連結至機器人，請先連結Facebook帳號，並選擇欲操作的粉絲專頁，並提供權限。",
+    "footer.bindLine": "使用Line綁定",
+    "form.save": "儲存",
+    "role.admin": "系統管理者",
+    "role.user": "未付費用戶",
+    "role.subUser": "子用戶",
+    "role.premiumUser": "付費用戶",
+    "role.developer": "開發者"
+}
