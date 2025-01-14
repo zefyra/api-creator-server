@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "3D儀錶板",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://192.168.4.144"
+    }
+  ],
+  "paths": {
+    "/eyv/api/re/building/3d-search": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "機房",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczNjc1MDYyNSwiand0dXNlciI6IntcInVzZXJJZFwiOlwiYWRtaW5cIn0iLCJhdXRoIjoiYW1zMzExd19QcnNvbkluZm8sYW1zMzExd19jLGFtczMxMXdfY29uZmVyR3JvdXAsYW1zMzExd19jb25mZXJSb2xlLGFtczMxMXdfZSxhbXMzMTF3X3Jlc2V0QndkLGFtczMxMXdfcyxhbXMzMTF3X3VwUHdkLGFtczMxMXdfdXBTdGF0ZSxhbXMzMTF3X3VzZXJHcm91cHMsYW1zMzExd191c2VyUm9sZXMsYW1zMzEyd19zLGFtczMyMXdfYyxhbXMzMjF3X2NvbmZlclJlcyxhbXMzMjF3X2QsYW1zMzIxd19lLGFtczMyMXdfaGFzUmVzLGFtczMyMXdfcyxhbXMzMjF3X3VwU3RhdGUsYW1zMzIyd19zLGFtczMyM3dfZGwsYW1zMzIzd19zLGFtczMzMXdfcyxhbXMzMzF3X3VwU3RhdGUsYW1zMzMyd19zLGFtczM0MXdfcyxhbXMzNTF3X2MsYW1zMzUxd19jb25mZXJSZXMsYW1zMzUxd19kLGFtczM1MXdfZSxhbXMzNTF3X2hhc1JlcyxhbXMzNTF3X3MsYW1zMzUxd191cFN0YXRlLGV5djEwMXdfYXJlYUNoYXJ0LGV5djEwMXdfZ2F1Z2VDaGFydCxleXYxMDF3X2xpbmVDaGFydCxleXYxMDR3X3MsZXl2MzAxX2QsZXl2MzAxX2ksZXl2MzAxX3MsZXl2MzAxX3UsZXl2MzAyX2QsZXl2MzAyX2ksZXl2MzAyX3MsZXl2MzAyX3UsZXl2MzA1X2QsZXl2MzA1X2ksZXl2MzA1X3MsZXl2MzA1X3UsZXl2MzA2X3BhdXNlX3UsZXl2MzA2X3MsZXl2NDAxX3MsZXl2NDAyX3MsZXl2NDAzX3MsZXl2NDA0X3MsZXl2NDA1X3MsZXl2NDA5X3MsZXl2NjAxX3MsZXl2NjAyX3MsZXl2NzAxX2QsZXl2NzAxX2ksZXl2NzAxX3MsZXl2NzAxX3UsZXl2NzAyX2QsZXl2NzAyX2ksZXl2NzAyX3MsZXl2NzAyX3UsZXl2NzAzX2QsZXl2NzAzX2ksZXl2NzAzX3MsZXl2NzAzX3UsZXl2NzA0X2QsZXl2NzA0X2ksZXl2NzA0X3MsZXl2NzA0X3UsZXl2NzA1X2QsZXl2NzA1X2ksZXl2NzA1X3MsZXl2NzA1X3UsZXl2NzA2X2QsZXl2NzA2X2ksZXl2NzA2X3MsZXl2NzA2X3UsZXl2NzA3X2QsZXl2NzA3X2ksZXl2NzA3X3MsZXl2NzA3X3UsZXl2NzA4X2RiX3UsZXl2NzA4X2ZpbGVfdSxleXY3MDhfaHR0cF91LGV5djcwOF9qdm1fdSxleXY3MDhfbG9nX2QsZXl2NzA4X2xvZ19pLGV5djcwOF9sb2dfdSxleXY3MDhfbVN0YXRlX3UsZXl2NzA4X25ldGZsb3dfdSxleXY3MDhfbmdpbnhfdSxleXY3MDhfb3NfdSxleXY3MDhfcGluZ191LGV5djcwOF9zLGV5djcwOF9zbm1wX3UsZXl2NzA5X3MsZXl2NzA5X3UsZXl2NzEwX2QsZXl2NzEwX2ksZXl2NzEwX3MsZXl2NzEwX3UsZXl2ODAxX2QsZXl2ODAxX2dldFBsYXlib29rcyxleXY4MDFfdXBsb2FkLGV5dmEwMHdfaSxleXZhMDB3X3MsZXl2YTAwd191LGV5dmIwMV9kLGV5dmIwMV9pLGV5dmIwMV9zLGV5dmIwMV91LGV5dmMwMV9kLGV5dmMwMV9pLGV5dmMwMV9zLGV5dmMwMV91LGV5dmMwM3dfZCxleXZjMDN3X2ksZXl2YzAzd19zLGV5dmMwM3dfdSxvcmdfYSxvcmdfYixvcmdfYyxvcmdfZCxvcmdfcyJ9.6loMxSIgLpOe2Zv1_YJ87xZsmohK8Jr4G5eKXLd7xLwwtbvCIKFKAsVKNVRWM7AgzDBeK9lQkUr7oh8CMs9XCQ"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/eyv/api/re/floor/3d-search": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "樓層",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczNjc1MDYyNSwiand0dXNlciI6IntcInVzZXJJZFwiOlwiYWRtaW5cIn0iLCJhdXRoIjoiYW1zMzExd19QcnNvbkluZm8sYW1zMzExd19jLGFtczMxMXdfY29uZmVyR3JvdXAsYW1zMzExd19jb25mZXJSb2xlLGFtczMxMXdfZSxhbXMzMTF3X3Jlc2V0QndkLGFtczMxMXdfcyxhbXMzMTF3X3VwUHdkLGFtczMxMXdfdXBTdGF0ZSxhbXMzMTF3X3VzZXJHcm91cHMsYW1zMzExd191c2VyUm9sZXMsYW1zMzEyd19zLGFtczMyMXdfYyxhbXMzMjF3X2NvbmZlclJlcyxhbXMzMjF3X2QsYW1zMzIxd19lLGFtczMyMXdfaGFzUmVzLGFtczMyMXdfcyxhbXMzMjF3X3VwU3RhdGUsYW1zMzIyd19zLGFtczMyM3dfZGwsYW1zMzIzd19zLGFtczMzMXdfcyxhbXMzMzF3X3VwU3RhdGUsYW1zMzMyd19zLGFtczM0MXdfcyxhbXMzNTF3X2MsYW1zMzUxd19jb25mZXJSZXMsYW1zMzUxd19kLGFtczM1MXdfZSxhbXMzNTF3X2hhc1JlcyxhbXMzNTF3X3MsYW1zMzUxd191cFN0YXRlLGV5djEwMXdfYXJlYUNoYXJ0LGV5djEwMXdfZ2F1Z2VDaGFydCxleXYxMDF3X2xpbmVDaGFydCxleXYxMDR3X3MsZXl2MzAxX2QsZXl2MzAxX2ksZXl2MzAxX3MsZXl2MzAxX3UsZXl2MzAyX2QsZXl2MzAyX2ksZXl2MzAyX3MsZXl2MzAyX3UsZXl2MzA1X2QsZXl2MzA1X2ksZXl2MzA1X3MsZXl2MzA1X3UsZXl2MzA2X3BhdXNlX3UsZXl2MzA2X3MsZXl2NDAxX3MsZXl2NDAyX3MsZXl2NDAzX3MsZXl2NDA0X3MsZXl2NDA1X3MsZXl2NDA5X3MsZXl2NjAxX3MsZXl2NjAyX3MsZXl2NzAxX2QsZXl2NzAxX2ksZXl2NzAxX3MsZXl2NzAxX3UsZXl2NzAyX2QsZXl2NzAyX2ksZXl2NzAyX3MsZXl2NzAyX3UsZXl2NzAzX2QsZXl2NzAzX2ksZXl2NzAzX3MsZXl2NzAzX3UsZXl2NzA0X2QsZXl2NzA0X2ksZXl2NzA0X3MsZXl2NzA0X3UsZXl2NzA1X2QsZXl2NzA1X2ksZXl2NzA1X3MsZXl2NzA1X3UsZXl2NzA2X2QsZXl2NzA2X2ksZXl2NzA2X3MsZXl2NzA2X3UsZXl2NzA3X2QsZXl2NzA3X2ksZXl2NzA3X3MsZXl2NzA3X3UsZXl2NzA4X2RiX3UsZXl2NzA4X2ZpbGVfdSxleXY3MDhfaHR0cF91LGV5djcwOF9qdm1fdSxleXY3MDhfbG9nX2QsZXl2NzA4X2xvZ19pLGV5djcwOF9sb2dfdSxleXY3MDhfbVN0YXRlX3UsZXl2NzA4X25ldGZsb3dfdSxleXY3MDhfbmdpbnhfdSxleXY3MDhfb3NfdSxleXY3MDhfcGluZ191LGV5djcwOF9zLGV5djcwOF9zbm1wX3UsZXl2NzA5X3MsZXl2NzA5X3UsZXl2NzEwX2QsZXl2NzEwX2ksZXl2NzEwX3MsZXl2NzEwX3UsZXl2ODAxX2QsZXl2ODAxX2dldFBsYXlib29rcyxleXY4MDFfdXBsb2FkLGV5dmEwMHdfaSxleXZhMDB3X3MsZXl2YTAwd191LGV5dmIwMV9kLGV5dmIwMV9pLGV5dmIwMV9zLGV5dmIwMV91LGV5dmMwMV9kLGV5dmMwMV9pLGV5dmMwMV9zLGV5dmMwMV91LGV5dmMwM3dfZCxleXZjMDN3X2ksZXl2YzAzd19zLGV5dmMwM3dfdSxvcmdfYSxvcmdfYixvcmdfYyxvcmdfZCxvcmdfcyJ9.6loMxSIgLpOe2Zv1_YJ87xZsmohK8Jr4G5eKXLd7xLwwtbvCIKFKAsVKNVRWM7AgzDBeK9lQkUr7oh8CMs9XCQ"
+          },
+          {
+            "name": "authorization",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczNjIxNzQwMSwiand0dXNlciI6IntcInVzZXJJZFwiOlwiYWRtaW5cIixcIm9yZ0lkXCI6bnVsbH0iLCJhdXRoIjoiYW1zMzExd19QcnNvbkluZm8sYW1zMzExd19jLGFtczMxMXdfY29uZmVyR3JvdXAsYW1zMzExd19jb25mZXJSb2xlLGFtczMxMXdfZSxhbXMzMTF3X3Jlc2V0QndkLGFtczMxMXdfcyxhbXMzMTF3X3VwUHdkLGFtczMxMXdfdXBTdGF0ZSxhbXMzMTF3X3VzZXJHcm91cHMsYW1zMzExd191c2VyUm9sZXMsYW1zMzEyd19zLGFtczMyMXdfYyxhbXMzMjF3X2NvbmZlclJlcyxhbXMzMjF3X2QsYW1zMzIxd19lLGFtczMyMXdfaGFzUmVzLGFtczMyMXdfcyxhbXMzMjF3X3VwU3RhdGUsYW1zMzIyd19zLGFtczMyM3dfZGwsYW1zMzIzd19zLGFtczMzMXdfcyxhbXMzMzF3X3VwU3RhdGUsYW1zMzMyd19zLGFtczM0MXdfcyxhbXMzNTF3X2MsYW1zMzUxd19jb25mZXJSZXMsYW1zMzUxd19kLGFtczM1MXdfZSxhbXMzNTF3X2hhc1JlcyxhbXMzNTF3X3MsYW1zMzUxd191cFN0YXRlLGV5djEwMXdfYXJlYUNoYXJ0LGV5djEwMXdfZ2F1Z2VDaGFydCxleXYxMDF3X2xpbmVDaGFydCxleXYxMDR3X3MsZXl2MzAxX2QsZXl2MzAxX2ksZXl2MzAxX3MsZXl2MzAxX3UsZXl2MzAyX2QsZXl2MzAyX2ksZXl2MzAyX3MsZXl2MzAyX3UsZXl2MzA1X2QsZXl2MzA1X2ksZXl2MzA1X3MsZXl2MzA1X3UsZXl2MzA2X3BhdXNlX3UsZXl2MzA2X3MsZXl2NDAxX3MsZXl2NDAyX3MsZXl2NDAzX3MsZXl2NDA0X3MsZXl2NDA1X3MsZXl2NDA5X3MsZXl2NjAxX3MsZXl2NjAyX3MsZXl2NzAxX2QsZXl2NzAxX2ksZXl2NzAxX3MsZXl2NzAxX3UsZXl2NzAyX2QsZXl2NzAyX2ksZXl2NzAyX3MsZXl2NzAyX3UsZXl2NzAzX2QsZXl2NzAzX2ksZXl2NzAzX3MsZXl2NzAzX3UsZXl2NzA0X2QsZXl2NzA0X2ksZXl2NzA0X3MsZXl2NzA0X3UsZXl2NzA1X2QsZXl2NzA1X2ksZXl2NzA1X3MsZXl2NzA1X3UsZXl2NzA2X2QsZXl2NzA2X2ksZXl2NzA2X3MsZXl2NzA2X3UsZXl2NzA3X2QsZXl2NzA3X2ksZXl2NzA3X3MsZXl2NzA3X3UsZXl2NzA4X2RiX3UsZXl2NzA4X2ZpbGVfdSxleXY3MDhfaHR0cF91LGV5djcwOF9qdm1fdSxleXY3MDhfbG9nX2QsZXl2NzA4X2xvZ19pLGV5djcwOF9sb2dfdSxleXY3MDhfbVN0YXRlX3UsZXl2NzA4X25ldGZsb3dfdSxleXY3MDhfbmdpbnhfdSxleXY3MDhfb3NfdSxleXY3MDhfcGluZ191LGV5djcwOF9zLGV5djcwOF9zbm1wX3UsZXl2NzA5X3MsZXl2NzA5X3UsZXl2NzEwX2QsZXl2NzEwX2ksZXl2NzEwX3MsZXl2NzEwX3UsZXl2ODAxX2QsZXl2ODAxX2dldFBsYXlib29rcyxleXY4MDFfdXBsb2FkLGV5dmEwMHdfaSxleXZhMDB3X3MsZXl2YTAwd191LGV5dmIwMV9kLGV5dmIwMV9pLGV5dmIwMV9zLGV5dmIwMV91LGV5dmMwMV9kLGV5dmMwMV9pLGV5dmMwMV9zLGV5dmMwMV91LGV5dmMwM3dfZCxleXZjMDN3X2ksZXl2YzAzd19zLGV5dmMwM3dfdSxvcmdfYSxvcmdfYixvcmdfYyxvcmdfZCxvcmdfcyJ9.qtabCSJuoxORC63IFtgppQbIUwehg_6joCOe-osAko_N-5JiWokTd-X26fbGCuJfHRprsNEGqhN2Mz5JkvO2Hg"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/eyv/api/re/cabinet/3d-search": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "機櫃",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczNjc1MDYyNSwiand0dXNlciI6IntcInVzZXJJZFwiOlwiYWRtaW5cIn0iLCJhdXRoIjoiYW1zMzExd19QcnNvbkluZm8sYW1zMzExd19jLGFtczMxMXdfY29uZmVyR3JvdXAsYW1zMzExd19jb25mZXJSb2xlLGFtczMxMXdfZSxhbXMzMTF3X3Jlc2V0QndkLGFtczMxMXdfcyxhbXMzMTF3X3VwUHdkLGFtczMxMXdfdXBTdGF0ZSxhbXMzMTF3X3VzZXJHcm91cHMsYW1zMzExd191c2VyUm9sZXMsYW1zMzEyd19zLGFtczMyMXdfYyxhbXMzMjF3X2NvbmZlclJlcyxhbXMzMjF3X2QsYW1zMzIxd19lLGFtczMyMXdfaGFzUmVzLGFtczMyMXdfcyxhbXMzMjF3X3VwU3RhdGUsYW1zMzIyd19zLGFtczMyM3dfZGwsYW1zMzIzd19zLGFtczMzMXdfcyxhbXMzMzF3X3VwU3RhdGUsYW1zMzMyd19zLGFtczM0MXdfcyxhbXMzNTF3X2MsYW1zMzUxd19jb25mZXJSZXMsYW1zMzUxd19kLGFtczM1MXdfZSxhbXMzNTF3X2hhc1JlcyxhbXMzNTF3X3MsYW1zMzUxd191cFN0YXRlLGV5djEwMXdfYXJlYUNoYXJ0LGV5djEwMXdfZ2F1Z2VDaGFydCxleXYxMDF3X2xpbmVDaGFydCxleXYxMDR3X3MsZXl2MzAxX2QsZXl2MzAxX2ksZXl2MzAxX3MsZXl2MzAxX3UsZXl2MzAyX2QsZXl2MzAyX2ksZXl2MzAyX3MsZXl2MzAyX3UsZXl2MzA1X2QsZXl2MzA1X2ksZXl2MzA1X3MsZXl2MzA1X3UsZXl2MzA2X3BhdXNlX3UsZXl2MzA2X3MsZXl2NDAxX3MsZXl2NDAyX3MsZXl2NDAzX3MsZXl2NDA0X3MsZXl2NDA1X3MsZXl2NDA5X3MsZXl2NjAxX3MsZXl2NjAyX3MsZXl2NzAxX2QsZXl2NzAxX2ksZXl2NzAxX3MsZXl2NzAxX3UsZXl2NzAyX2QsZXl2NzAyX2ksZXl2NzAyX3MsZXl2NzAyX3UsZXl2NzAzX2QsZXl2NzAzX2ksZXl2NzAzX3MsZXl2NzAzX3UsZXl2NzA0X2QsZXl2NzA0X2ksZXl2NzA0X3MsZXl2NzA0X3UsZXl2NzA1X2QsZXl2NzA1X2ksZXl2NzA1X3MsZXl2NzA1X3UsZXl2NzA2X2QsZXl2NzA2X2ksZXl2NzA2X3MsZXl2NzA2X3UsZXl2NzA3X2QsZXl2NzA3X2ksZXl2NzA3X3MsZXl2NzA3X3UsZXl2NzA4X2RiX3UsZXl2NzA4X2ZpbGVfdSxleXY3MDhfaHR0cF91LGV5djcwOF9qdm1fdSxleXY3MDhfbG9nX2QsZXl2NzA4X2xvZ19pLGV5djcwOF9sb2dfdSxleXY3MDhfbVN0YXRlX3UsZXl2NzA4X25ldGZsb3dfdSxleXY3MDhfbmdpbnhfdSxleXY3MDhfb3NfdSxleXY3MDhfcGluZ191LGV5djcwOF9zLGV5djcwOF9zbm1wX3UsZXl2NzA5X3MsZXl2NzA5X3UsZXl2NzEwX2QsZXl2NzEwX2ksZXl2NzEwX3MsZXl2NzEwX3UsZXl2ODAxX2QsZXl2ODAxX2dldFBsYXlib29rcyxleXY4MDFfdXBsb2FkLGV5dmEwMHdfaSxleXZhMDB3X3MsZXl2YTAwd191LGV5dmIwMV9kLGV5dmIwMV9pLGV5dmIwMV9zLGV5dmIwMV91LGV5dmMwMV9kLGV5dmMwMV9pLGV5dmMwMV9zLGV5dmMwMV91LGV5dmMwM3dfZCxleXZjMDN3X2ksZXl2YzAzd19zLGV5dmMwM3dfdSxvcmdfYSxvcmdfYixvcmdfYyxvcmdfZCxvcmdfcyJ9.6loMxSIgLpOe2Zv1_YJ87xZsmohK8Jr4G5eKXLd7xLwwtbvCIKFKAsVKNVRWM7AgzDBeK9lQkUr7oh8CMs9XCQ"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/eyv/api/re/equipment/3d-search": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "設備",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTczNjc1MDYyNSwiand0dXNlciI6IntcInVzZXJJZFwiOlwiYWRtaW5cIn0iLCJhdXRoIjoiYW1zMzExd19QcnNvbkluZm8sYW1zMzExd19jLGFtczMxMXdfY29uZmVyR3JvdXAsYW1zMzExd19jb25mZXJSb2xlLGFtczMxMXdfZSxhbXMzMTF3X3Jlc2V0QndkLGFtczMxMXdfcyxhbXMzMTF3X3VwUHdkLGFtczMxMXdfdXBTdGF0ZSxhbXMzMTF3X3VzZXJHcm91cHMsYW1zMzExd191c2VyUm9sZXMsYW1zMzEyd19zLGFtczMyMXdfYyxhbXMzMjF3X2NvbmZlclJlcyxhbXMzMjF3X2QsYW1zMzIxd19lLGFtczMyMXdfaGFzUmVzLGFtczMyMXdfcyxhbXMzMjF3X3VwU3RhdGUsYW1zMzIyd19zLGFtczMyM3dfZGwsYW1zMzIzd19zLGFtczMzMXdfcyxhbXMzMzF3X3VwU3RhdGUsYW1zMzMyd19zLGFtczM0MXdfcyxhbXMzNTF3X2MsYW1zMzUxd19jb25mZXJSZXMsYW1zMzUxd19kLGFtczM1MXdfZSxhbXMzNTF3X2hhc1JlcyxhbXMzNTF3X3MsYW1zMzUxd191cFN0YXRlLGV5djEwMXdfYXJlYUNoYXJ0LGV5djEwMXdfZ2F1Z2VDaGFydCxleXYxMDF3X2xpbmVDaGFydCxleXYxMDR3X3MsZXl2MzAxX2QsZXl2MzAxX2ksZXl2MzAxX3MsZXl2MzAxX3UsZXl2MzAyX2QsZXl2MzAyX2ksZXl2MzAyX3MsZXl2MzAyX3UsZXl2MzA1X2QsZXl2MzA1X2ksZXl2MzA1X3MsZXl2MzA1X3UsZXl2MzA2X3BhdXNlX3UsZXl2MzA2X3MsZXl2NDAxX3MsZXl2NDAyX3MsZXl2NDAzX3MsZXl2NDA0X3MsZXl2NDA1X3MsZXl2NDA5X3MsZXl2NjAxX3MsZXl2NjAyX3MsZXl2NzAxX2QsZXl2NzAxX2ksZXl2NzAxX3MsZXl2NzAxX3UsZXl2NzAyX2QsZXl2NzAyX2ksZXl2NzAyX3MsZXl2NzAyX3UsZXl2NzAzX2QsZXl2NzAzX2ksZXl2NzAzX3MsZXl2NzAzX3UsZXl2NzA0X2QsZXl2NzA0X2ksZXl2NzA0X3MsZXl2NzA0X3UsZXl2NzA1X2QsZXl2NzA1X2ksZXl2NzA1X3MsZXl2NzA1X3UsZXl2NzA2X2QsZXl2NzA2X2ksZXl2NzA2X3MsZXl2NzA2X3UsZXl2NzA3X2QsZXl2NzA3X2ksZXl2NzA3X3MsZXl2NzA3X3UsZXl2NzA4X2RiX3UsZXl2NzA4X2ZpbGVfdSxleXY3MDhfaHR0cF91LGV5djcwOF9qdm1fdSxleXY3MDhfbG9nX2QsZXl2NzA4X2xvZ19pLGV5djcwOF9sb2dfdSxleXY3MDhfbVN0YXRlX3UsZXl2NzA4X25ldGZsb3dfdSxleXY3MDhfbmdpbnhfdSxleXY3MDhfb3NfdSxleXY3MDhfcGluZ191LGV5djcwOF9zLGV5djcwOF9zbm1wX3UsZXl2NzA5X3MsZXl2NzA5X3UsZXl2NzEwX2QsZXl2NzEwX2ksZXl2NzEwX3MsZXl2NzEwX3UsZXl2ODAxX2QsZXl2ODAxX2dldFBsYXlib29rcyxleXY4MDFfdXBsb2FkLGV5dmEwMHdfaSxleXZhMDB3X3MsZXl2YTAwd191LGV5dmIwMV9kLGV5dmIwMV9pLGV5dmIwMV9zLGV5dmIwMV91LGV5dmMwMV9kLGV5dmMwMV9pLGV5dmMwMV9zLGV5dmMwMV91LGV5dmMwM3dfZCxleXZjMDN3X2ksZXl2YzAzd19zLGV5dmMwM3dfdSxvcmdfYSxvcmdfYixvcmdfYyxvcmdfZCxvcmdfcyJ9.6loMxSIgLpOe2Zv1_YJ87xZsmohK8Jr4G5eKXLd7xLwwtbvCIKFKAsVKNVRWM7AgzDBeK9lQkUr7oh8CMs9XCQ"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
